@@ -1,9 +1,9 @@
 {
   "files.exclude": {
-    "$houdini": true,
-    ".vscode": true,
-    ".svelte-kit": true,
-    "node_modules": true
+    "$houdini": false,
+    ".vscode": false,
+    ".svelte-kit": false,
+    "node_modules": false
   },
-  "workspace.isHidden": true
+  "workspace.isHidden": false
 }
