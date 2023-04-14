@@ -30,7 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@datocms/svelte": "^1.1.1",
+		"@datocms/svelte": "github:bebejane/datocms-svelte",
 		"@kitql/all-in": "^0.8.7",
 		"classnames": "^2.3.2",
 		"dotenv": "^16.0.3",

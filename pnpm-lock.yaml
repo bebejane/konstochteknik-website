@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@datocms/svelte':
-    specifier: ^1.1.1
-    version: 1.1.1
+    specifier: github:bebejane/datocms-svelte
+    version: github.com/bebejane/datocms-svelte/19606f75b9d41ccfd84329c5e252a80d99ec14d0
   '@kitql/all-in':
     specifier: ^0.8.7
     version: 0.8.7(@babel/core@7.21.4)(graphql@15.8.0)(typescript@5.0.2)
@@ -636,14 +636,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
-    dev: false
-
-  /@datocms/svelte@1.1.1:
-    resolution: {integrity: sha512-d/EPmRxZEUJGU7DwI6mPMTFjoY9Lt2n+QhgIrvSIN1CkMUhB5cMYs/nOpIr0HUyAepByevOgz3JMA03UvpoyAg==}
-    dependencies:
-      datocms-structured-text-utils: 2.0.4
-      svelte-intersection-observer: 0.10.0
-      universal-base64: 2.1.0
     dev: false
 
   /@envelop/core@3.0.6:
@@ -4644,3 +4636,13 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  github.com/bebejane/datocms-svelte/19606f75b9d41ccfd84329c5e252a80d99ec14d0:
+    resolution: {tarball: https://codeload.github.com/bebejane/datocms-svelte/tar.gz/19606f75b9d41ccfd84329c5e252a80d99ec14d0}
+    name: '@datocms/svelte'
+    version: 1.1.1
+    dependencies:
+      datocms-structured-text-utils: 2.0.4
+      svelte-intersection-observer: 0.10.0
+      universal-base64: 2.1.0
+    dev: false
