@@ -1,18 +1,11 @@
-import { HoudiniClient } from '$houdini';
+import { GraphQLClient } from 'graphql-request'
 import { PUBLIC_DATOCMS_API_TOKEN } from '$env/static/public';
 
-export default new HoudiniClient({
-	url: 'https://graphql.datocms.com',
-	fetchParams({ text: query = '', variables = {} }) {
-		return {
-			headers: {
-				Authorization: `Bearer ${PUBLIC_DATOCMS_API_TOKEN}`,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				query,
-				variables
-			})
-		}
+export default new GraphQLClient('https://graphql.datocms.com', {
+	headers: {
+		Authorization: `Bearer ${PUBLIC_DATOCMS_API_TOKEN}`,
+		'Content-Type': 'application/json',
+		'X-Exclude-Invalid': 'true',
+		'X-Environment': 'main'
 	}
 })

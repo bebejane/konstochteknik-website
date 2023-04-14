@@ -1,28 +1,41 @@
 {
-    "name": "konstochteknik-website",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "dev": "vite dev",
-        "build": "vite build",
-        "preview": "vite preview",
-        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-    },
-    "devDependencies": {
-        "@sveltejs/adapter-auto": "^2.0.0",
-        "@sveltejs/kit": "^1.5.0",
-        "houdini": "^1.1.7",
-        "houdini-svelte": "^1.1.7",
-        "svelte": "^3.54.0",
-        "svelte-check": "^3.0.1",
-        "tslib": "^2.4.1",
-        "typescript": "^5.0.0",
-        "vite": "^4.2.0"
-    },
-    "type": "module",
-    "dependencies": {
-        "dotenv": "^16.0.3",
-        "sass": "^1.62.0"
-    }
+	"name": "konstochteknik-website",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"codegen": "graphql-codegen",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@graphql-codegen/cli": "^3.3.0",
+		"@graphql-codegen/typed-document-node": "^4.0.0",
+		"@graphql-codegen/typescript": "^3.0.3",
+		"@graphql-codegen/typescript-graphql-files-modules": "2.2.1",
+		"@graphql-codegen/typescript-operations": "^3.0.3",
+		"@graphql-typed-document-node/core": "^3.1.1",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.5.0",
+		"houdini": "^1.1.7",
+		"houdini-svelte": "^1.1.7",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"vite": "^4.2.0",
+		"vite-plugin-watch-and-run": "^1.1.2"
+	},
+	"type": "module",
+	"dependencies": {
+		"@datocms/svelte": "github:bebejane/datocms-svelte",
+		"@kitql/all-in": "^0.8.7",
+		"classnames": "^2.3.2",
+		"dotenv": "^16.0.3",
+		"graphql": "^15.8.0",
+		"graphql-request": "^6.0.0",
+		"sass": "^1.62.0"
+	}
 }
