@@ -1,0 +1,45 @@
+html,
+body {
+  font-size: 15px;
+  font-weight: normal;
+
+  @include mq($from: tablet) {
+    font-size: 20px;
+  }
+
+  @include mq($from: wide) {
+    font-size: 24px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  strong {
+    font-weight: normal;
+  }
+}
+
+h1 {
+  font-size: 1.1rem;
+  line-height: 1.25;
+  font-family: $headline-font;
+}
+
+h2 {
+  font-weight: normal;
+  color: var(--gray-dark);
+  font-size: 0.75rem;
+  font-family: $headline-font;
+}
+
+p {
+  line-height: var(--line-height);
+}
+
+strong,
+b {
+  font-weight: bold;
+}
