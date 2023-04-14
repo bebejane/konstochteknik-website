@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Image from "@datocms/svelte/components/Image/Image.svelte";
+	import { Image } from "@datocms/svelte";
 	export let data: ImageRecord;
 
 	let { layout, image, backgroundImage } = data;
