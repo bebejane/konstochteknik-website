@@ -26,18 +26,27 @@
 	} as SplideProps;
 
 	let allProjects = data.data.allProjects;
+	let index: number = 0;
 
 	function handleClick() {
 		splide.go("+1");
 	}
 </script>
 
-<Splide aria-label="Konst & Teknik" {options} bind:this={splide} on:click={handleClick}>
-	{#each allProjects as { title, slide, color }}
+<Splide
+	aria-label="Konst & Teknik"
+	bind:this={splide}
+	on:click={handleClick}
+	on:move={(e) => e && (index = e.detail.index)}
+	{options}
+>
+	{#each allProjects as { title, slide, color }, idx}
 		{@const data = slide[0]}
-		<SplideSlide style={`background-color:${color?.hex}`}>
-			<svelte:component this={blocks[data.__typename]} {data} />
-		</SplideSlide>
+		{#key index}
+			<SplideSlide style={`background-color:${color?.hex}`}>
+				<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+			</SplideSlide>
+		{/key}
 	{/each}
 </Splide>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Image } from "@datocms/svelte";
 	export let data: any;
+	export let active: boolean = false;
 
 	let { layout, image, backgroundImage } = data as ImageRecord;
 

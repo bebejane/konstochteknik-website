@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Image } from "@datocms/svelte";
 	export let data: any;
+	export let active: boolean = false;
 
 	let { images } = data as ImageDoubleRecord;
 	let imageLeft = images[0];

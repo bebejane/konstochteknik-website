@@ -1,17 +1,31 @@
 <script lang="ts">
 	import { Image } from "@datocms/svelte";
 	export let data: any;
+	export let active: boolean = false;
 
 	let { video, backgroundImage, poster } = data as VideoRecord;
 	//@ts-ignore
 	let src = video.video?.mp4high as string;
+	let player: HTMLVideoElement;
+	let monitor: HTMLImageElement;
+	let bounds: DOMRect;
+
+	function togglePlay() {
+		player.paused ? player.play() : player.pause();
+	}
+
+	$: active ? player?.play() : player?.pause();
 </script>
 
 <div>
-	<video poster={poster?.url} controls muted>
-		<source {src} type="video/mp4" />
-		<track kind="captions" />
-	</video>
+	<div class="monitor">
+		<img src="/images/monitor.png" alt="monitor" />
+		<video poster={poster?.url} muted bind:this={player} on:click|stopPropagation={togglePlay}>
+			<source {src} type="video/mp4" />
+			<track kind="captions" />
+		</video>
+	</div>
+
 	{#if backgroundImage?.responsiveImage}
 		<Image
 			data={backgroundImage.responsiveImage}
@@ -25,14 +39,30 @@
 	div {
 		position: relative;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		height: 100%;
+		height: 100vh;
 		width: 100%;
-		video {
-			width: 50%;
-			height: 50%;
+
+		.monitor {
+			position: absolute;
+			height: calc(100vh - 200px);
+			width: auto;
+			img {
+				height: 100%;
+				width: auto;
+			}
+			video {
+				position: absolute;
+				z-index: 1;
+				left: 3.3%;
+				top: 4%;
+				width: 93.6%;
+				border-radius: 2px;
+			}
 		}
+
 		:global(.video-background-image) {
 			position: absolute !important;
 			top: 0;
