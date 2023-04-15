@@ -10,7 +10,12 @@
 
 {#if imageLeft.responsiveImage && imageRight.responsiveImage}
 	<div>
-		<Image data={imageLeft.responsiveImage} pictureClass="image-left" objectFit="cover" />
+		<Image
+			data={imageLeft.responsiveImage}
+			pictureClass="image-left"
+			objectFit="cover"
+			lazyLoad={true}
+		/>
 		<Image
 			data={imageRight.responsiveImage}
 			pictureClass="image-right"

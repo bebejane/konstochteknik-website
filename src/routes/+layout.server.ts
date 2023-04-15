@@ -3,9 +3,16 @@ import client from '../client'
 
 export const prerender = 'auto'
 
+type QueryResult = [{
+  data: AllCommissionsQuery,
+}, {
+  data: HomeQuery,
+}]
+
 export const load = (async ({ }) => {
-  const { allCommisioners } = await client.request(AllCommissionsDocument)
-  const { allProjects } = await client.request(HomeDocument)
+
+  const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([{ document: AllCommissionsDocument }, { document: HomeDocument }])
+
   return {
     allProjects,
     allCommisioners

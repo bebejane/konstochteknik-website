@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
-	import Image from "$lib/components/Image.svelte";
-	import ImageDouble from "$lib/components/ImageDouble.svelte";
-	import ImageQuad from "$lib/components/ImageQuad.svelte";
-	import Video from "$lib/components/Video.svelte";
+	import { Image, ImageDouble, ImageQuad, Video } from "$lib/components";
 
 	export let data;
 
