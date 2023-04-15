@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
-	import type { PageData } from "./$types";
 	import Image from "$lib/components/Image.svelte";
 	import ImageDouble from "$lib/components/ImageDouble.svelte";
 	import ImageQuad from "$lib/components/ImageQuad.svelte";
 	import Video from "$lib/components/Video.svelte";
 
-	export let data: PageData;
+	export let data;
+
+	let { allProjects } = data;
 
 	const blocks = {
 		ImageRecord: Image,
@@ -16,13 +17,11 @@
 		VideoRecord: Video,
 	};
 
-	let allProjects = data.data.home.allProjects;
 	let slug = $page.params.slug;
 	let index = allProjects.findIndex((el) => el.slug === slug);
 	let project = allProjects[index];
 	let slide = project?.slide[0];
-	let blockType = project?.slide[0].__typename;
-
+	let blockType = slide.__typename;
 	let next = index < allProjects.length - 1 ? `/projects/${allProjects?.[index + 1]?.slug}` : null;
 	let prev = index > 0 ? `/projects/${allProjects?.[index - 1]?.slug}` : null;
 </script>
@@ -51,6 +50,7 @@
 		background-color: transparent;
 		border: 0;
 		cursor: pointer;
+		outline: none;
 	}
 	.prev {
 		left: 0;

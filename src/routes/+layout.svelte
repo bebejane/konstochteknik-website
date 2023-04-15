@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "$lib/styles/index.scss";
-	import type { LayoutData } from "./$types";
-	export let data: LayoutData;
+	export let data;
 </script>
 
 <div class="layout">

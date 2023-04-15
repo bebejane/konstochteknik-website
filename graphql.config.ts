@@ -25,18 +25,14 @@ module.exports = {
 		codegen: {
 			overwrite: true,
 			generates: {
-				"src/lib/types/datocms.ts": {
+				"src/datocms.ts": {
 					plugins: ["typescript", "typescript-operations"],
 					config: { ...config, noExport: true },
 				},
 				"src/lib/graphql/index.ts": {
 					plugins: ["typed-document-node"],
 					config,
-				},
-				"src/lib/types/document-modules.d.ts": {
-					plugins: ["typescript-graphql-files-modules"],
-					config,
-				},
+				}
 			},
 		},
 	},

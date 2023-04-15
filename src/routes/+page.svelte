@@ -3,12 +3,13 @@
 	import "@splidejs/splide/css";
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
-	import type { PageData } from "./$types";
 	import Image from "$lib/components/Image.svelte";
 	import ImageDouble from "$lib/components/ImageDouble.svelte";
 	import ImageQuad from "$lib/components/ImageQuad.svelte";
 	import Video from "$lib/components/Video.svelte";
+	export let data;
 
+	let splide: Splide;
 	const blocks = {
 		ImageRecord: Image,
 		ImageDoubleRecord: ImageDouble,
@@ -16,16 +17,13 @@
 		VideoRecord: Video,
 	};
 
-	export let data: PageData;
-
-	let splide: Splide;
 	const options = {
 		pagination: false,
 		type: "fade",
 		track: false,
 	} as SplideProps;
 
-	let allProjects = data.data.allProjects;
+	let { allProjects } = data;
 	let index: number = 0;
 
 	function handleClick() {
@@ -83,6 +81,7 @@
 		background-color: transparent;
 		border: 0;
 		cursor: pointer;
+		outline: none;
 	}
 	.prev {
 		left: 0;
