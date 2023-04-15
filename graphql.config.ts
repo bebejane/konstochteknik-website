@@ -8,7 +8,8 @@ const config = {
 	exportFragmentSpreadSubTypes: true,
 	namingConvention: "keep",
 	skipDocumentsValidation: false,
-};
+	exposeQueryKeys: true
+}
 
 module.exports = {
 	schema: {

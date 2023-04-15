@@ -13,6 +13,13 @@ export default defineConfig({
 				watch: path.resolve('src/**/*.gql'),
 				run: 'npm run codegen',
 				delay: 300
+			},
+			{
+				name: 'codegen',
+				watchKind: ['add', 'change', 'unlink'],
+				watch: path.resolve('graphql.config.ts'),
+				run: 'npm run codegen',
+				delay: 1000
 			}
 		])
 	]

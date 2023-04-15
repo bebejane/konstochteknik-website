@@ -8,7 +8,7 @@ query Home {
 			...ColorFragment
 		}
 		position
-
+		slug
 		slide {
 			__typename
 			... on ImageRecord {

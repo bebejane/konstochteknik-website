@@ -1,4 +1,13 @@
 
+declare module '*/commission.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllCommissions: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/ColorFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

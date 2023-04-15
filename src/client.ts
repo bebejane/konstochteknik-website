@@ -7,5 +7,5 @@ export default new GraphQLClient('https://graphql.datocms.com', {
 		'Content-Type': 'application/json',
 		'X-Exclude-Invalid': 'true',
 		'X-Environment': 'main'
-	}
+	},
 })

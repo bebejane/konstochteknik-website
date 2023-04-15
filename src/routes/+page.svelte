@@ -50,6 +50,14 @@
 	{/each}
 </Splide>
 
+<button class="prev" on:click={() => splide.go("-1")} />
+<button class="next" on:click={() => splide.go("+1")} />
+
+<svelte:window
+	on:keydown={({ key }) => key === "ArrowLeft" && splide.go("-1")}
+	on:keydown={({ key }) => key === "ArrowRight" && splide.go("+1")}
+/>
+
 <style lang="scss">
 	:global(.splide__list) {
 		width: 100%;
@@ -64,5 +72,22 @@
 	:global(.splide__arrow) {
 		background-color: transparent;
 		filter: invert(1);
+	}
+	.prev,
+	.next {
+		position: fixed;
+		top: 0;
+		height: 100%;
+		width: 10%;
+		z-index: 100;
+		background-color: transparent;
+		border: 0;
+		cursor: pointer;
+	}
+	.prev {
+		left: 0;
+	}
+	.next {
+		right: 0;
 	}
 </style>
