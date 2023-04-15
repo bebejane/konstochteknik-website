@@ -7,6 +7,12 @@ dependencies:
   '@kitql/all-in':
     specifier: ^0.8.7
     version: 0.8.7(@babel/core@7.21.4)(graphql@15.8.0)(typescript@5.0.2)
+  '@splidejs/splide':
+    specifier: ^4.1.4
+    version: 4.1.4
+  '@splidejs/svelte-splide':
+    specifier: ^0.2.9
+    version: 0.2.9
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -1644,6 +1650,16 @@ packages:
 
   /@repeaterjs/repeater@3.0.4:
     resolution: {integrity: sha512-AW8PKd6iX3vAZ0vA43nOUOnbq/X5ihgU+mSXXqunMkeQADGiqw/PY0JNeYtD5sr0PAy51YPgAPbDoeapv9r8WA==}
+
+  /@splidejs/splide@4.1.4:
+    resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
+    dev: false
+
+  /@splidejs/svelte-splide@0.2.9:
+    resolution: {integrity: sha512-04ekJnDIJKEAhklKQMhkg4Yx0Ihtkk18eA9JeHPON0lDTngQxlOYdEYTJWH2UON45VxmVqoLHv04I++JphO36w==}
+    dependencies:
+      '@splidejs/splide': 4.1.4
+    dev: false
 
   /@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.5.0):
     resolution: {integrity: sha512-b+gkHFZgD771kgV3aO4avHFd7y1zhmMYy9i6xOK7m/rwmwaRO8gnF5zBc0Rgca80B2PMU1bKNxyBTHA14OzUAQ==}

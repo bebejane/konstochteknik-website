@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Image } from "@datocms/svelte";
-	export let data: ImageRecord;
+	export let data: any;
 
-	let { layout, image, backgroundImage } = data;
+	let { layout, image, backgroundImage } = data as ImageRecord;
 
 	$: data.image.responsiveImage === null && console.log(data);
 </script>
@@ -30,6 +30,7 @@
 	figure {
 		position: relative;
 		height: 100%;
+		width: 100%;
 	}
 	:global(.image) {
 		min-height: 100%;
