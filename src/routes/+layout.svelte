@@ -25,6 +25,7 @@
 	.layout {
 		max-height: 100vh;
 		height: 100vh;
+		overflow: hidden;
 	}
 	nav {
 		position: fixed;

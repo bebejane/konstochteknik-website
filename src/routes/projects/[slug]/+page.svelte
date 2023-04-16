@@ -3,6 +3,7 @@
 	import { goto } from "$app/navigation";
 	import { currentProject } from "$lib/stores";
 	import { Slide, ImageSlide, VideoSlide } from "../../components";
+	import { fly, fade } from "svelte/transition";
 
 	export let data;
 
