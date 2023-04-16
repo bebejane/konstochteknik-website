@@ -16,6 +16,7 @@
 		"@datocms/svelte": "github:bebejane/datocms-svelte",
 		"@splidejs/splide": "^4.1.4",
 		"@splidejs/svelte-splide": "^0.2.9",
+		"cookie": "^0.5.0",
 		"dotenv": "^16.0.3",
 		"graphql": "^15.8.0",
 		"graphql-request": "^6.0.0",
