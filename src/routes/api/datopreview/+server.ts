@@ -4,7 +4,7 @@ import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 export async function POST({ request, setHeaders }) {
   setHeaders({
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Content-Type': 'application/json'
   });
