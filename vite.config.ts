@@ -18,11 +18,9 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		codegen({}),
-		/*
 		barrels({
-			entry: './src/lib/components',
+			entry: './src/routes/components',
 			extension: '.svelte',
 		})
-		*/
 	]
 });

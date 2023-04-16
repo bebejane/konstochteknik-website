@@ -4,9 +4,7 @@
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
 	import { currentProject } from "$lib/stores";
-	import Slide from "./components/Slide.svelte";
-	import ImageSlide from "./components/ImageSlide.svelte";
-	import VideoSlide from "./components/VideoSlide.svelte";
+	import { Slide, ImageSlide, VideoSlide } from "./components";
 
 	export let data;
 

@@ -2,10 +2,7 @@
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
 	import { currentProject } from "$lib/stores";
-
-	import Slide from "../../components/Slide.svelte";
-	import ImageSlide from "../../components/ImageSlide.svelte";
-	import VideoSlide from "../../components/VideoSlide.svelte";
+	import { Slide, ImageSlide, VideoSlide } from "../../components";
 
 	export let data;
 
