@@ -17,6 +17,8 @@ export const load = (async ({ cookies }) => {
   if (preview) {
     console.log('preview mode')
     client.setHeader('X-Include-Drafts', 'true')
+  } else {
+    console.log('not preview mode')
   }
 
   const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([{ document: AllCommissionsDocument }, { document: AllProjectsDocument }])
