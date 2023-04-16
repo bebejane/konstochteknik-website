@@ -45,3 +45,13 @@ const generatePreviewUrl = async ({ item, itemType }: any) => {
 
   return path
 }
+
+export async function OPTIONS({ request, setHeaders }) {
+  setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Content-Type': 'application/json'
+  });
+  return text('ok')
+}
