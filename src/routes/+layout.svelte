@@ -2,17 +2,18 @@
 	import "$lib/styles/index.scss";
 	import { currentProject } from "$lib/stores";
 	$: captionStyle = $currentProject?.captionStyle;
-	let color = $currentProject?.captionStyle === "color" ? $currentProject?.color?.hex : "inherit";
+	$: color = "inherit";
+	$: console.log(color);
 </script>
 
-<nav class={captionStyle}>
+<nav class={captionStyle} style={`color:${color}`}>
 	<h1>
 		<a href="/" data-sveltekit-reload>Konst & Teknik</a>
 		<br />
 		<span><em>Selected Works</em></span>
 	</h1>
 	<menu>
-		<a href="/about">About</a> · <a href="/contact">News</a>
+		<a href="/about">About</a> · <a href="https://www.instagram.com/konstteknik">News</a>
 	</menu>
 </nav>
 
@@ -32,7 +33,7 @@
 		flex-direction: row;
 		align-items: flex-start;
 		width: 100%;
-		z-index: 100;
+		z-index: 200;
 		padding: var(--outer-margin);
 		color: var(--black);
 		pointer-events: none;
@@ -45,9 +46,6 @@
 	menu {
 		pointer-events: all;
 		white-space: nowrap;
-		a {
-			color: inherit;
-		}
 	}
 	h1 {
 		flex: 1 1 100%;
@@ -59,5 +57,8 @@
 		padding: 0;
 		margin: 0;
 		text-align: right;
+	}
+	a {
+		color: inherit;
 	}
 </style>
