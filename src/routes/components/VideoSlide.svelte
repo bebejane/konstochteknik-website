@@ -2,9 +2,10 @@
 	import { Image } from "@datocms/svelte";
 	export let data: any;
 	export let active: boolean = false;
-	let { video, backgroundImage, poster } = data as VideoRecord;
-	//@ts-ignore
-	let src = video.video?.mp4high as string;
+
+	let { backgroundImage, poster } = data as VideoSlideRecord;
+	let video = data.video as VideoRecord & { video: VideoRecord["video"] & { mp4high: string } };
+	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
 	function togglePlay() {
@@ -17,7 +18,7 @@
 <div>
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
-		<video poster={poster?.url} muted bind:this={player} on:click|stopPropagation>
+		<video poster={poster?.url} muted bind:this={player}>
 			<source {src} type="video/mp4" />
 			<track kind="captions" />
 		</video>
@@ -46,6 +47,7 @@
 			position: absolute;
 			height: calc(100vh - 200px);
 			width: auto;
+			z-index: 2;
 			img {
 				height: 100%;
 				width: auto;
@@ -76,7 +78,7 @@
 			height: 100%;
 			max-height: 100vh;
 			object-fit: cover;
-			z-index: -1;
+			z-index: 0;
 		}
 	}
 </style>

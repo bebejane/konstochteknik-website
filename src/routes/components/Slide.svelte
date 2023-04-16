@@ -1,12 +1,11 @@
 <script lang="ts">
 	import Markdown from "svelte-markdown";
 	export let project: ProjectRecord;
-	let color = project.captionStyle === "color" ? project.color?.hex : "inherit";
 </script>
 
-<div style={`background-color:${project.color?.hex}`}>
+<div style:background-color={project?.background?.hex}>
 	<slot />
-	<h2 class={project.captionStyle} style={`color:${color}`}>
+	<h2 class={`${project.captionStyle} caption`} style:color={project?.color?.hex}>
 		<Markdown source={project.caption} isInline={true} />
 	</h2>
 </div>
@@ -18,7 +17,7 @@
 		width: 100%;
 		max-height: 100vh;
 		max-width: 100vw;
-		color: var(--black);
+
 		h2 {
 			position: absolute;
 			left: 50%;
@@ -29,16 +28,20 @@
 			line-height: 0.5;
 			border-radius: 3rem;
 			white-space: nowrap;
+			color: var(--black);
+			z-index: 10;
 
 			&.fill {
-				background-color: rgba(255, 255, 255, 1);
+				background-color: var(--white);
+				color: var(--black) !important;
 			}
+
 			&.transparent {
 				background-color: transparent;
 			}
-			&.invert {
-				color: var(--white) !important;
-			}
 		}
+	}
+	:global(.caption a) {
+		color: inherit !important;
 	}
 </style>

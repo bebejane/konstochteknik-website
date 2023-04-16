@@ -338,6 +338,109 @@ type ImageDoubleRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+type ImageFileField = FileFieldInterface & {
+  __typename?: 'ImageFileField';
+  _createdAt: Scalars['DateTime'];
+  _updatedAt: Scalars['DateTime'];
+  alt?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  basename: Scalars['String'];
+  blurUpThumb?: Maybe<Scalars['String']>;
+  blurhash?: Maybe<Scalars['String']>;
+  colors: Array<ColorField>;
+  copyright?: Maybe<Scalars['String']>;
+  customData: Scalars['CustomData'];
+  exifInfo: Scalars['CustomData'];
+  filename: Scalars['String'];
+  focalPoint: focalPoint;
+  format: Scalars['String'];
+  height: Scalars['IntType'];
+  id: Scalars['UploadId'];
+  md5: Scalars['String'];
+  mimeType: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
+  responsiveImage: ResponsiveImage;
+  size: Scalars['IntType'];
+  smartTags: Array<Scalars['String']>;
+  tags: Array<Scalars['String']>;
+  thumbhash?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
+  video?: Maybe<UploadVideoField>;
+  width: Scalars['IntType'];
+};
+
+
+type ImageFileFieldaltArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type ImageFileFieldblurUpThumbArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+  punch?: Scalars['Float'];
+  quality?: Scalars['Int'];
+  size?: Scalars['Int'];
+};
+
+
+type ImageFileFieldcustomDataArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type ImageFileFieldfocalPointArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type ImageFileFieldresponsiveImageArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  imgixParams?: InputMaybe<ImgixParams>;
+  locale?: InputMaybe<SiteLocale>;
+  sizes?: InputMaybe<Scalars['String']>;
+};
+
+
+type ImageFileFieldtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type ImageFileFieldurlArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+};
+
+/** Block of type Image old (image_old) */
+type ImageOldRecord = RecordInterface & {
+  __typename?: 'ImageOldRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  backgroundImage?: Maybe<FileField>;
+  id: Scalars['ItemId'];
+  image: FileField;
+  layout: Scalars['String'];
+};
+
+
+/** Block of type Image old (image_old) */
+type ImageOldRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Block of type Image (quad) (image_quad) */
 type ImageQuadRecord = RecordInterface & {
   __typename?: 'ImageQuadRecord';
@@ -377,15 +480,40 @@ type ImageRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  backgroundImage?: Maybe<FileField>;
+  background?: Maybe<ColorField>;
   id: Scalars['ItemId'];
-  image: FileField;
-  layout: Scalars['String'];
+  image: ImageFileField;
 };
 
 
 /** Block of type Image (image) */
 type ImageRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Image slide (image_slide) */
+type ImageSlideRecord = RecordInterface & {
+  __typename?: 'ImageSlideRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  backgroundImage?: Maybe<ImageFileField>;
+  id: Scalars['ItemId'];
+  images: Array<ImageRecord>;
+  layout: Scalars['String'];
+};
+
+
+/** Block of type Image slide (image_slide) */
+type ImageSlideRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -1867,6 +1995,7 @@ type ProjectModelFilter = {
   _status?: InputMaybe<StatusFilter>;
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  background?: InputMaybe<ColorFilter>;
   caption?: InputMaybe<TextFilter>;
   captionStyle?: InputMaybe<StringFilter>;
   color?: InputMaybe<ColorFilter>;
@@ -1906,7 +2035,7 @@ enum ProjectModelOrderBy {
   url_DESC = 'url_DESC'
 }
 
-type ProjectModelSlideField = ImageDoubleRecord | ImageQuadRecord | ImageRecord | VideoRecord;
+type ProjectModelSlideField = ImageSlideRecord | VideoSlideRecord;
 
 /** Record of type Project (project) */
 type ProjectRecord = RecordInterface & {
@@ -1922,9 +2051,10 @@ type ProjectRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
+  background: ColorField;
   caption?: Maybe<Scalars['String']>;
   captionStyle?: Maybe<Scalars['String']>;
-  color?: Maybe<ColorField>;
+  color: ColorField;
   id: Scalars['ItemId'];
   position?: Maybe<Scalars['IntType']>;
   slide: Array<ProjectModelSlideField>;
@@ -2595,6 +2725,83 @@ type UploadWidthFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
+type VideoFileField = FileFieldInterface & {
+  __typename?: 'VideoFileField';
+  _createdAt: Scalars['DateTime'];
+  _updatedAt: Scalars['DateTime'];
+  alt?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  basename: Scalars['String'];
+  blurUpThumb?: Maybe<Scalars['String']>;
+  blurhash?: Maybe<Scalars['String']>;
+  colors: Array<ColorField>;
+  copyright?: Maybe<Scalars['String']>;
+  customData: Scalars['CustomData'];
+  exifInfo: Scalars['CustomData'];
+  filename: Scalars['String'];
+  focalPoint?: Maybe<focalPoint>;
+  format: Scalars['String'];
+  height?: Maybe<Scalars['IntType']>;
+  id: Scalars['UploadId'];
+  md5: Scalars['String'];
+  mimeType: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
+  responsiveImage?: Maybe<ResponsiveImage>;
+  size: Scalars['IntType'];
+  smartTags: Array<Scalars['String']>;
+  tags: Array<Scalars['String']>;
+  thumbhash?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
+  video: UploadVideoField;
+  width?: Maybe<Scalars['IntType']>;
+};
+
+
+type VideoFileFieldaltArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldblurUpThumbArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+  punch?: Scalars['Float'];
+  quality?: Scalars['Int'];
+  size?: Scalars['Int'];
+};
+
+
+type VideoFileFieldcustomDataArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldfocalPointArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldresponsiveImageArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  imgixParams?: InputMaybe<ImgixParams>;
+  locale?: InputMaybe<SiteLocale>;
+  sizes?: InputMaybe<Scalars['String']>;
+};
+
+
+type VideoFileFieldtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldurlArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+};
+
 enum VideoMp4Res {
   high = 'high',
   low = 'low',
@@ -2615,15 +2822,42 @@ type VideoRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  backgroundImage?: Maybe<FileField>;
+  backgroundImage?: Maybe<ImageFileField>;
   id: Scalars['ItemId'];
-  poster?: Maybe<FileField>;
+  poster?: Maybe<ImageFileField>;
   video: FileField;
 };
 
 
 /** Block of type Video (video) */
 type VideoRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Video slide (video_slide) */
+type VideoSlideRecord = RecordInterface & {
+  __typename?: 'VideoSlideRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  background?: Maybe<ColorField>;
+  backgroundImage?: Maybe<ImageFileField>;
+  id: Scalars['ItemId'];
+  poster?: Maybe<ImageFileField>;
+  video: VideoFileField;
+};
+
+
+/** Block of type Video slide (video_slide) */
+type VideoSlideRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2640,13 +2874,15 @@ type AllCommissionsQuery = { __typename?: 'Query', allCommisioners: Array<{ __ty
 
 type ColorFragment = { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string };
 
-type ImageFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null };
+type FileFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null };
+
+type ImageFragment = { __typename?: 'ImageFileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height: any, width: any, responsiveImage: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } };
 
 type ImageThumbnailFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null };
 
-type VideoFragment = { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null };
+type VideoFragment = { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } };
 
 type AllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllProjectsQuery = { __typename?: 'Query', allProjects: Array<{ __typename?: 'ProjectRecord', id: any, title: string, caption?: string | null, captionStyle?: string | null, url?: string | null, position?: any | null, slug?: string | null, color?: { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string } | null, slide: Array<{ __typename: 'ImageDoubleRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, backgroundImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | { __typename: 'ImageQuadRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, imageMobile: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, backgroundImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | { __typename: 'VideoRecord', id: any, video: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null }, backgroundImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, poster?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null }> }> };
+type AllProjectsQuery = { __typename?: 'Query', allProjects: Array<{ __typename?: 'ProjectRecord', id: any, title: string, caption?: string | null, captionStyle?: string | null, url?: string | null, position?: any | null, slug?: string | null, color: { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string }, background: { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string }, slide: Array<{ __typename: 'ImageSlideRecord', id: any, layout: string, images: Array<{ __typename: 'ImageRecord', image: { __typename?: 'ImageFileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height: any, width: any, responsiveImage: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } }, background?: { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string } | null }>, backgroundImage?: { __typename?: 'ImageFileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height: any, width: any, responsiveImage: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } } | null } | { __typename: 'VideoSlideRecord', id: any, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, poster?: { __typename?: 'ImageFileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height: any, width: any, responsiveImage: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } } | null, backgroundImage?: { __typename?: 'ImageFileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height: any, width: any, responsiveImage: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } } | null }> }> };

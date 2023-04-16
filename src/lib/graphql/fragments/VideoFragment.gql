@@ -1,4 +1,4 @@
-fragment VideoFragment on FileField {
+fragment VideoFragment on VideoFileField {
 	id
 	alt
 	basename

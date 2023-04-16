@@ -8,53 +8,45 @@ query AllProjects {
 		color {
 			...ColorFragment
 		}
+		background {
+			...ColorFragment
+		}
+
 		position
 		slug
 		slide {
-			__typename
-			... on ImageRecord {
-				__typename
-				id
-				image {
-					...ImageFragment
-				}
-				backgroundImage {
-					...ImageFragment
-				}
-				layout
-			}
-			... on ImageDoubleRecord {
-				__typename
-				id
-				images {
-					...ImageFragment
-				}
-				backgroundImage {
-					...ImageFragment
-				}
-			}
-			... on ImageQuadRecord {
-				__typename
-				id
-				images {
-					...ImageFragment
-				}
-				imageMobile {
-					...ImageFragment
-				}
-			}
-			... on VideoRecord {
+			... on VideoSlideRecord {
 				__typename
 				id
 				video {
 					...VideoFragment
 				}
-				backgroundImage {
-					...ImageFragment
-				}
 				poster {
 					...ImageFragment
 				}
+				backgroundImage {
+					...ImageFragment
+				}
+			}
+			... on ImageSlideRecord {
+				__typename
+				id
+				images {
+					__typename
+					... on ImageRecord {
+						__typename
+						image {
+							...ImageFragment
+						}
+						background {
+							...ColorFragment
+						}
+					}
+				}
+				backgroundImage {
+					...ImageFragment
+				}
+				layout
 			}
 		}
 	}

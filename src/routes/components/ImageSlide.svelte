@@ -1,0 +1,93 @@
+<script lang="ts">
+	import { Image } from "@datocms/svelte";
+	export let data: any;
+
+	let { layout, images, backgroundImage } = data as ImageSlideRecord;
+	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+</script>
+
+<div>
+	{#each images as { image, background }}
+		{#if image.responsiveImage}
+			<figure class={column} style:background-color={background?.hex}>
+				<Image
+					data={image.responsiveImage}
+					fadeInDuration={100}
+					objectFit={layout === "cover" && images.length === 1 ? "cover" : "contain"}
+					class="image"
+					pictureClass={`image-${layout}`}
+				/>
+			</figure>
+		{/if}
+	{/each}
+	{#if backgroundImage?.responsiveImage}
+		<Image
+			data={backgroundImage.responsiveImage}
+			class="image-background"
+			objectFit="cover"
+			lazyLoad={true}
+		/>
+	{/if}
+</div>
+
+<style lang="scss">
+	div {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		height: 100%;
+		width: 100%;
+		max-height: 100vh;
+		max-width: 100vw;
+		figure {
+			position: relative;
+			height: 100%;
+			width: 100%;
+			z-index: 1;
+			&.single {
+				flex: 1 1 100%;
+			}
+			&.double {
+				flex: 0 0 50%;
+				height: 100%;
+				padding: 4%;
+			}
+			&.quad {
+				flex: 0 0 50%;
+				height: 50%;
+				padding: 4%;
+			}
+		}
+	}
+	:global(.image) {
+		height: 100%;
+		width: 100%;
+	}
+
+	:global(.image-cover) {
+		object-fit: cover;
+	}
+	:global(.imave-portrait) {
+		object-fit: contain;
+		height: 100%;
+		width: auto;
+	}
+	:global(.image-landscape) {
+		object-fit: contain;
+		width: 100%;
+		height: auto;
+	}
+	:global(.image-margin) {
+		object-fit: contain;
+		padding: 10%;
+	}
+	:global(.image-background) {
+		position: absolute !important;
+		top: 0;
+		left: 0;
+		z-index: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

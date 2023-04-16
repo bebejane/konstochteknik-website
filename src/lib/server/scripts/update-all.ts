@@ -10,7 +10,7 @@ const main = async function () {
     console.log(`Updating project ${project.id}...`)
     try {
       await client.items.update(project.id, {
-        caption_style: 'transparent'
+        ...project
       })
     } catch (e) {
       console.log(e)

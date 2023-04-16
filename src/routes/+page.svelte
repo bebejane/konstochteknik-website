@@ -3,21 +3,22 @@
 	import "@splidejs/splide/css";
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
-	import { Image, ImageDouble, ImageQuad, Video, Block } from "$lib/components";
 	import { currentProject } from "$lib/stores";
+	import Slide from "./components/Slide.svelte";
+	import ImageSlide from "./components/ImageSlide.svelte";
+	import VideoSlide from "./components/VideoSlide.svelte";
+
 	export let data;
 
 	let splide: Splide;
 	const blocks = {
-		ImageRecord: Image,
-		ImageDoubleRecord: ImageDouble,
-		ImageQuadRecord: ImageQuad,
-		VideoRecord: Video,
+		ImageSlideRecord: ImageSlide,
+		VideoSlideRecord: VideoSlide,
 	};
 
 	const options = {
 		pagination: false,
-		type: "fade",
+		type: "slide",
 		track: false,
 	} as SplideProps;
 
@@ -39,13 +40,12 @@
 >
 	{#each allProjects as project, idx}
 		{@const data = project.slide[0]}
-
 		{#if data.__typename}
 			{#key index}
 				<SplideSlide style={`background-color:${project.color?.hex}`}>
-					<Block {project}>
+					<Slide {project}>
 						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-					</Block>
+					</Slide>
 				</SplideSlide>
 			{/key}
 		{/if}
