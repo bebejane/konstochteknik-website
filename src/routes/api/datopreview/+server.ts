@@ -2,9 +2,6 @@ import { json, text } from '@sveltejs/kit';
 import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 
 export async function POST({ request, setHeaders }) {
-  const body = await request.json();
-  console.log(body)
-
   setHeaders({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST',
@@ -13,6 +10,9 @@ export async function POST({ request, setHeaders }) {
   });
 
   if (request.method === 'OPTIONS') return text('ok');
+
+  const body = await request.json();
+  console.log(body)
 
   const url = await generatePreviewUrl(body);
   const baseUrl = 'https://konstochteknik.vercel.app'
