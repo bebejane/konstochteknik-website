@@ -14,8 +14,10 @@ export const load = (async ({ cookies }) => {
 
   const preview = cookies.get('preview') === DATOCMS_PREVIEW_SECRET
 
-  if (preview)
+  if (preview) {
+    console.log('preview mode')
     client.setHeader('X-Include-Drafts', 'true')
+  }
 
   const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([{ document: AllCommissionsDocument }, { document: AllProjectsDocument }])
 

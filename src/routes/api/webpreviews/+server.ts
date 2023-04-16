@@ -2,6 +2,7 @@ import { json, text } from '@sveltejs/kit';
 import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 
 export async function POST({ request, setHeaders }) {
+
   setHeaders({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -9,11 +10,7 @@ export async function POST({ request, setHeaders }) {
     'Content-Type': 'application/json'
   });
 
-  if (request.method === 'OPTIONS') return text('ok');
-
   const body = await request.json();
-  console.log(body)
-
   const url = await generatePreviewUrl(body);
   const baseUrl = 'https://konstochteknik.vercel.app'
 
@@ -21,7 +18,7 @@ export async function POST({ request, setHeaders }) {
     label: 'Live',
     url: `${baseUrl}${url}`
   }, {
-    label: 'Utkast',
+    label: 'Draft',
     url: `${baseUrl}/api/preview?slug=${url}&secret=${DATOCMS_PREVIEW_SECRET}`,
   }]
 
@@ -41,8 +38,6 @@ const generatePreviewUrl = async ({ item, itemType }: any) => {
     default:
       break;
   }
-  console.log(path)
-
   return path
 }
 
