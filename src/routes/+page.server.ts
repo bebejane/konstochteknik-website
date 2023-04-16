@@ -9,9 +9,3 @@ export const load = (async ({ params }) => {
     allProjects: data.allProjects
   };
 })
-
-export const POST = (async ({ body }) => {
-  return {
-    body
-  };
-}
