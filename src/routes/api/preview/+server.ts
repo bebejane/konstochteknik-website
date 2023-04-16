@@ -2,7 +2,7 @@ import { json, redirect, text, error } from '@sveltejs/kit';
 import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 import * as cookie from 'cookie';
 
-export async function GET({ params, fetch, url }) {
+export async function GET({ params, fetch, url, cookies }) {
   const slug = url.searchParams.get('slug')
   const secret = url.searchParams.get('secret')
 
@@ -12,8 +12,10 @@ export async function GET({ params, fetch, url }) {
   if (!slug)
     throw error(500, 'No slug provided')
 
+  cookies.set('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 })
+
   const headers = new Headers({
-    'Set-Cookie': cookie.serialize('preview', DATOCMS_PREVIEW_SECRET, { path: '/' }),
+    //'Set-Cookie': cookie.serialize('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 }),
     location: slug,
   })
 
