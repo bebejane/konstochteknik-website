@@ -1,3 +1,4 @@
+import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 import { AllCommissionsDocument, AllProjectsDocument } from '$graphql';
 import client from '../client'
 
@@ -9,7 +10,12 @@ type QueryResult = [{
   data: AllProjectsQuery,
 }]
 
-export const load = (async ({ }) => {
+export const load = (async ({ cookies }) => {
+
+  const preview = cookies.get('preview') === DATOCMS_PREVIEW_SECRET
+
+  if (preview)
+    client.setHeader('X-Include-Drafts', 'true')
 
   const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([{ document: AllCommissionsDocument }, { document: AllProjectsDocument }])
 
