@@ -3,10 +3,8 @@
 	import "@splidejs/splide/css";
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
-	import Image from "$lib/components/Image.svelte";
-	import ImageDouble from "$lib/components/ImageDouble.svelte";
-	import ImageQuad from "$lib/components/ImageQuad.svelte";
-	import Video from "$lib/components/Video.svelte";
+	import { Image, ImageDouble, ImageQuad, Video, Block } from "$lib/components";
+	import { currentProject } from "$lib/stores";
 	export let data;
 
 	let splide: Splide;
@@ -23,12 +21,13 @@
 		track: false,
 	} as SplideProps;
 
-	let { allProjects } = data;
+	let allProjects = data.allProjects as ProjectRecord[];
 	let index: number = 0;
 
 	function handleClick() {
 		splide.go("+1");
 	}
+	$: $currentProject = allProjects[index];
 </script>
 
 <Splide
@@ -38,13 +37,18 @@
 	on:move={(e) => e && (index = e.detail.index)}
 	{options}
 >
-	{#each allProjects as { title, slide, color }, idx}
-		{@const data = slide[0]}
-		{#key index}
-			<SplideSlide style={`background-color:${color?.hex}`}>
-				<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-			</SplideSlide>
-		{/key}
+	{#each allProjects as project, idx}
+		{@const data = project.slide[0]}
+
+		{#if data.__typename}
+			{#key index}
+				<SplideSlide style={`background-color:${project.color?.hex}`}>
+					<Block {project}>
+						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+					</Block>
+				</SplideSlide>
+			{/key}
+		{/if}
 	{/each}
 </Splide>
 

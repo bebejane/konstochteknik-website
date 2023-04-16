@@ -2,13 +2,10 @@
 	import { Image } from "@datocms/svelte";
 	export let data: any;
 	export let active: boolean = false;
-
 	let { video, backgroundImage, poster } = data as VideoRecord;
 	//@ts-ignore
 	let src = video.video?.mp4high as string;
 	let player: HTMLVideoElement;
-	let monitor: HTMLImageElement;
-	let bounds: DOMRect;
 
 	function togglePlay() {
 		player.paused ? player.play() : player.pause();
@@ -20,7 +17,7 @@
 <div>
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
-		<video poster={poster?.url} muted bind:this={player} on:click|stopPropagation={togglePlay}>
+		<video poster={poster?.url} muted bind:this={player} on:click|stopPropagation>
 			<source {src} type="video/mp4" />
 			<track kind="captions" />
 		</video>
@@ -60,6 +57,14 @@
 				top: 4%;
 				width: 93.6%;
 				border-radius: 2px;
+			}
+			video[poster] {
+				max-height: calc(72.5%);
+				object-fit: cover;
+				margin: 0;
+			}
+			@include mq($until: tablet) {
+				transform: scale(0.6);
 			}
 		}
 

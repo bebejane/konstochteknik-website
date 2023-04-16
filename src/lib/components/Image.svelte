@@ -1,10 +1,12 @@
+<script context="module" lang="ts">
+	let images: any[] = [];
+</script>
+
 <script lang="ts">
 	import { Image } from "@datocms/svelte";
+	export const id: string = crypto.randomUUID();
 	export let data: any;
-	export let active: boolean = false;
-
 	let { layout, image, backgroundImage } = data as ImageRecord;
-
 	$: data.image.responsiveImage === null && console.log(data);
 </script>
 
@@ -12,6 +14,7 @@
 	{#if image.responsiveImage}
 		<Image
 			data={image.responsiveImage}
+			fadeInDuration={0}
 			class="image"
 			objectFit={layout === "image-full" ? "cover" : "contain"}
 			pictureClass={`image ${layout}`}

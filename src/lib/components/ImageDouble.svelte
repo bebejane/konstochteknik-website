@@ -12,14 +12,16 @@
 	<div>
 		<Image
 			data={imageLeft.responsiveImage}
-			pictureClass="image-left"
-			objectFit="cover"
+			fadeInDuration={0}
+			class="image-double"
+			objectFit="contain"
 			lazyLoad={true}
 		/>
 		<Image
 			data={imageRight.responsiveImage}
-			pictureClass="image-right"
-			objectFit="cover"
+			fadeInDuration={0}
+			class="image-double"
+			objectFit="contain"
 			lazyLoad={true}
 		/>
 	</div>
@@ -34,10 +36,9 @@
 		display: flex;
 		flex-direction: row;
 	}
-	:global(.image-left) {
+	:global(.image-double) {
+		margin: 2%;
 		width: 50%;
-	}
-	:global(.image-right) {
-		width: 50%;
+		flex: 0 1 50%;
 	}
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
-	import { Image, ImageDouble, ImageQuad, Video } from "$lib/components";
+	import { Image, ImageDouble, ImageQuad, Video, Block } from "$lib/components";
 
 	export let data;
 
@@ -16,7 +16,7 @@
 
 	let slug = $page.params.slug;
 	let index = allProjects.findIndex((el) => el.slug === slug);
-	let project = allProjects[index];
+	let project = allProjects[index] as ProjectRecord;
 	let slide = project?.slide[0];
 	let blockType = slide.__typename;
 	let next = index < allProjects.length - 1 ? `/projects/${allProjects?.[index + 1]?.slug}` : null;
@@ -25,7 +25,9 @@
 
 {#key slug}
 	{#if blockType && slide}
-		<svelte:component this={blocks[blockType]} data={slide} active={false} />
+		<Block {project}>
+			<svelte:component this={blocks[blockType]} data={slide} active={true} />
+		</Block>
 	{/if}
 	<a href={prev} class="prev">&nbsp;</a>
 	<a href={next} class="next">&nbsp;</a>

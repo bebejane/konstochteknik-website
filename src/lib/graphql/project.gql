@@ -1,8 +1,9 @@
-query Home {
+query AllProjects {
 	allProjects(first: 100, orderBy: position_ASC) {
 		id
 		title
 		caption(markdown: false)
+		captionStyle
 		url
 		color {
 			...ColorFragment
