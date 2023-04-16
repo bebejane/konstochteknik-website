@@ -3,7 +3,6 @@
 	import { currentProject } from "$lib/stores";
 	$: captionStyle = $currentProject?.captionStyle;
 	$: color = "inherit";
-	$: console.log(color);
 </script>
 
 <nav class={captionStyle} style={`color:${color}`}>

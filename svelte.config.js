@@ -1,4 +1,5 @@
 import adapter from "@sveltejs/adapter-auto";
+import { resolve } from "path";
 import { vitePreprocess } from "@sveltejs/kit/vite";
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -11,6 +12,7 @@ const config = {
 		alias: {
 			$lib: "./src/lib",
 			$graphql: "./src/lib/graphql",
+			$fonts: resolve("./static/fonts"),
 		},
 	},
 };
