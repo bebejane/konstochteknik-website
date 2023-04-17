@@ -5,6 +5,7 @@
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
 	import { currentProject } from "$lib/stores";
 	import { Slide, ImageSlide, VideoSlide } from "./components";
+	import { hoverAction } from "svelte-legos";
 
 	export let data;
 
@@ -22,12 +23,21 @@
 
 	let allProjects = data.allProjects as ProjectRecord[];
 	let index: number = 0;
+	let showNavigation: string | null = null;
 
 	function handleClick() {
 		splide.go("+1");
 	}
+
+	function handleNavigationHover(e: CustomEvent<{ hover: boolean }>) {
+		const target = e.target as HTMLElement;
+		console.log(target.id);
+		showNavigation = e.detail.hover ? target.id : null;
+	}
+
 	$: $currentProject = allProjects[index];
 	$: splide?.go(allProjects.findIndex((el) => el.id === $currentProject?.id));
+	$: console.log(showNavigation);
 </script>
 
 <Splide
@@ -49,11 +59,21 @@
 	{/each}
 </Splide>
 
-<button class="prev" on:click={() => splide.go("-1")} style:color={allProjects[index].color?.hex}
-	>←</button
+<button
+	id="prev"
+	class:show={showNavigation === "prev"}
+	use:hoverAction
+	on:hover={handleNavigationHover}
+	on:click={() => splide.go("-1")}
+	style:color={allProjects[index].color?.hex}>←</button
 >
-<button class="next" on:click={() => splide.go("+1")} style:color={allProjects[index].color?.hex}
-	>→</button
+<button
+	id="next"
+	class:show={showNavigation === "next"}
+	use:hoverAction
+	on:hover={handleNavigationHover}
+	on:click={() => splide.go("+1")}
+	style:color={allProjects[index].color?.hex}>→</button
 >
 
 <svelte:window
@@ -74,8 +94,8 @@
 	:global(.splide__arrow) {
 		display: none;
 	}
-	.prev,
-	.next {
+	#prev,
+	#next {
 		position: fixed;
 		top: 0;
 		height: 100%;
@@ -87,14 +107,18 @@
 		outline: none;
 		color: var(--white);
 		font-size: 3rem;
+		opacity: 0;
+		&.show {
+			opacity: 1;
+		}
 		@include mq($until: desktop) {
 			display: none;
 		}
 	}
-	.prev {
+	#prev {
 		left: 0;
 	}
-	.next {
+	#next {
 		right: 0;
 	}
 </style>

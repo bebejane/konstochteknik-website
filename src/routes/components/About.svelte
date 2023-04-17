@@ -2,11 +2,11 @@
 	import { fly, fade, scale } from "svelte/transition";
 	import {
 		cubicIn,
-		cubicOut,
+		linear as defaultEasing,
 		cubicInOut,
-		expoInOut,
+		expoOut,
 		elasticInOut,
-		quadInOut as defaultEasing,
+		quadInOut,
 	} from "svelte/easing";
 	import type { EasingFunction, TransitionConfig } from "svelte/transition";
 
@@ -33,12 +33,7 @@
 			duration,
 			easing,
 			css: (t) => `
-        opacity: ${t > index / bricks ? 1 : 0};
-        transform: 
-          perspective(100px) 
-          rotate${even ? "Y" : "X"}(-${t * 180}deg) 
-          ${even ? `scale${even ? "Y" : "X"}(${t})` : ""}
-          `,
+        opacity: ${t > index / bricks ? 1 : 0}`,
 		};
 	}
 </script>
@@ -90,9 +85,10 @@
 		{#each new Array(bricks) as _, i (i)}
 			<div
 				class="about-bg-item"
-				in:cube={{ index: i, duration: 1000 }}
-				out:cube={{ index: i, duration: 500 }}
-				style:margin={`${Math.random() * 1}px`}
+				style:--width={bricks / 40}
+				in:cube={{ index: i, duration: 700 }}
+				out:cube={{ index: i, duration: 300 }}
+				style:transform={`translateX(${Math.random() * 4}px) translateY(${Math.random() * 4}px)`}
 			/>
 		{/each}
 	</div>
@@ -128,8 +124,8 @@
 		overflow: hidden;
 		.about-bg-item {
 			background-color: var(--black);
-			flex: 1 1 5%;
-			border: 2px solid transparent;
+			flex: 0 0 calc(var(--width) * 1%);
+			//border: 2px solid transparent;
 		}
 	}
 	content {

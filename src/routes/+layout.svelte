@@ -50,6 +50,7 @@
 	menu {
 		pointer-events: all;
 		white-space: nowrap;
+		font-weight: normal;
 	}
 	h1 {
 		flex: 1 1 100%;
