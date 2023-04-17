@@ -100,7 +100,6 @@
 
 <style lang="scss">
 	#about {
-		//animation: backdrop 1s ease-in-out forwards;
 		@keyframes backdrop {
 			from {
 				backdrop-filter: grayscale(0) brightness(1);
