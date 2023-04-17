@@ -1,7 +1,9 @@
 <script lang="ts">
 	import "$lib/styles/index.scss";
 	import { currentProject } from "$lib/stores";
-	$: color = $currentProject?.color?.hex;
+	import About from "./components/About.svelte";
+	let showAbout = false;
+	$: color = showAbout ? "var(--white)" : $currentProject?.color?.hex;
 </script>
 
 {#key color}
@@ -12,7 +14,8 @@
 			<span><em>Selected Works</em></span>
 		</h1>
 		<menu>
-			<a href="/about">About</a> · <a href="https://www.instagram.com/konstteknik">News</a>
+			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}>About</a> ·
+			<a href="https://www.instagram.com/konstteknik">News</a>
 		</menu>
 	</nav>
 {/key}
@@ -20,6 +23,10 @@
 <div class="layout">
 	<slot />
 </div>
+
+{#if showAbout}
+	<About on:close={() => (showAbout = false)} />
+{/if}
 
 <style lang="scss">
 	.layout {
