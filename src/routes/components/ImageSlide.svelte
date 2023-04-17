@@ -12,7 +12,7 @@
 			<figure class={column} style:background-color={background?.hex}>
 				<Image
 					data={image.responsiveImage}
-					fadeInDuration={100}
+					fadeInDuration={500}
 					objectFit={layout === "cover" && images.length === 1 ? "cover" : "contain"}
 					class="image"
 					pictureClass={`image-${layout}`}
@@ -23,6 +23,7 @@
 	{#if backgroundImage?.responsiveImage}
 		<Image
 			data={backgroundImage.responsiveImage}
+			fadeInDuration={500}
 			class="image-background"
 			objectFit="cover"
 			lazyLoad={true}
@@ -57,6 +58,14 @@
 				flex: 0 0 50%;
 				height: 50%;
 				padding: 4%;
+			}
+			@include mq($until: tablet) {
+				display: none;
+				&:first-child {
+					display: block;
+					flex: 1 1 100%;
+					height: 100%;
+				}
 			}
 		}
 	}

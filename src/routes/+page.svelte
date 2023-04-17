@@ -39,19 +39,21 @@
 	{#each allProjects as project, idx}
 		{@const data = project.slide[0]}
 		{#if data.__typename}
-			{#key index}
-				<SplideSlide style={`background-color:${project.color?.hex}`}>
-					<Slide {project}>
-						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-					</Slide>
-				</SplideSlide>
-			{/key}
+			<SplideSlide style={`background-color:${project.color?.hex}`}>
+				<Slide {project}>
+					<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+				</Slide>
+			</SplideSlide>
 		{/if}
 	{/each}
 </Splide>
 
-<button class="prev" on:click={() => splide.go("-1")} />
-<button class="next" on:click={() => splide.go("+1")} />
+<button class="prev" on:click={() => splide.go("-1")} style:color={allProjects[index].color?.hex}
+	>←</button
+>
+<button class="next" on:click={() => splide.go("+1")} style:color={allProjects[index].color?.hex}
+	>→</button
+>
 
 <svelte:window
 	on:keydown={({ key }) => key === "ArrowLeft" && splide.go("-1")}
@@ -70,6 +72,9 @@
 		min-height: 100%;
 	}
 	:global(.splide__arrow) {
+		display: none;
+	}
+	:global(.splide__arrow) {
 		background-color: transparent;
 		filter: invert(1);
 	}
@@ -84,6 +89,8 @@
 		border: 0;
 		cursor: pointer;
 		outline: none;
+		color: var(--white);
+		font-size: 3rem;
 	}
 	.prev {
 		left: 0;

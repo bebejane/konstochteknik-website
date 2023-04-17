@@ -15,7 +15,7 @@ export async function GET({ params, fetch, url, cookies }) {
   cookies.set('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 })
 
   const headers = new Headers({
-    //'Set-Cookie': cookie.serialize('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 }),
+    'Set-Cookie': cookie.serialize('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 }),
     location: slug,
   })
 
