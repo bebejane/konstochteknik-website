@@ -1,11 +1,11 @@
 import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
-import { AllCommissionsDocument, AllProjectsDocument } from '$graphql';
+import { AllCommisionersDocument, AllProjectsDocument } from '$graphql';
 import client from '../client'
 
 export const prerender = 'auto'
 
 type QueryResult = [{
-  data: AllCommissionsQuery,
+  data: AllCommisionersQuery,
 }, {
   data: AllProjectsQuery,
 }]
@@ -17,7 +17,6 @@ export const load = (async ({ cookies }) => {
 
 
   if (preview) {
-    console.log('preview mode')
     client.setHeader('X-Include-Drafts', 'true')
     cookies.delete('preview', { path: '/' })
   } else {
@@ -26,9 +25,10 @@ export const load = (async ({ cookies }) => {
     client.requestConfig.headers = headers
   }
 
-
-
-  const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([{ document: AllCommissionsDocument }, { document: AllProjectsDocument }])
+  const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([
+    { document: AllCommisionersDocument },
+    { document: AllProjectsDocument }
+  ])
 
   return {
     allProjects,

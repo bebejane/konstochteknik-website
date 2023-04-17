@@ -2867,10 +2867,10 @@ type focalPoint = {
   y: Scalars['FloatType'];
 };
 
-type AllCommissionsQueryVariables = Exact<{ [key: string]: never; }>;
+type AllCommisionersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllCommissionsQuery = { __typename?: 'Query', allCommisioners: Array<{ __typename?: 'CommisionerRecord', name: string }> };
+type AllCommisionersQuery = { __typename?: 'Query', allCommisioners: Array<{ __typename?: 'CommisionerRecord', name: string }> };
 
 type ColorFragment = { __typename?: 'ColorField', hex: string, red: any, green: any, blue: any, alpha: any, cssRgb: string };
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import { fly, fade, scale } from "svelte/transition";
 	import {
 		cubicIn,
@@ -80,6 +81,13 @@
 				target="_blank">Rutger Fuchsgatan 9</a
 			>, 11667 Stockholm, Sweden
 		</p>
+		<h3>A selection of our commisioners</h3>
+
+		<ul>
+			{#each $page.data.allCommisioners as commisioner}
+				<li>{commisioner.name}</li>
+			{/each}
+		</ul>
 	</content>
 	<div id="about-bg">
 		{#each new Array(bricks) as _, i (i)}
@@ -114,6 +122,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 100;
+		overflow-y: scroll;
 	}
 	#about-bg {
 		display: flex;
