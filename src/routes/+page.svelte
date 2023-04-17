@@ -17,7 +17,7 @@
 	const options = {
 		pagination: false,
 		type: "slide",
-		track: false,
+		track: true,
 	} as SplideProps;
 
 	let allProjects = data.allProjects as ProjectRecord[];
@@ -39,11 +39,13 @@
 	{#each allProjects as project, idx}
 		{@const data = project.slide[0]}
 		{#if data.__typename}
-			<SplideSlide style={`background-color:${project.color?.hex}`}>
-				<Slide {project}>
-					<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-				</Slide>
-			</SplideSlide>
+			{#key index}
+				<SplideSlide style={`background-color:${project.color?.hex}`}>
+					<Slide {project}>
+						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+					</Slide>
+				</SplideSlide>
+			{/key}
 		{/if}
 	{/each}
 </Splide>
