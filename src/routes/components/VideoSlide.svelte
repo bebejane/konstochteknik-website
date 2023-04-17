@@ -40,14 +40,16 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		width: 100vw;
 		height: 100vh;
-		width: 100%;
+		max-width: 100vw;
 
 		.monitor {
 			position: absolute;
-			height: calc(100vh - 200px);
+			height: calc(70%);
 			width: auto;
 			z-index: 2;
+
 			img {
 				height: 100%;
 				width: auto;
@@ -66,7 +68,7 @@
 				margin: 0;
 			}
 			@include mq($until: tablet) {
-				transform: scale(0.6);
+				height: 50vh;
 			}
 		}
 

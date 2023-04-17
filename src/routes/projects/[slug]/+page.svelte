@@ -3,9 +3,9 @@
 	import { goto } from "$app/navigation";
 	import { currentProject } from "$lib/stores";
 	import { Slide, ImageSlide, VideoSlide } from "../../components";
-	import { fly, fade } from "svelte/transition";
 
 	export let data;
+	export let slug: string = $page.params.slug;
 
 	let { allProjects } = data;
 
@@ -14,7 +14,6 @@
 		VideoSlideRecord: VideoSlide,
 	};
 
-	let slug = $page.params.slug;
 	let index = allProjects.findIndex((el) => el.slug === slug);
 	let project = allProjects[index] as ProjectRecord;
 	let slide = project?.slide[0];
@@ -24,15 +23,15 @@
 	$: $currentProject = project;
 </script>
 
-{#key slug}
-	{#if blockType && slide}
+{#if blockType && slide}
+	{#key slug}
 		<Slide {project}>
 			<svelte:component this={blocks[blockType]} data={slide} active={true} />
 		</Slide>
-	{/if}
-	<a href={prev} class="prev">&nbsp;</a>
-	<a href={next} class="next">&nbsp;</a>
-{/key}
+	{/key}
+{/if}
+<a href={prev} class="prev">&nbsp;</a>
+<a href={next} class="next">&nbsp;</a>
 
 <svelte:window
 	on:keydown={({ key }) => key === "ArrowLeft" && prev && goto(prev)}

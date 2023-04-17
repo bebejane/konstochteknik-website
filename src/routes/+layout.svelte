@@ -24,7 +24,7 @@
 <style lang="scss">
 	.layout {
 		max-height: 100vh;
-		height: 100vh;
+		min-height: 100vh;
 		overflow: hidden;
 	}
 	nav {

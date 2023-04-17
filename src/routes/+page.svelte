@@ -27,6 +27,7 @@
 		splide.go("+1");
 	}
 	$: $currentProject = allProjects[index];
+	$: splide?.go(allProjects.findIndex((el) => el.id === $currentProject?.id));
 </script>
 
 <Splide
@@ -39,13 +40,11 @@
 	{#each allProjects as project, idx}
 		{@const data = project.slide[0]}
 		{#if data.__typename}
-			{#key index}
-				<SplideSlide style={`background-color:${project.color?.hex}`}>
-					<Slide {project}>
-						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-					</Slide>
-				</SplideSlide>
-			{/key}
+			<SplideSlide style={`background-color:${project.color?.hex}`}>
+				<Slide {project}>
+					<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+				</Slide>
+			</SplideSlide>
 		{/if}
 	{/each}
 </Splide>
@@ -65,20 +64,15 @@
 <style lang="scss">
 	:global(.splide__list) {
 		width: 100%;
-		height: 100%;
-		max-height: 100vh;
+		height: 100vh;
 		cursor: pointer;
 	}
 	:global(.splide__slide) {
-		max-width: 100%;
-		min-height: 100%;
+		height: 100%;
+		width: 100%;
 	}
 	:global(.splide__arrow) {
 		display: none;
-	}
-	:global(.splide__arrow) {
-		background-color: transparent;
-		filter: invert(1);
 	}
 	.prev,
 	.next {
@@ -93,6 +87,9 @@
 		outline: none;
 		color: var(--white);
 		font-size: 3rem;
+		@include mq($until: desktop) {
+			display: none;
+		}
 	}
 	.prev {
 		left: 0;

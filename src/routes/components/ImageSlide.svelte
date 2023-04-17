@@ -13,8 +13,10 @@
 				<Image
 					data={image.responsiveImage}
 					fadeInDuration={500}
+					lazyLoad={false}
 					objectFit={layout === "cover" && images.length === 1 ? "cover" : "contain"}
 					class="image"
+					usePlaceholder={false}
 					pictureClass={`image-${layout}`}
 				/>
 			</figure>
@@ -37,13 +39,13 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		height: 100%;
-		width: 100%;
+		width: 100vw;
+		height: 100vh;
 		max-height: 100vh;
 		max-width: 100vw;
 		figure {
 			position: relative;
-			height: 100%;
+			height: 100vh;
 			width: 100%;
 			z-index: 1;
 			&.single {

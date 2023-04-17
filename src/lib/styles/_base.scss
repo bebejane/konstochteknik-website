@@ -9,7 +9,9 @@
 
 	@include mq($from: tablet) {}
 
-	@include mq($until: tablet) {}
+	@include mq($until: tablet) {
+		--outer-margin: 1.5rem;
+	}
 }
 
 body {
