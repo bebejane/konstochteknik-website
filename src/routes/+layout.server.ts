@@ -3,6 +3,12 @@ import { AllCommisionersDocument, AllProjectsDocument } from '$graphql';
 import { BYPASS_TOKEN } from '$env/static/private';
 import client from '../client'
 
+export const config = {
+  isr: {
+    expiration: 30,
+    bypassToken: BYPASS_TOKEN,
+  }
+};
 
 export const load = (async ({ cookies }) => {
   const preview = cookies.get('preview') === DATOCMS_PREVIEW_SECRET
