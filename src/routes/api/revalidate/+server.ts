@@ -1,6 +1,11 @@
 import { json } from '@sveltejs/kit';
 import { BYPASS_TOKEN } from '$env/static/private';
 import { itemFromPayload, basicAuth } from './utils';
+import type { Config } from '@sveltejs/adapter-vercel';
+
+export const config: Config = {
+  runtime: 'edge'
+};
 
 export async function POST({ request, fetch }) {
 
