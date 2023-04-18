@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-vercel";
+import adapter from "@sveltejs/adapter-auto";
 import { resolve } from "path";
 import { vitePreprocess } from "@sveltejs/kit/vite";
 

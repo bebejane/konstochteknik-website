@@ -4,6 +4,7 @@ import { BYPASS_TOKEN } from '$env/static/private';
 import client from '../client'
 
 export const config = {
+  runtime: 'edge',
   isr: {
     expiration: 30,
     bypassToken: BYPASS_TOKEN,
