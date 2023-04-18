@@ -8,11 +8,7 @@
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
-	function togglePlay() {
-		player.paused ? player.play() : player.pause();
-	}
-
-	$: active ? player?.play() : player?.pause();
+	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
 </script>
 
 <div>

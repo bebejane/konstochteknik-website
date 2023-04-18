@@ -1,29 +1,8 @@
 import { error } from '@sveltejs/kit';
 import { buildClient } from '@datocms/cma-client-node';
-import { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, DATOCMS_API_TOKEN } from '$env/static/private';
+import { DATOCMS_API_TOKEN, BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } from '$env/static/private';
 
 const client = buildClient({ apiToken: DATOCMS_API_TOKEN });
-
-export const itemFromPayload = async (payload: any): Promise<any> => {
-  const modelId = payload?.relationships?.item_type?.data?.id
-
-  if (!modelId)
-    throw error(500, 'Model id not found in payload!')
-
-  const models = await client.itemTypes.list()
-  const model = models.find(m => m.id === modelId)
-
-  if (!model)
-    throw error(500, `Model not found with id: ${modelId}`)
-
-  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
-  const record = records[0]
-
-  if (!record)
-    throw error(500, `No record found with modelId: ${modelId} (${model.api_key})`)
-
-  return { record, modelApiKey: model.api_key }
-}
 
 export const basicAuth = (req: Request) => {
 
@@ -40,5 +19,26 @@ export const basicAuth = (req: Request) => {
     throw error(401, 'Unauthorized')
 
   return true;
-
 }
+
+export const itemFromPayload = async (payload: any): Promise<any> => {
+  const modelId = payload?.relationships?.item_type?.data?.id
+
+  if (!modelId)
+    throw error(500, 'Model id not found in payload')
+
+  const models = await client.itemTypes.list()
+  const model = models.find(m => m.id === modelId)
+
+  if (!model)
+    throw error(500, `Model not found with id: ${modelId}`)
+
+  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
+  const record = records[0]
+
+  if (!record)
+    throw error(500, `No record found with modelId: ${modelId} (${model.api_key})`)
+
+  return { record, modelApiKey: model.api_key }
+}
+
