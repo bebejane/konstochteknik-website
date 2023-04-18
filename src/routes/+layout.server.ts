@@ -1,21 +1,18 @@
 import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
 import { AllCommisionersDocument, AllProjectsDocument } from '$graphql';
+import { BYPASS_TOKEN } from '$env/static/private';
 import client from '../client'
 
-export const prerender = 'auto'
-
-type QueryResult = [{
-  data: AllCommisionersQuery,
-}, {
-  data: AllProjectsQuery,
-}]
+export const config = {
+  prerender: 'auto',
+  isr: {
+    expiration: 60,
+    bypassToken: BYPASS_TOKEN,
+  }
+};
 
 export const load = (async ({ cookies }) => {
-
-  //cookies.set('preview', DATOCMS_PREVIEW_SECRET, { path: '/', maxAge: 10 })
   const preview = cookies.get('preview') === DATOCMS_PREVIEW_SECRET
-
-
   if (preview) {
     client.setHeader('X-Include-Drafts', 'true')
     cookies.delete('preview', { path: '/' })
@@ -24,6 +21,8 @@ export const load = (async ({ cookies }) => {
     delete headers['X-Include-Drafts']
     client.requestConfig.headers = headers
   }
+
+  type QueryResult = [{ data: AllCommisionersQuery }, { data: AllProjectsQuery }]
 
   const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([
     { document: AllCommisionersDocument },
