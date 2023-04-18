@@ -4,7 +4,7 @@ import { BYPASS_TOKEN } from '$env/static/private';
 import client from '../client'
 
 export const config = {
-  prerender: 'auto',
+  prerender: false,
   isr: {
     expiration: 60,
     bypassToken: BYPASS_TOKEN,
