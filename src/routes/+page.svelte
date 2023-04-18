@@ -37,7 +37,6 @@
 
 	$: $currentProject = allProjects[index];
 	$: splide?.go(allProjects.findIndex((el) => el.id === $currentProject?.id));
-	$: console.log(showNavigation);
 </script>
 
 <Splide
