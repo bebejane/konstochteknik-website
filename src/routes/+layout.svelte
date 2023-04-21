@@ -2,16 +2,25 @@
 	import "$lib/styles/index.scss";
 	import { currentProject } from "$lib/stores";
 	import About from "./components/About.svelte";
+	export let data;
+
 	let showAbout = false;
+
+	function goHome() {
+		$currentProject = data.allProjects[0] as ProjectRecord;
+	}
+
 	$: color = showAbout ? "var(--white)" : $currentProject?.color?.hex;
 </script>
 
 {#key color}
 	<nav style:color>
 		<h1>
-			<a href="/" data-sveltekit-reload>Konst & Teknik</a>
-			<br />
-			<span><em>Selected Works</em></span>
+			<a href="/" on:click={goHome}
+				>Konst & Teknik
+				<br />
+				<span><em>Selected Works</em></span>
+			</a>
 		</h1>
 		<menu>
 			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}>About</a> ·

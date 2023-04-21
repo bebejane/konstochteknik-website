@@ -1,3 +1,3 @@
 import { writable } from "svelte/store";
 
-export const currentProject = writable<ProjectRecord>();
+export const currentProject = writable<ProjectRecord | undefined>();

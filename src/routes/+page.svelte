@@ -17,8 +17,9 @@
 
 	const options = {
 		pagination: false,
-		type: "slide",
-		track: true,
+		type: "fade",
+		track: false,
+		rewind: true,
 	} as SplideProps;
 
 	let allProjects = data.allProjects as ProjectRecord[];
@@ -31,7 +32,6 @@
 
 	function handleNavigationHover(e: CustomEvent<{ hover: boolean }>) {
 		const target = e.target as HTMLElement;
-		console.log(target.id);
 		showNavigation = e.detail.hover ? target.id : null;
 	}
 
@@ -82,11 +82,16 @@
 
 <style lang="scss">
 	:global(.splide__list) {
+		position: relative;
+		display: block;
 		width: 100%;
 		height: 100vh;
 		cursor: pointer;
 	}
 	:global(.splide__slide) {
+		position: absolute;
+		top: 0;
+		left: 0;
 		height: 100%;
 		width: 100%;
 	}

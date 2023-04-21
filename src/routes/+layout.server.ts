@@ -1,7 +1,6 @@
 import client from '../client'
-import { DATOCMS_PREVIEW_SECRET } from '$env/static/private';
+import { DATOCMS_PREVIEW_SECRET, BYPASS_TOKEN } from '$env/static/private';
 import { AllCommisionersDocument, AllProjectsDocument } from '$graphql';
-import { BYPASS_TOKEN } from '$env/static/private';
 
 export const config = {
   prerender: 'auto',

@@ -1,5 +1,5 @@
 query AllCommisioners {
-	allCommisioners(first: 100) {
+	allCommisioners(first: 100, orderBy: [name_ASC]) {
 		name
 	}
 }
