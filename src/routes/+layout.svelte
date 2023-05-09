@@ -9,12 +9,12 @@
 	function goHome() {
 		$currentProject = data.allProjects[0] as ProjectRecord;
 	}
-
+	let test = "test";
 	$: color = showAbout ? "var(--white)" : $currentProject?.color?.hex;
 </script>
 
-{#key color}
-	<nav style:color>
+<nav style:color class="color-transition">
+	{#key color}
 		<h1>
 			<a href="/" on:click={goHome}
 				>Konst & Teknik
@@ -29,8 +29,8 @@
 			·
 			<a href="https://www.instagram.com/konstteknik">News</a>
 		</menu>
-	</nav>
-{/key}
+	{/key}
+</nav>
 
 <div class="layout">
 	<slot />
@@ -45,6 +45,12 @@
 		max-height: 100vh;
 		min-height: 100vh;
 		overflow: hidden;
+	}
+	:global(.color-transition) {
+		transition: color 2s ease-in-out;
+	}
+	.test {
+		background-color: var(--white);
 	}
 	nav {
 		position: fixed;

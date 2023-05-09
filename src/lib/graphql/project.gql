@@ -38,6 +38,7 @@ query AllProjects {
 						image {
 							...ImageFragment
 						}
+						layout
 						background {
 							...ColorFragment
 						}

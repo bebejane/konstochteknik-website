@@ -7,14 +7,20 @@
 </script>
 
 <div>
-	{#each images as { image, background }}
+	{#each images as { image, background, layout: imageLayout }}
 		{#if image.responsiveImage}
-			<figure class={column} style:background-color={background?.hex}>
+			<figure
+				class={column}
+				style:background-color={background?.hex}
+				class:cover={imageLayout === "cover"}
+			>
 				<Image
 					data={image.responsiveImage}
 					fadeInDuration={500}
 					lazyLoad={false}
-					objectFit={layout === "cover" && images.length === 1 ? "cover" : "contain"}
+					objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover"
+						? "cover"
+						: "contain"}
 					class="image"
 					usePlaceholder={false}
 					pictureClass={`image-${layout}`}
@@ -43,6 +49,7 @@
 		height: 100vh;
 		max-height: 100vh;
 		max-width: 100vw;
+
 		figure {
 			position: relative;
 			height: 100vh;
@@ -55,6 +62,9 @@
 				flex: 0 0 50%;
 				height: 100%;
 				padding: 4%;
+				&.cover {
+					padding: 0;
+				}
 			}
 			&.quad {
 				flex: 0 0 50%;
@@ -71,6 +81,7 @@
 			}
 		}
 	}
+
 	:global(.image) {
 		height: 100%;
 		width: 100%;
@@ -79,7 +90,7 @@
 	:global(.image-cover) {
 		object-fit: cover;
 	}
-	:global(.imave-portrait) {
+	:global(.image-portrait) {
 		object-fit: contain;
 		height: 100%;
 		width: auto;
