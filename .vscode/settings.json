@@ -1,10 +1,10 @@
 {
   "files.exclude": {
-    "$houdini": false,
-    ".vscode": false,
-    ".svelte-kit": false,
-    "node_modules": false
+    "$houdini": true,
+    ".vscode": true,
+    ".svelte-kit": true,
+    "node_modules": true
   },
-  "workspace.isHidden": false,
+  "workspace.isHidden": true,
   "dotenv.enableAutocloaking": false
 }

@@ -5,7 +5,7 @@
 
 <div style:background-color={project?.background?.hex}>
 	<slot />
-	<h2 class={`${project.captionStyle} caption`} style:color={project?.color?.hex}>
+	<h2 class={`${project.captionStyle} caption color-transition`} style:color={project?.color?.hex}>
 		<Markdown source={project.caption} isInline={true} />
 	</h2>
 </div>
