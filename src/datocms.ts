@@ -508,6 +508,7 @@ type ImageSlideRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   backgroundImage?: Maybe<ImageFileField>;
+  backgroundRepeat?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
   images: Array<ImageRecord>;
   layout: Scalars['String'];
