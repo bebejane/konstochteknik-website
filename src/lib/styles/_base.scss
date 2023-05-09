@@ -5,13 +5,7 @@
 	--gray-dark: #818181;
 	--background: var(--white);
 	--foreground: var(--black);
-	--outer-margin: 2rem;
-
-	@include mq($from: tablet) {}
-
-	@include mq($until: tablet) {
-		--outer-margin: 1.5rem;
-	}
+	--outer-margin: 5vw;
 }
 
 body {
@@ -21,7 +15,6 @@ body {
 	color: var(--foreground);
 	background-color: var(--background);
 	font-family: $body-font;
-	font-size: 21px;
 	-webkit-font-smoothing: antialiased;
 	font-feature-settings: "liga", "kern";
 	padding: 0;
@@ -30,7 +23,6 @@ body {
 html {
 	box-sizing: border-box;
 }
-
 
 ::-webkit-scrollbar {
 	-webkit-appearance: none;

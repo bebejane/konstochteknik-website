@@ -23,7 +23,10 @@
 			</a>
 		</h1>
 		<menu>
-			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}>About</a> ·
+			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}
+				>About</a
+			>
+			·
 			<a href="https://www.instagram.com/konstteknik">News</a>
 		</menu>
 	</nav>
@@ -51,7 +54,9 @@
 		align-items: flex-start;
 		width: 100%;
 		z-index: 200;
-		padding: var(--outer-margin);
+		padding-left: var(--outer-margin);
+		padding-right: var(--outer-margin);
+		padding-top: calc(var(--outer-margin) * 0.5);
 		color: var(--black);
 		pointer-events: none;
 	}
