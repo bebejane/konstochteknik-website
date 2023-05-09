@@ -1,16 +1,16 @@
 // FONT EMBEDDING & TYPO VARIABLES
-$body-font: "AnselmTen Regular", Times New Roman, serif;
+$body-font: "AnselmTen", Times New Roman, serif;
 $headline-font: "AnselmTen Regular", Times New Roman, serif;
 
 @font-face {
-  font-family: "AnselmTen Regular";
+  font-family: "AnselmTen";
   src: url(/fonts/AnselmRegular/2F602A_2_0.woff2) format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AnselmTen Italic";
+  font-family: "AnselmTen";
   src: url(/fonts/AnselmItalic/2F5FB4_9_0.woff2) format("woff2");
   font-weight: normal;
   font-style: italic;
