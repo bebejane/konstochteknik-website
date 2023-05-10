@@ -10,7 +10,8 @@
 	--line-height: 1.25;
 
 	@include mq($from: tablet) {
-		--other-margin: 3vw;
+		--other-margin: 1.2rem;
+		--outer-margin: 4vw;
 	}
 }
 
