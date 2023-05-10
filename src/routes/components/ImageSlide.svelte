@@ -4,6 +4,7 @@
 
 	let { layout, images, backgroundImage } = data as ImageSlideRecord;
 	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+	//$: console.log(images);
 </script>
 
 <div>
@@ -22,6 +23,7 @@
 						? "cover"
 						: "contain"}
 					class="image"
+					srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
 					usePlaceholder={false}
 					pictureClass={`image-${layout}`}
 				/>
