@@ -73,6 +73,15 @@
 				flex: 0 0 50%;
 				height: 50%;
 				padding: 4%;
+
+				&.cover {
+					padding: 0;
+				}
+
+				.contain {
+					padding: 0;
+					object-fit: contain !important;
+				}
 			}
 			@include mq($until: tablet) {
 				display: none;
