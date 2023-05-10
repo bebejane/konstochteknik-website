@@ -4,11 +4,15 @@
 	export let active: boolean = false;
 
 	let { backgroundImage, poster } = data as VideoSlideRecord;
-	let video = data.video as VideoRecord & { video: VideoRecord["video"] & { mp4high: string } };
+	let video = data.video as VideoRecord & {
+		video: VideoRecord["video"] & { mp4high: string };
+	};
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
-	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
+	$: process.env.NODE_ENV === "production" && active
+		? player?.play()
+		: player?.pause();
 </script>
 
 <div>
@@ -64,7 +68,7 @@
 				margin: 0;
 			}
 			@include mq($until: tablet) {
-				height: 50vh;
+				height: 70vw;
 			}
 		}
 

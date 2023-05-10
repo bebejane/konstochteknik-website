@@ -3,7 +3,8 @@
 	export let data: any;
 
 	let { layout, images, backgroundImage } = data as ImageSlideRecord;
-	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+	let column =
+		images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
 </script>
 
 <div>
@@ -18,7 +19,8 @@
 					data={image.responsiveImage}
 					fadeInDuration={500}
 					lazyLoad={false}
-					objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover"
+					objectFit={(layout === "cover" && images.length === 1) ||
+					imageLayout === "cover"
 						? "cover"
 						: "contain"}
 					class="image"
@@ -88,7 +90,7 @@
 	}
 
 	:global(.image-cover) {
-		object-fit: cover;
+		object-fit: cover !important;
 	}
 	:global(.image-portrait) {
 		object-fit: contain;
@@ -103,6 +105,11 @@
 	:global(.image-margin) {
 		object-fit: contain;
 		padding: 10%;
+		@include mq($until: tablet) {
+			object-fit: cover;
+			padding: 0%;
+			transform: scale(200%);
+		}
 	}
 	:global(.image-background) {
 		position: absolute !important;

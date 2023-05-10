@@ -5,7 +5,10 @@
 
 <div style:background-color={project?.background?.hex}>
 	<slot />
-	<h2 class={`${project.captionStyle} caption color-transition`} style:color={project?.color?.hex}>
+	<h2
+		class={`${project.captionStyle} caption color-transition`}
+		style:color={project?.color?.hex}
+	>
 		<Markdown source={project.caption} isInline={true} />
 	</h2>
 </div>
@@ -23,17 +26,27 @@
 			left: 50%;
 			bottom: 0;
 			transform: translateX(-50%);
-			margin-bottom: 1rem;
-			padding: 1rem;
-			line-height: 0.5;
+			margin-bottom: var(--other-margin);
+			padding: 0.9rem;
+			padding-bottom: 0.5rem;
+			line-height: 1;
 			border-radius: 3rem;
-			white-space: nowrap;
 			color: var(--black);
 			z-index: 10;
+			width: 100%;
+			text-align: center;
+			@include mq($until: tablet) {
+				line-height: calc(0.9 * var(--line-height));
+				border-radius: 1rem;
+			}
 
 			&.fill {
 				background-color: var(--white);
 				color: var(--black) !important;
+				padding-bottom: 0.7rem;
+				//width: auto;
+				max-width: calc(100% - (2 * var(--other-margin)));
+				margin-right: var(--other-margin);
 			}
 
 			&.transparent {

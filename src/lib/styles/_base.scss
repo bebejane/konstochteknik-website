@@ -6,6 +6,12 @@
 	--background: var(--white);
 	--foreground: var(--black);
 	--outer-margin: 5vw;
+	--other-margin: 5vw;
+	--line-height: 1.25;
+
+	@include mq($from: tablet) {
+		--other-margin: 3vw;
+	}
 }
 
 body {

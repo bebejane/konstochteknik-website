@@ -47,7 +47,7 @@
 		overflow: hidden;
 	}
 	:global(.color-transition) {
-		transition: color 2s ease-in-out;
+		transition: color 0.8s;
 	}
 	.test {
 		background-color: var(--white);
@@ -62,7 +62,7 @@
 		z-index: 200;
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
-		padding-top: calc(var(--outer-margin) * 0.5);
+		padding-top: var(--other-margin);
 		color: var(--black);
 		pointer-events: none;
 	}
@@ -82,6 +82,7 @@
 		padding: 0;
 		margin: 0;
 		text-align: right;
+		line-height: var(--line-height);
 	}
 	a {
 		color: inherit;
