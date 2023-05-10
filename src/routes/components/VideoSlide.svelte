@@ -3,19 +3,19 @@
 	export let data: any;
 	export let active: boolean = false;
 
-	let { backgroundImage, poster } = data as VideoSlideRecord;
-	let video = data.video as VideoRecord & {
-		video: VideoRecord["video"] & { mp4high: string };
-	};
+	let { backgroundImage, poster, css } = data as VideoSlideRecord;
+	let video = data.video as VideoRecord & { video: VideoRecord["video"] & { mp4high: string } };
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
-	$: process.env.NODE_ENV === "production" && active
-		? player?.play()
-		: player?.pause();
+	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
 </script>
 
-<div>
+<div
+	style={`${backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000);` : ""} ${
+		css ?? ""
+	}`}
+>
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
 		<video poster={poster?.url} muted bind:this={player}>
@@ -23,14 +23,6 @@
 			<track kind="captions" />
 		</video>
 	</div>
-
-	{#if backgroundImage?.responsiveImage}
-		<Image
-			data={backgroundImage.responsiveImage}
-			class="video-background-image"
-			objectFit="cover"
-		/>
-	{/if}
 </div>
 
 <style lang="scss">

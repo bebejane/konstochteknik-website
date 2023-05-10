@@ -2,9 +2,9 @@
 	import { Image } from "@datocms/svelte";
 	export let data: any;
 
-	let { layout, images, backgroundImage } = data as ImageSlideRecord;
-	let column =
-		images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+	let { layout, images, backgroundImage, css } = data as ImageSlideRecord;
+	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+	//$: console.log(images);
 </script>
 
 <div>
@@ -12,15 +12,17 @@
 		{#if image.responsiveImage}
 			<figure
 				class={column}
-				style:background-color={background?.hex}
 				class:cover={imageLayout === "cover"}
+				style:background-color={background?.hex}
+				style={`${backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000);` : ""} ${
+					css ?? ""
+				}`}
 			>
 				<Image
 					data={image.responsiveImage}
 					fadeInDuration={500}
 					lazyLoad={false}
-					objectFit={(layout === "cover" && images.length === 1) ||
-					imageLayout === "cover"
+					objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover"
 						? "cover"
 						: "contain"}
 					class="image"
@@ -31,15 +33,6 @@
 			</figure>
 		{/if}
 	{/each}
-	{#if backgroundImage?.responsiveImage}
-		<Image
-			data={backgroundImage.responsiveImage}
-			fadeInDuration={500}
-			class="image-background"
-			objectFit="cover"
-			lazyLoad={true}
-		/>
-	{/if}
 </div>
 
 <style lang="scss">
@@ -58,6 +51,10 @@
 			height: 100vh;
 			width: 100%;
 			z-index: 1;
+			background-repeat: repeat;
+			background-size: cover;
+			background-position: center;
+
 			&.single {
 				flex: 1 1 100%;
 			}
