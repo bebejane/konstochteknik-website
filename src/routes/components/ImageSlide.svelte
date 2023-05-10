@@ -24,6 +24,7 @@
 						? "cover"
 						: "contain"}
 					class="image"
+					srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
 					usePlaceholder={false}
 					pictureClass={`image-${layout}`}
 				/>

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { buildClient } from '@datocms/cma-client-node';
+import { buildClient } from '@datocms/cma-client';
 import { DATOCMS_API_TOKEN, BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } from '$env/static/private';
 
 const client = buildClient({ apiToken: DATOCMS_API_TOKEN });

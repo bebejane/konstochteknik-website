@@ -23,9 +23,7 @@
 			</a>
 		</h1>
 		<menu>
-			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}
-				>About</a
-			>
+			<a href="/about" on:click|preventDefault={() => (showAbout = !showAbout)}>About</a>
 			·
 			<a href="https://www.instagram.com/konstteknik">News</a>
 		</menu>
@@ -49,9 +47,7 @@
 	:global(.color-transition) {
 		transition: color 0.8s;
 	}
-	.test {
-		background-color: var(--white);
-	}
+
 	nav {
 		position: fixed;
 		top: 0;

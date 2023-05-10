@@ -6,7 +6,7 @@ fragment ImageFragment on ImageFileField {
 	alt
 	height
 	width
-	responsiveImage(imgixParams: { auto: format }) {
+	responsiveImage {
 		src
 		width
 		height

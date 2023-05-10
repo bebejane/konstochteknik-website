@@ -13,6 +13,7 @@
     "update-all": "tsx ./src/lib/server/scripts/update-all.ts"
   },
   "dependencies": {
+    "@datocms/cma-client": "^1.3.4",
     "@datocms/svelte": "github:bebejane/datocms-svelte",
     "@splidejs/splide": "^4.1.4",
     "@splidejs/svelte-splide": "^0.2.9",
