@@ -68,6 +68,9 @@
 				&.cover {
 					padding: 0;
 				}
+				:global(.image-margin) {
+					padding: 0 !important;
+				}
 			}
 			&.quad {
 				flex: 0 0 50%;
