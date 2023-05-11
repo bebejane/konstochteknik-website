@@ -5,13 +5,11 @@
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
 	import { currentProject } from "$lib/stores";
 	import { Slide, ImageSlide, VideoSlide } from "./components";
-	import { hoverAction, mediaQuery } from "svelte-legos";
+	import { hoverAction } from "svelte-legos";
 
 	export let data;
 
 	let splide: Splide;
-
-	const isMobile = mediaQuery("(max-width: 768px)");
 
 	const blocks = {
 		ImageSlideRecord: ImageSlide,
@@ -24,7 +22,7 @@
 
 	const options = {
 		pagination: false,
-		type: "slide",
+		type: "loop",
 		track: false,
 		perPage: 1,
 		perMove: 1,
