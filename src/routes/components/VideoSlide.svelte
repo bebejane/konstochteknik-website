@@ -7,7 +7,6 @@
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
-	$: console.log(process.env.NODE_ENV === "production", active, player);
 	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
 </script>
 
@@ -18,7 +17,7 @@
 >
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
-		<video poster={poster?.url} muted bind:this={player} playsinline>
+		<video poster={poster?.url} bind:this={player} muted playsinline>
 			<source {src} type="video/mp4" />
 			<track kind="captions" />
 		</video>

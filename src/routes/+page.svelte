@@ -24,8 +24,10 @@
 
 	const options = {
 		pagination: false,
-		type: $isMobile ? "slide" : "fade",
+		type: "slide",
 		track: false,
+		perPage: 1,
+		perMove: 1,
 		rewind: true,
 		rewindSpeed: 0,
 	} as SplideProps;
@@ -39,28 +41,31 @@
 		showNavigation = e.detail.hover ? target.id : null;
 	}
 
+	//$: $isMobile || splide.sync(splide);
 	$: $currentProject = allProjects[index];
 	$: splide?.go(allProjects.findIndex((el) => el.id === $currentProject?.id));
 </script>
 
-<Splide
-	aria-label="Konst & Teknik"
-	bind:this={splide}
-	on:click={handleClick}
-	on:move={(e) => e && (index = e.detail.index)}
-	{options}
->
-	{#each allProjects as project, idx}
-		{@const data = project.slide[0]}
-		{#if data.__typename}
-			<SplideSlide style={`background-color:${project.color?.hex}`}>
-				<Slide {project} active={idx === index}>
-					<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
-				</Slide>
-			</SplideSlide>
-		{/if}
-	{/each}
-</Splide>
+{#key options}
+	<Splide
+		aria-label="Konst & Teknik"
+		bind:this={splide}
+		on:click={handleClick}
+		on:move={(e) => e && (index = e.detail.index)}
+		{options}
+	>
+		{#each allProjects as project, idx}
+			{@const data = project.slide[0]}
+			{#if data.__typename}
+				<SplideSlide style={`background-color:${project.color?.hex}`}>
+					<Slide {project} active={idx === index}>
+						<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
+					</Slide>
+				</SplideSlide>
+			{/if}
+		{/each}
+	</Splide>
+{/key}
 
 <button
 	id="prev"
@@ -93,8 +98,9 @@
 		height: 100dvh;
 		cursor: pointer;
 	}
+
 	:global(.splide__slide) {
-		position: absolute;
+		position: relative;
 		top: 0;
 		left: 0;
 		height: 100%;
