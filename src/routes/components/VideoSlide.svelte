@@ -7,6 +7,7 @@
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
+	$: console.log(process.env.NODE_ENV === "production", active, player);
 	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
 </script>
 
