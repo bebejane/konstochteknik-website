@@ -3,7 +3,8 @@
 	export let data: any;
 
 	let { layout, images, backgroundImage, css } = data as ImageSlideRecord;
-	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
+	let column =
+		images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
 </script>
 
 <div>
@@ -13,15 +14,18 @@
 				class={column}
 				class:cover={imageLayout === "cover"}
 				style:background-color={background?.hex}
-				style={`${backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000);` : ""} ${
-					css ?? ""
-				}`}
+				style={`${
+					backgroundImage
+						? `background-image:url(${backgroundImage?.url}?w=2000);`
+						: ""
+				} ${css ?? ""}`}
 			>
 				<Image
 					data={image.responsiveImage}
 					fadeInDuration={500}
 					lazyLoad={false}
-					objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover"
+					objectFit={(layout === "cover" && images.length === 1) ||
+					imageLayout === "cover"
 						? "cover"
 						: "contain"}
 					class="image"
@@ -69,6 +73,7 @@
 				flex: 0 0 50%;
 				height: 50%;
 				padding: 4%;
+				object-fit: contain !important;
 
 				&.cover {
 					padding: 0;
