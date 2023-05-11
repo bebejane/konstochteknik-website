@@ -18,7 +18,7 @@
 >
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
-		<video poster={poster?.url} muted bind:this={player}>
+		<video poster={poster?.url} muted bind:this={player} playsinline>
 			<source {src} type="video/mp4" />
 			<track kind="captions" />
 		</video>
