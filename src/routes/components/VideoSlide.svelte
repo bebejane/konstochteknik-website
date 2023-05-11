@@ -52,6 +52,7 @@
 				top: 4%;
 				width: 93.6%;
 				border-radius: 2px;
+				pointer-events: none;
 			}
 			video[poster] {
 				max-height: calc(72.5%);

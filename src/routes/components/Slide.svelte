@@ -22,8 +22,9 @@
 	div {
 		position: relative;
 		height: 100%;
+		height: 100dvh;
 		width: 100%;
-		max-height: 100vh;
+		max-height: 100dvh;
 		max-width: 100vw;
 
 		h2 {

@@ -27,6 +27,7 @@
 		type: $isMobile ? "slide" : "fade",
 		track: false,
 		rewind: true,
+		rewindSpeed: 0,
 	} as SplideProps;
 
 	function handleClick() {
@@ -89,7 +90,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		height: 100vh;
+		height: 100dvh;
 		cursor: pointer;
 	}
 	:global(.splide__slide) {
