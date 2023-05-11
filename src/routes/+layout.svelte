@@ -40,8 +40,7 @@
 
 <style lang="scss">
 	.layout {
-		max-height: 100vh;
-		min-height: 100vh;
+		max-height: 100dvh;
 		overflow: hidden;
 	}
 	:global(.color-transition) {
