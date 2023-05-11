@@ -34,6 +34,9 @@
 		width: 100vw;
 		height: 100vh;
 		max-width: 100vw;
+		background-repeat: repeat;
+		background-size: cover;
+		background-position: center;
 
 		.monitor {
 			position: absolute;
