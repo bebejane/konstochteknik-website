@@ -1,16 +1,21 @@
 <script lang="ts">
 	import Markdown from "svelte-markdown";
+	import { fade } from "svelte/transition";
 	export let project: ProjectRecord;
+	export let active: boolean;
 </script>
 
 <div style:background-color={project?.background?.hex}>
 	<slot />
-	<h2
-		class={`${project.captionStyle} caption color-transition`}
-		style:color={project?.color?.hex}
-	>
-		<Markdown source={project.caption} isInline={true} />
-	</h2>
+	{#if active}
+		<h2
+			class={`${project.captionStyle} caption color-transition`}
+			style:color={project?.color?.hex}
+			transition:fade={{ duration: 800 }}
+		>
+			<Markdown source={project.caption} isInline={true} />
+		</h2>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -36,6 +41,7 @@
 			color: var(--black);
 			z-index: 10;
 			text-align: center;
+
 			@include mq($from: tablet) {
 				white-space: nowrap;
 			}

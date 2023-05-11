@@ -5,26 +5,29 @@
 	import type { SplideProps } from "@splidejs/svelte-splide/components/Splide/Splide.svelte";
 	import { currentProject } from "$lib/stores";
 	import { Slide, ImageSlide, VideoSlide } from "./components";
-	import { hoverAction } from "svelte-legos";
+	import { hoverAction, mediaQuery } from "svelte-legos";
 
 	export let data;
 
 	let splide: Splide;
+
+	const isMobile = mediaQuery("(max-width: 768px)");
+
 	const blocks = {
 		ImageSlideRecord: ImageSlide,
 		VideoSlideRecord: VideoSlide,
 	};
 
-	const options = {
-		pagination: false,
-		type: "fade",
-		track: false,
-		rewind: true,
-	} as SplideProps;
-
 	let allProjects = data.allProjects as ProjectRecord[];
 	let index: number = 0;
 	let showNavigation: string | null = null;
+
+	const options = {
+		pagination: false,
+		type: $isMobile ? "slide" : "fade",
+		track: false,
+		rewind: true,
+	} as SplideProps;
 
 	function handleClick() {
 		splide.go("+1");
@@ -50,7 +53,7 @@
 		{@const data = project.slide[0]}
 		{#if data.__typename}
 			<SplideSlide style={`background-color:${project.color?.hex}`}>
-				<Slide {project}>
+				<Slide {project} active={idx === index}>
 					<svelte:component this={blocks[data.__typename]} {data} active={idx === index} />
 				</Slide>
 			</SplideSlide>
@@ -83,7 +86,8 @@
 <style lang="scss">
 	:global(.splide__list) {
 		position: relative;
-		display: block;
+		display: flex;
+		flex-direction: row;
 		width: 100%;
 		height: 100vh;
 		cursor: pointer;
@@ -94,6 +98,9 @@
 		left: 0;
 		height: 100%;
 		width: 100%;
+		@include mq($until: tablet) {
+			position: relative;
+		}
 	}
 	:global(.splide__arrow) {
 		display: none;

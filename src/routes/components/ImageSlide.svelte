@@ -4,7 +4,6 @@
 
 	let { layout, images, backgroundImage, css } = data as ImageSlideRecord;
 	let column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
-	//$: console.log(images);
 </script>
 
 <div>
