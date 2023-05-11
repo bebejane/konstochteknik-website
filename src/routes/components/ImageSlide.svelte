@@ -31,7 +31,7 @@
 					class="image"
 					srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
 					usePlaceholder={false}
-					pictureClass={`image-${imageLayout ?? layout}`}
+					pictureClass={`image-${imageLayout || layout}`}
 				/>
 			</figure>
 		{/if}
