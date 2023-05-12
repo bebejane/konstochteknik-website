@@ -48,6 +48,10 @@
 		height: 100vh;
 		max-height: 100vh;
 		max-width: 100vw;
+		@include mq($until: tablet) {
+			max-height: 100dvh;
+			height: 100dvh;
+		}
 
 		figure {
 			position: relative;
@@ -57,6 +61,10 @@
 			background-repeat: repeat;
 			background-size: cover;
 			background-position: center;
+
+			@include mq($until: tablet) {
+				height: 100dvh;
+			}
 
 			&.single {
 				flex: 1 1 100%;
@@ -127,7 +135,6 @@
 		@include mq($until: tablet) {
 			object-fit: cover;
 			padding: 0%;
-			transform: scale(200%);
 		}
 	}
 	:global(.image-background) {

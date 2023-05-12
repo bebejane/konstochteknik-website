@@ -3,17 +3,23 @@
 	export let active: boolean = false;
 
 	let { backgroundImage, poster, css } = data as VideoSlideRecord;
-	let video = data.video as VideoRecord & { video: VideoRecord["video"] & { mp4high: string } };
+	let video = data.video as VideoRecord & {
+		video: VideoRecord["video"] & { mp4high: string };
+	};
 	let src = video.video?.mp4high;
 	let player: HTMLVideoElement;
 
-	$: process.env.NODE_ENV === "production" && active ? player?.play() : player?.pause();
+	$: process.env.NODE_ENV === "production" && active
+		? player?.play()
+		: player?.pause();
 </script>
 
 <div
-	style={`${backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000);` : ""} ${
-		css ?? ""
-	}`}
+	style={`${
+		backgroundImage
+			? `background-image:url(${backgroundImage?.url}?w=2000);`
+			: ""
+	} ${css ?? ""}`}
 >
 	<div class="monitor">
 		<img src="/images/monitor.png" alt="monitor" />
@@ -37,6 +43,9 @@
 		background-repeat: repeat;
 		background-size: cover;
 		background-position: center;
+		@include mq($until: tablet) {
+			height: 100dvh;
+		}
 
 		.monitor {
 			position: absolute;
