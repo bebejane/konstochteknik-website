@@ -1,162 +1,79 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { fly, fade, scale } from "svelte/transition";
-	import {
-		cubicIn,
-		linear as defaultEasing,
-		cubicInOut,
-		expoOut,
-		elasticInOut,
-		quadInOut,
-	} from "svelte/easing";
-	import type { EasingFunction, TransitionConfig } from "svelte/transition";
+	import { Image } from "@datocms/svelte";
+	import Markdown from "svelte-markdown";
 
-	let bricks = 200;
-
-	type Params = {
-		delay?: number;
-		duration?: number;
-		easing?: EasingFunction;
-		index?: number;
-	};
-	type Options = {
-		direction?: "in" | "out" | "both";
-	};
-
-	function cube(
-		node: Element,
-		{ delay = 0, duration = 1000, easing = defaultEasing, index = -1 }: Params = {},
-		{ direction = "both" }: Options = {}
-	): TransitionConfig {
-		return {
-			delay,
-			duration,
-			easing,
-			css: (t) => `
-        opacity: ${t > index / bricks ? 1 : 0}`,
-		};
-	}
+	let about = $page.data.about;
 </script>
 
 <div id="about">
-	<content in:fade={{ delay: 300 }} out:fade={{ duration: 200 }}>
-		<div>
-			<p>
-				Konst & Teknik is a digital design studio based in Stockholm, founded in 2006 by Mattias
-				Jakobsson and <a href="https://harald.peter.stream">Peter Ström</a>.
-			</p>
-			<p>
-				The studio works within a wide range of projects, often in the intersection of on- and
-				offline, for both commercial and cultural commissioners. We design books, visual identities,
-				typefaces, and develop websites, digital products and services. We also teach, give lectures
-				and host events — on our own, or in close collaboration with fellow specialists.
-			</p>
-			<p>
-				If you are interested in a collaboration, please contact us at <a
-					href="mailto:info@konst-teknik.se"><em>info@konst-teknik.se</em></a
-				>.
-			</p>
-			<p>Or reach out to one of us directly:</p>
-			<div>
-				<div>
-					<p>
-						Mattias Jakobsson<br />
-						<a href="mailto:mattias@konst-teknik.se"><em>mattias@konst-teknik.se</em></a><br />
-						+46 702 644 238
-					</p>
-				</div>
-				<div class="half contact">
-					<p class="space-before">
-						<a href="http://www.haraldpeter.se" target="_blank">Peter Ström</a><br />
-						<a href="mailto:peter@konst-teknik.se"><em>peter@kon.st</em></a><br />
-						+46 706 531 175
-					</p>
-				</div>
-			</div>
-			<p>
-				Visitors and post are welcome to Konst & Teknik, <a
-					href="http://www.rutgerfuchsgatan9.se"
-					target="_blank"
-					rel="noreferrer">Rutger Fuchsgatan 9</a
-				>, 11667 Stockholm, Sweden
-			</p>
-		</div>
-		<div>
-			<h3>A selection of our commisioners</h3>
-			<br />
-			<ul>
-				{#each $page.data.allCommisioners as commisioner}
-					<li>{commisioner.name}</li>
-				{/each}
-			</ul>
-		</div>
-	</content>
-	<div id="about-bg">
-		{#each new Array(bricks) as _, i (i)}
-			<div
-				class="about-bg-item"
-				style:--width={bricks / 40}
-				in:cube={{ index: i, duration: 300 }}
-				out:cube={{ index: i, duration: 300 }}
-				style:transform={`translateX(${Math.random() * 4}px) translateY(${
-					Math.random() * 4
-				}px) rotate(${Math.random() * 1}deg)`}
-			/>
-		{/each}
+	<Image data={about.image.responsiveImage} />
+	<div id="content">
+		<Markdown source={about.intro} isInline={true} />
+		<p>Or reach out to one of us directly:</p>
+		<p>
+			Mattias Jakobsson<br />
+			<a href="mailto:mattias@konst-teknik.se"><em>mattias@konst-teknik.se</em></a><br />
+			+46 702 644 238
+		</p>
+		<p>
+			<a href="http://www.haraldpeter.se" target="_blank">Peter Ström</a><br />
+			<a href="mailto:peter@konst-teknik.se"><em>peter@kon.st</em></a><br />
+			+46 706 531 175
+		</p>
+		<p>
+			Visitors and post are welcome to Konst & Teknik, <a
+				href="http://www.rutgerfuchsgatan9.se"
+				target="_blank"
+				rel="noreferrer">Rutger Fuchsgatan 9</a
+			>, 11667 Stockholm, Sweden
+		</p>
+		<h3>A selection of our commissioners</h3>
+		<br />
+		<ul>
+			{#each $page.data.allCommisioners as commisioner}
+				<li>{commisioner.name}</li>
+			{/each}
+		</ul>
 	</div>
 </div>
 
 <style lang="scss">
 	#about {
-		@keyframes backdrop {
-			from {
-				backdrop-filter: grayscale(0) brightness(1);
-			}
-			to {
-				backdrop-filter: grayscale(0.5) brightness(0.6);
-			}
-		}
-	}
-	#about,
-	#about-bg,
-	content {
-		position: absolute;
+		position: fixed;
 		display: flex;
 		flex-direction: row;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 100;
-		overflow-y: scroll;
-	}
-	#about-bg {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		.about-bg-item {
-			background-color: var(--black);
-			flex: 0 0 calc(var(--width) * 1%);
-			//border: 2px solid transparent;
-		}
-	}
-	content {
-		padding: var(--outer-margin);
-		padding-top: calc(var(--outer-margin) * 4);
-		color: var(--white) !important;
-		z-index: 101;
-		a {
-			color: var(--white);
-		}
+		z-index: var(--z-index-about);
+		background-color: var(--black);
+
 		> div {
 			flex: 0 0 50%;
 		}
-		ul {
-			list-style: none;
-			column-count: 2;
+		#content {
+			padding: var(--outer-margin);
+			padding-top: calc(var(--outer-margin) * 2);
+			color: var(--white) !important;
+			z-index: 101;
+			max-height: 100vh;
+			overflow-y: scroll;
+			a {
+				color: var(--white) !important;
+			}
+			> div {
+				flex: 0 0 50%;
+			}
+			ul {
+				list-style: none;
+				column-count: 2;
+			}
 		}
+	}
+
+	:global(#content a) {
+		color: var(--white) !important;
 	}
 </style>

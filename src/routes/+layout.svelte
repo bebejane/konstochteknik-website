@@ -2,6 +2,7 @@
 	import "$lib/styles/index.scss";
 	import { currentProject } from "$lib/stores";
 	import About from "./components/About.svelte";
+
 	export let data;
 
 	let showAbout = false;
@@ -9,7 +10,7 @@
 	function goHome() {
 		$currentProject = data.allProjects[0] as ProjectRecord;
 	}
-	let test = "test";
+
 	$: color = showAbout ? "var(--white)" : $currentProject?.color?.hex;
 </script>
 
@@ -54,7 +55,7 @@
 		flex-direction: row;
 		align-items: flex-start;
 		width: 100%;
-		z-index: 200;
+		z-index: var(--z-index-menu);
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
 		padding-top: var(--other-margin);

@@ -1,6 +1,6 @@
 import client from '../client'
 import { DATOCMS_PREVIEW_SECRET, BYPASS_TOKEN } from '$env/static/private';
-import { AllCommisionersDocument, AllProjectsDocument } from '$graphql';
+import { AllCommisionersDocument, AllProjectsDocument, AboutDocument } from '$graphql';
 
 export const config = {
   prerender: 'auto',
@@ -21,15 +21,17 @@ export const load = (async ({ cookies }) => {
     client.requestConfig.headers = headers
   }
 
-  type QueryResult = [{ data: AllCommisionersQuery }, { data: AllProjectsQuery }]
+  type QueryResult = [{ data: AllCommisionersQuery }, { data: AllProjectsQuery }, { data: AboutQuery }]
 
-  const [{ data: { allCommisioners } }, { data: { allProjects } }] = await client.batchRequests<QueryResult>([
+  const [{ data: { allCommisioners } }, { data: { allProjects } }, { data: { about } }] = await client.batchRequests<QueryResult>([
     { document: AllCommisionersDocument },
-    { document: AllProjectsDocument }
+    { document: AllProjectsDocument },
+    { document: AboutDocument }
   ])
 
   return {
     allProjects,
-    allCommisioners
+    allCommisioners,
+    about
   };
 }) 
