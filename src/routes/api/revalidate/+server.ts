@@ -1,12 +1,12 @@
 import { json } from '@sveltejs/kit';
-import { BYPASS_TOKEN, BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, DATOCMS_API_TOKEN } from '$env/static/private';
+import { BYPASS_TOKEN } from '$env/static/private';
 import { itemFromPayload, basicAuth } from './utils';
-import type { Config } from '@sveltejs/adapter-vercel';
+import type { EdgeConfig } from '@sveltejs/adapter-vercel';
 
-export const config: Config = {
+export const config: EdgeConfig = {
   runtime: 'edge',
   regions: 'all',
-  envVarsInUse: [BYPASS_TOKEN, BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, DATOCMS_API_TOKEN]
+  //envVarsInUse: [BYPASS_TOKEN, BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, DATOCMS_API_TOKEN]
 };
 
 export async function POST({ request, fetch }) {

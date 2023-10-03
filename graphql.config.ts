@@ -26,7 +26,7 @@ module.exports = {
 		codegen: {
 			overwrite: true,
 			generates: {
-				"src/datocms.ts": {
+				"src/datocms.d.ts": {
 					plugins: ["typescript", "typescript-operations"],
 					config: { ...config, noExport: true },
 				},

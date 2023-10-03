@@ -25,7 +25,7 @@
 
 {#if blockType && slide}
 	{#key slug}
-		<Slide {project}>
+		<Slide {project} active={true}>
 			<svelte:component this={blocks[blockType]} data={slide} active={true} />
 		</Slide>
 	{/key}
