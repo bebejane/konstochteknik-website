@@ -7,7 +7,7 @@
 </script>
 
 <div id="about">
-	<Image data={about.image.responsiveImage} />
+	<Image data={about.image.responsiveImage} objectFit="cover" />
 	<div id="content">
 		<Markdown source={about.intro} isInline={true} />
 		<p>Or reach out to one of us directly:</p>
@@ -29,7 +29,6 @@
 			>, 11667 Stockholm, Sweden
 		</p>
 		<h3>A selection of our commissioners</h3>
-		<br />
 		<ul>
 			{#each $page.data.allCommisioners as commisioner}
 				<li>{commisioner.name}</li>
@@ -53,6 +52,7 @@
 		> div {
 			flex: 0 0 50%;
 		}
+
 		#content {
 			padding: var(--outer-margin);
 			padding-top: calc(var(--outer-margin) * 2);
