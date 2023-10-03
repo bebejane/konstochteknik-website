@@ -51,7 +51,7 @@ devDependencies:
     version: 2.0.1
   '@graphql-codegen/cli':
     specifier: ^5.0.0
-    version: 5.0.0(graphql@15.8.0)(typescript@5.0.4)
+    version: 5.0.0(graphql@15.8.0)(typescript@5.2.2)
   '@graphql-codegen/typed-document-node':
     specifier: ^5.0.1
     version: 5.0.1(graphql@15.8.0)
@@ -89,8 +89,8 @@ devDependencies:
     specifier: ^3.12.6
     version: 3.12.7
   typescript:
-    specifier: ^5.0.0
-    version: 5.0.4
+    specifier: ^5.1.6
+    version: 5.2.2
   vite:
     specifier: ^4.4.9
     version: 4.4.9(sass@1.68.0)
@@ -1360,7 +1360,7 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /@graphql-codegen/cli@5.0.0(graphql@15.8.0)(typescript@5.0.4):
+  /@graphql-codegen/cli@5.0.0(graphql@15.8.0)(typescript@5.2.2):
     resolution: {integrity: sha512-A7J7+be/a6e+/ul2KI5sfJlpoqeqwX8EzktaKCeduyVKgOLA6W5t+NUGf6QumBDXU8PEOqXk3o3F+RAwCWOiqA==}
     hasBin: true
     peerDependencies:
@@ -1387,11 +1387,11 @@ packages:
       '@graphql-tools/utils': 10.0.6(graphql@15.8.0)
       '@whatwg-node/fetch': 0.8.8
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.0.4)
+      cosmiconfig: 8.3.6(typescript@5.2.2)
       debounce: 1.2.1
       detect-indent: 6.1.0
       graphql: 15.8.0
-      graphql-config: 5.0.2(graphql@15.8.0)(typescript@5.0.4)
+      graphql-config: 5.0.2(graphql@15.8.0)(typescript@5.2.2)
       inquirer: 8.2.5
       is-glob: 4.0.3
       jiti: 1.18.2
@@ -2876,7 +2876,7 @@ packages:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
 
-  /cosmiconfig@8.3.6(typescript@5.0.4):
+  /cosmiconfig@8.3.6(typescript@5.2.2):
     resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2889,7 +2889,7 @@ packages:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
-      typescript: 5.0.4
+      typescript: 5.2.2
     dev: true
 
   /cross-fetch@3.1.5:
@@ -3368,7 +3368,7 @@ packages:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
     dev: true
 
-  /graphql-config@5.0.2(graphql@15.8.0)(typescript@5.0.4):
+  /graphql-config@5.0.2(graphql@15.8.0)(typescript@5.2.2):
     resolution: {integrity: sha512-7TPxOrlbiG0JplSZYCyxn2XQtqVhXomEjXUmWJVSS5ET1nPhOJSsIb/WTwqWhcYX6G0RlHXSj9PLtGTKmxLNGg==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
@@ -3384,7 +3384,7 @@ packages:
       '@graphql-tools/merge': 9.0.0(graphql@15.8.0)
       '@graphql-tools/url-loader': 8.0.0(graphql@15.8.0)
       '@graphql-tools/utils': 10.0.6(graphql@15.8.0)
-      cosmiconfig: 8.3.6(typescript@5.0.4)
+      cosmiconfig: 8.3.6(typescript@5.2.2)
       graphql: 15.8.0
       jiti: 1.18.2
       minimatch: 4.2.3
@@ -5105,8 +5105,8 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.2.1
-      svelte-preprocess: 5.0.4(@babel/core@7.21.8)(sass@1.68.0)(svelte@4.2.1)(typescript@5.0.4)
-      typescript: 5.0.4
+      svelte-preprocess: 5.0.4(@babel/core@7.21.8)(sass@1.68.0)(svelte@4.2.1)(typescript@5.2.2)
+      typescript: 5.2.2
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -5175,7 +5175,7 @@ packages:
       svelte: 4.2.1
     dev: false
 
-  /svelte-preprocess@5.0.4(@babel/core@7.21.8)(sass@1.68.0)(svelte@4.2.1)(typescript@5.0.4):
+  /svelte-preprocess@5.0.4(@babel/core@7.21.8)(sass@1.68.0)(svelte@4.2.1)(typescript@5.2.2):
     resolution: {integrity: sha512-ABia2QegosxOGsVlsSBJvoWeXy1wUKSfF7SWJdTjLAbx/Y3SrVevvvbFNQqrSJw89+lNSsM58SipmZJ5SRi5iw==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -5221,7 +5221,7 @@ packages:
       sorcery: 0.11.0
       strip-indent: 3.0.0
       svelte: 4.2.1
-      typescript: 5.0.4
+      typescript: 5.2.2
     dev: true
 
   /svelte@4.2.1:
@@ -5351,9 +5351,9 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /typescript@5.0.4:
-    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
-    engines: {node: '>=12.20'}
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 
@@ -5516,7 +5516,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       vite: ^2.7.0 || ^3.0.0 || ^4.0.0
     dependencies:
-      '@graphql-codegen/cli': 5.0.0(graphql@15.8.0)(typescript@5.0.4)
+      '@graphql-codegen/cli': 5.0.0(graphql@15.8.0)(typescript@5.2.2)
       graphql: 15.8.0
       vite: 4.4.9(sass@1.68.0)
     dev: true
