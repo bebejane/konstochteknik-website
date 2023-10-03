@@ -30,6 +30,7 @@
 		</Slide>
 	{/key}
 {/if}
+
 <a href={prev} class="prev">&nbsp;</a>
 <a href={next} class="next">&nbsp;</a>
 
