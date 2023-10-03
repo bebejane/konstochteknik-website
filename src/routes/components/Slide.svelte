@@ -3,7 +3,6 @@
 	import { fade } from "svelte/transition";
 	export let project: ProjectRecord;
 	export let active: boolean;
-	$: console.log(project?.caption);
 </script>
 
 <div style:background-color={project?.background?.hex}>
