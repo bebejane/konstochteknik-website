@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   return await webPreviews(req, async ({ item, itemType }) => {
     const paths = await buildRoute(itemType.attributes.api_key, item.attributes)
     if (!paths) return null
-    return `${paths[0]}?secret=${process.env.DATOCMS_PREVIEW_SECRET}`
+    return `${Array.isArray(paths) ? paths : [paths]}?secret=${process.env.DATOCMS_PREVIEW_SECRET}`
   })
 }
 
