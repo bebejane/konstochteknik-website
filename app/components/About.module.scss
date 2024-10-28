@@ -1,0 +1,45 @@
+.about {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-index-about);
+  background-color: var(--black);
+  color: var(--white);
+  opacity: 0;
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  >div {
+    flex: 0 0 50%;
+  }
+
+  .content {
+    padding: var(--outer-margin);
+    padding-top: calc(var(--outer-margin) * 2);
+    color: var(--white) !important;
+    z-index: 101;
+    max-height: 100vh;
+    overflow-y: scroll;
+
+    a {
+      color: var(--white) !important;
+    }
+
+    >div {
+      flex: 0 0 50%;
+    }
+
+    ul {
+      list-style: none;
+      column-count: 2;
+    }
+  }
+}

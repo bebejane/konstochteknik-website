@@ -1,0 +1,141 @@
+@use "fonts";
+@use "mediaqueries";
+
+:root {
+	--black: #161616;
+	--white: #fcfcfc;
+	--gray: #d7d7d7;
+	--gray-dark: #818181;
+	--background: var(--white);
+	--foreground: var(--black);
+	--outer-margin: 5vw;
+	--other-margin: 5vw;
+	--line-height: 1.25;
+
+	--z-index-menu: 1000;
+	--z-index-about: 900;
+
+	--body-font: "AnselmTen", Times New Roman, serif;
+	--headline-font: "AnselmTen", Times New Roman, serif;
+
+	@include mq($from: tablet) {
+		--other-margin: 1.2rem;
+		--outer-margin: 4vw;
+	}
+}
+
+body {
+	width: 100%;
+	font-size: 100%;
+	line-height: 1em;
+	color: var(--foreground);
+	background-color: var(--background);
+	font-family: var(--body-font);
+	-webkit-font-smoothing: antialiased;
+	font-feature-settings: "liga", "kern";
+
+}
+
+html {
+	box-sizing: border-box;
+}
+
+main {}
+
+::-webkit-scrollbar {
+	-webkit-appearance: none;
+	background: var(--beige-light);
+}
+
+::-webkit-scrollbar:vertical {
+	width: 10px;
+}
+
+::-webkit-scrollbar:horizontal {
+	height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--black);
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: var(--foreground);
+
+}
+
+article p a {
+	text-decoration: underline 1px !important;
+	text-underline-offset: 0.15em;
+	text-decoration-thickness: 1px;
+
+	&:hover {
+		color: var(--beige-dark);
+	}
+}
+
+.intro {
+	margin-bottom: var(--small-space);
+	margin-top: -0.2em;
+}
+
+button {
+	color: var(--foreground);
+	border: 0;
+
+	@include mediaqueries.mq($from: tablet) {}
+
+	&.back {
+
+		@include mediaqueries.mq($from: tablet) {}
+	}
+
+}
+
+figcaption {
+	line-height: 1;
+	font-size: 0.7em;
+	margin-bottom: 1em;
+}
+
+hr {}
+
+input,
+textarea,
+select {}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+	background-repeat: no-repeat;
+	background-position-x: calc(100% - 1em);
+	background-position-y: center;
+	color: var(--black);
+}
+
+.color-transition {
+	transition: color 0.8s;
+}
+
+.page-error {
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-width: 100vw;
+	min-height: 100vh;
+	z-index: 100000;
+	background-color: var(--white);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

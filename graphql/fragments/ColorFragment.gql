@@ -1,0 +1,8 @@
+fragment ColorFragment on ColorField {
+	hex
+	red
+	green
+	blue
+	alpha
+	cssRgb
+}

@@ -1,0 +1,18 @@
+fragment ImageFragment on ImageFileField {
+	id
+	mimeType
+	url
+	title
+	alt
+	height
+	width
+	responsiveImage {
+		src
+		width
+		height
+		alt
+		title
+		base64
+		sizes
+	}
+}

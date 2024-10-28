@@ -1,0 +1,119 @@
+.imageslide {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  max-width: 100vw;
+
+  @include mq($until: tablet) {
+    max-height: 100dvh;
+    height: 100dvh;
+  }
+
+  figure {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+
+    @include mq($until: tablet) {
+      height: 100dvh;
+    }
+
+    .image {
+      height: 100%;
+      width: 100%;
+    }
+
+    .image-cover {
+      object-fit: cover !important;
+    }
+
+    .image-portrait {
+      object-fit: contain;
+      height: 100%;
+      width: auto;
+    }
+
+    .image-landscape {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+    }
+
+    .image-margin {
+      object-fit: contain;
+      padding: 10%;
+
+      @include mq($until: tablet) {
+        object-fit: cover;
+        padding: 0%;
+      }
+    }
+
+    .image-background {
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &.single {
+      flex: 1 1 100%;
+    }
+
+    &.double {
+      flex: 0 0 50%;
+      height: 100%;
+      padding: 4%;
+
+      &.cover {
+        padding: 0;
+      }
+
+      .image-margin {
+        padding: 0 !important;
+      }
+    }
+
+    &.quad {
+      flex: 0 0 50%;
+      height: 50%;
+      padding: 4%;
+      object-fit: contain !important;
+
+      &.cover {
+        padding: 0;
+      }
+
+      .image-margin {
+        padding: 0 !important;
+      }
+
+      .contain {
+        padding: 0;
+        object-fit: contain !important;
+      }
+    }
+
+
+
+    @include mq($until: tablet) {
+      display: none;
+
+      &:first-child {
+        display: block;
+        flex: 1 1 100%;
+        height: 100%;
+      }
+    }
+  }
+}

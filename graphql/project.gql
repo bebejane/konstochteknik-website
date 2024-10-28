@@ -1,0 +1,54 @@
+query AllProjects {
+	allProjects(first: 100, orderBy: position_ASC) {
+		id
+		title
+		caption(markdown: false)
+		captionStyle
+		url
+		color {
+			...ColorFragment
+		}
+		background {
+			...ColorFragment
+		}
+		position
+		slug
+		slide {
+			__typename
+			... on VideoSlideRecord {
+				id
+				video {
+					...VideoFragment
+				}
+				poster {
+					...ImageFragment
+				}
+				backgroundImage {
+					...ImageFragment
+				}
+				css
+			}
+			... on ImageSlideRecord {
+				id
+				images {
+					__typename
+					... on ImageRecord {
+						__typename
+						image {
+							...ImageFragment
+						}
+						layout
+						background {
+							...ColorFragment
+						}
+					}
+				}
+				backgroundImage {
+					...ImageFragment
+				}
+				layout
+				css
+			}
+		}
+	}
+}
