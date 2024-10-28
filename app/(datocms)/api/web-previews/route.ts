@@ -1,26 +1,20 @@
+import { webPreviews, cors } from 'next-dato-utils/route-handlers'
+import { buildRoute } from '@lib/routes';
 import { NextRequest } from 'next/server';
-import { webPreviews, cors } from 'next-dato-utils/route-handlers';
 
 export const runtime = "edge"
+export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
-
-  return await webPreviews(req, async ({ item, itemType, locale }) => {
-
-    let path = null;
-
-    const { slug } = item.attributes
-
-    switch (itemType.attributes.api_key) {
-      default:
-        break;
-    }
-
-    return path
+  return await webPreviews(req, async ({ item, itemType }) => {
+    const paths = await buildRoute(itemType.attributes.api_key, item.attributes)
+    if (!paths) return null
+    return `${paths[0]}?secret=${process.env.DATOCMS_PREVIEW_SECRET}`
   })
 }
 
 export async function OPTIONS(req: Request) {
+
   return await cors(req, new Response('ok', { status: 200 }), {
     origin: '*',
     methods: ['POST', 'OPTIONS'],
