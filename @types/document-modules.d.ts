@@ -103,6 +103,8 @@ declare module '*/project.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const AllProjects: DocumentNode;
+export const Project: DocumentNode;
+export const ProjectFragment: DocumentNode;
 
   export default defaultDocument;
 }

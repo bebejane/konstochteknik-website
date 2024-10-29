@@ -1,54 +1,64 @@
 query AllProjects {
 	allProjects(first: 100, orderBy: position_ASC) {
-		id
-		title
-		caption(markdown: false)
-		captionStyle
-		url
-		color {
-			...ColorFragment
-		}
-		background {
-			...ColorFragment
-		}
-		position
-		slug
-		slide {
-			__typename
-			... on VideoSlideRecord {
-				id
-				video {
-					...VideoFragment
-				}
-				poster {
-					...ImageFragment
-				}
-				backgroundImage {
-					...ImageFragment
-				}
-				css
+		...ProjectFragment
+	}
+}
+
+query Project($slug: String!) {
+	project(filter: { slug: { eq: $slug } }) {
+		...ProjectFragment
+	}
+}
+
+fragment ProjectFragment on ProjectRecord {
+	id
+	title
+	caption(markdown: false)
+	captionStyle
+	url
+	color {
+		...ColorFragment
+	}
+	background {
+		...ColorFragment
+	}
+	position
+	slug
+	slide {
+		__typename
+		... on VideoSlideRecord {
+			id
+			video {
+				...VideoFragment
 			}
-			... on ImageSlideRecord {
-				id
-				images {
+			poster {
+				...ImageFragment
+			}
+			backgroundImage {
+				...ImageFragment
+			}
+			css
+		}
+		... on ImageSlideRecord {
+			id
+			images {
+				__typename
+				... on ImageRecord {
 					__typename
-					... on ImageRecord {
-						__typename
-						image {
-							...ImageFragment
-						}
-						layout
-						background {
-							...ColorFragment
-						}
+					image {
+						...ImageFragment
+					}
+					layout
+					background {
+						...ColorFragment
 					}
 				}
-				backgroundImage {
-					...ImageFragment
-				}
-				layout
-				css
 			}
+			backgroundImage {
+				...ImageFragment
+			}
+			layout
+			css
 		}
 	}
 }

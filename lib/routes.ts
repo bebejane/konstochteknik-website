@@ -14,11 +14,11 @@ const routes: Routes = {
   },
   "about": {
     typeName: "AboutRecord",
-    path: async (item) => ['/', 'about']
+    path: async (item) => ['about', '/']
   },
   "project": {
     typeName: "ProjectRecord",
-    path: async (item) => ['/', `/projekt/${item.slug}`]
+    path: async (item) => [`/projects/${item.slug}`, '/']
   },
   "commissioner": {
     typeName: "CommissionerRecord",
