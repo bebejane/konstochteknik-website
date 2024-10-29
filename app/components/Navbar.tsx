@@ -26,13 +26,13 @@ export default function Navbar({ about, allCommisioners }: Props) {
           </Link>
         </h1>
         <div className={s.menu}>
-          <button onClick={() => setShowAbout(!showAbout)}>{showAbout ? 'Close' : 'About'}</button>
           {!showAbout &&
             <>
               &nbsp;
               <Link href="https://www.instagram.com/konstteknik">News</Link>
             </>
           }
+          <button onClick={() => setShowAbout(!showAbout)}>{showAbout ? 'Close' : 'About'}</button>
         </div>
       </nav >
       <About allCommisioners={allCommisioners} about={about} show={showAbout} />
