@@ -3,6 +3,8 @@
 import s from "./ImageSlide.module.scss";
 import cn from 'classnames'
 import { Image } from 'react-datocms'
+import parseStyles from 'css-to-style';
+
 
 type Props = {
   active: boolean
@@ -21,13 +23,14 @@ export default function ImageSlide({ data: { id, layout, images, backgroundImage
           className={cn(s[column], imageLayout === 'cover' && s.cover)}
           style={{
             backgroundImage: backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000)` : undefined,
-            backgroundColor: background?.hex
-            //...css
+            backgroundColor: background?.hex,
+            ...parseStyles(css ?? ''),
           }}
         >
           <Image
             data={image.responsiveImage}
-            fadeInDuration={500}
+            fadeInDuration={0}
+            priority={true}
             objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover" ? "cover" : "contain"}
             className={s.image}
             srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}

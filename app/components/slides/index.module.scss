@@ -21,6 +21,18 @@
     color: var(--black);
     z-index: 10;
     text-align: center;
+    opacity: 0;
+    animation: fadeUp 1s ease-in-out forwards;
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
 
     @include mq($from: tablet) {
       white-space: nowrap;
@@ -45,9 +57,3 @@
     }
   }
 }
-
-/*
-:global(.caption a) {
-  color: inherit !important;
-}
-  */

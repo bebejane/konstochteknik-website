@@ -22,6 +22,7 @@
 		"@next/env": "^15.0.1",
 		"@types/is-integer": "^1.0.2",
 		"classnames": "^2.5.1",
+		"css-to-style": "^1.4.0",
 		"date-fns": "^2.30.0",
 		"datocms-structured-text-utils": "^4.0.1",
 		"dotenv": "^16.4.5",

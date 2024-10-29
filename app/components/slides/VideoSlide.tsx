@@ -1,14 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import s from "./VideoSlide.module.scss";
+import parseStyles from 'css-to-style';
 
 type Props = {
   active: boolean
   data: VideoSlideRecord
 }
-export default function VideoSlide({ data: { backgroundImage, video, poster, id }, active }: Props) {
+export default function VideoSlide({ data: { backgroundImage, video, poster, id, css }, active }: Props) {
 
   const ref = useRef<HTMLVideoElement>(null)
 
@@ -19,7 +19,10 @@ export default function VideoSlide({ data: { backgroundImage, video, poster, id 
   return (
     <div
       className={s.videoslide}
-      style={{ backgroundImage: backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000)` : "" }}
+      style={{
+        backgroundImage: backgroundImage ? `background-image:url(${backgroundImage?.url}?w=2000)` : '',
+        ...parseStyles(css ?? '')
+      }}
     >
       <div className={s.monitor}>
         <img src="/images/monitor.png" alt="monitor" />

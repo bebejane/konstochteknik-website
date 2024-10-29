@@ -35,6 +35,7 @@ export default function Slide({ project }: Props) {
       </>
       {active &&
         <h2
+          key={`${currentProject?.id}-${active}`}
           className={cn(s[project.captionStyle], 'color-transition')}
           style={{ color: project?.color?.hex }}
         >

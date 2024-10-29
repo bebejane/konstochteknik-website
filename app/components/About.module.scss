@@ -9,11 +9,12 @@
   z-index: var(--z-index-about);
   background-color: var(--black);
   color: var(--white);
-  opacity: 0;
   pointer-events: none;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
 
   &.show {
-    opacity: 1;
+    transform: translateY(0);
     pointer-events: all;
   }
 
