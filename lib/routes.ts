@@ -20,9 +20,9 @@ const routes: Routes = {
     typeName: "ProjectRecord",
     path: async (item) => [`/projects/${item.slug}`, '/']
   },
-  "commissioner": {
-    typeName: "CommissionerRecord",
-    path: async (item) => ['/', '/about']
+  "commisioner": {
+    typeName: "CommisionerRecord",
+    path: async (item) => ['/about', '/']
   },
 }
 
