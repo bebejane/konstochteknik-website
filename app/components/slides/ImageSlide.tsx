@@ -11,14 +11,15 @@ type Props = {
   data: ImageSlideRecord
 }
 
-export default function ImageSlide({ data: { id, layout, images, backgroundImage, css }, active }: Props) {
+export default function ImageSlide({ data: { layout, images, backgroundImage, css } }: Props) {
 
   const column = images.length === 1 ? "single" : images.length === 2 ? "double" : "quad";
 
   return (
     <div className={s.imageslide}>
-      {images.filter(({ image }) => image?.responsiveImage).map(({ id, image, background, layout: imageLayout }) =>
+      {images.filter(({ image }) => image?.responsiveImage).map(({ image, background, layout: imageLayout }) =>
         <figure
+          id={image.id}
           key={image.id}
           className={cn(s[column], imageLayout === 'cover' && s.cover)}
           style={{
@@ -30,7 +31,8 @@ export default function ImageSlide({ data: { id, layout, images, backgroundImage
           <Image
             data={image.responsiveImage}
             fadeInDuration={0}
-            priority={true}
+            intersectionMargin="0px 100% 0px 100%"
+            onLoad={() => console.log("loaded", image.id)}
             objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover" ? "cover" : "contain"}
             className={s.image}
             srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
