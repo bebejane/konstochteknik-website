@@ -6,6 +6,7 @@ import { Markdown } from "next-dato-utils/components";
 import ImageSlide from "./ImageSlide";
 import VideoSlide from "./VideoSlide";
 import { useStore } from "@lib/store";
+import { useEffect } from "react";
 
 type Props = {
   project: AllProjectsQuery['allProjects'][0]
@@ -14,8 +15,12 @@ type Props = {
 
 export default function Slide({ project }: Props) {
 
-  const [currentProject] = useStore((s) => [s.project]);
+  const [currentProject, setProject] = useStore((s) => [s.project, s.setProject]);
   const active = currentProject?.id === project.id
+
+  useEffect(() => {
+    setProject(project as ProjectRecord)
+  }, [active])
 
   return (
     <div

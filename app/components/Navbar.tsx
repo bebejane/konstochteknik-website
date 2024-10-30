@@ -5,6 +5,7 @@ import s from "./Navbar.module.scss";
 import cn from 'classnames'
 import { useStore } from "@lib/store";
 import About from "./About";
+import { usePathname } from "next/navigation";
 
 type Props = {
   allCommisioners: AllCommisionersQuery['allCommisioners'],
@@ -13,8 +14,9 @@ type Props = {
 
 export default function Navbar({ about, allCommisioners }: Props) {
 
+  const pathname = usePathname();
   const [project, showAbout, setShowAbout] = useStore((s) => [s.project, s.showAbout, s.setShowAbout]);
-  const color = showAbout ? "var(--white)" : project?.color?.hex;
+  const color = (showAbout || !pathname.startsWith('/projects')) ? "var(--white)" : project?.color?.hex;
 
   return (
     <>
@@ -36,7 +38,7 @@ export default function Navbar({ about, allCommisioners }: Props) {
           <button onClick={() => setShowAbout(!showAbout)}>{showAbout ? 'Close' : 'About'}</button>
         </div>
       </nav >
-      <About allCommisioners={allCommisioners} about={about} show={showAbout} />
+      <About allCommisioners={allCommisioners} about={about} show={showAbout} modal={true} />
     </>
   )
 }

@@ -43,6 +43,7 @@ export default function Gallery({ allProjects }: Props) {
           </SwiperSlide>
         )}
       </SwiperReact>
+
       <button
         className={cn(s.prev, showNavigation === 'prev' && s.show)}
         onClick={() => swiperRef.current.slidePrev()}

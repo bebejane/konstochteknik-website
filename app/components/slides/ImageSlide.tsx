@@ -32,7 +32,7 @@ export default function ImageSlide({ data: { layout, images, backgroundImage, cs
             data={image.responsiveImage}
             fadeInDuration={0}
             intersectionMargin="0px 100% 0px 100%"
-            onLoad={() => console.log("loaded", image.id)}
+            //onLoad={() => console.log("loaded", image.id)}
             objectFit={(layout === "cover" && images.length === 1) || imageLayout === "cover" ? "cover" : "contain"}
             className={s.image}
             srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}

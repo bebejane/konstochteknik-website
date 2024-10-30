@@ -12,7 +12,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <About allCommisioners={allCommisioners} about={about} show={true} />
+      <About allCommisioners={allCommisioners} about={about} show={true} modal={false} />
       <DraftMode url={draftUrl} path={`/about`} />
     </>
   )

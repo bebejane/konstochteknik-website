@@ -1,3 +1,5 @@
+'use client'
+
 import s from "./About.module.scss";
 import cn from 'classnames'
 import { Image } from 'react-datocms'
@@ -5,11 +7,12 @@ import { Markdown } from "next-dato-utils/components";
 
 type Props = {
   show: boolean
+  modal: boolean
   about: AboutQuery['about']
   allCommisioners: AllCommisionersQuery['allCommisioners']
 }
 
-export default function About({ show, about, allCommisioners }: Props) {
+export default function About({ show, about, allCommisioners, modal }: Props) {
 
   return (
     <div className={cn(s.about, show && s.show)}>
