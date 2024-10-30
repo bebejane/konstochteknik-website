@@ -38,6 +38,7 @@ export default function Slide({ project }: Props) {
           key={`${currentProject?.id}-${active}`}
           className={cn(s[project.captionStyle], 'color-transition')}
           style={{ color: project?.color?.hex }}
+          onClick={(e) => e.stopPropagation()}
         >
           <Markdown content={project.caption} />
         </h2>
