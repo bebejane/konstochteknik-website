@@ -19,7 +19,7 @@ export default function Slide({ project }: Props) {
   const active = currentProject?.id === project.id
 
   useEffect(() => {
-    setProject(project as ProjectRecord)
+    active && setProject(project as ProjectRecord)
   }, [active])
 
   return (

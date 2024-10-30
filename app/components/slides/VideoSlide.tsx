@@ -13,7 +13,13 @@ export default function VideoSlide({ data: { backgroundImage, video, poster, id,
   const ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    active ? ref.current?.play() : ref.current?.pause()
+
+    if (active) {
+      ref.current.currentTime = 0;
+      ref.current.play();
+    } else
+      ref.current.pause()
+
   }, [active])
 
   return (
