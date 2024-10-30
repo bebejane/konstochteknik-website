@@ -29,11 +29,11 @@ export default function Gallery({ allProjects }: Props) {
         initialSlide={0}
         loop={true}
         wrapperClass={s.swiper}
+        onSwiper={(swiper) => swiperRef.current = swiper}
         onSlideChange={({ realIndex }) => {
           setIndex(realIndex)
           setProject(allProjects[realIndex] as ProjectRecord)
         }}
-        onSwiper={(swiper) => swiperRef.current = swiper}
       >
         {allProjects?.map((p, idx) =>
           <SwiperSlide key={`${p.id}-${idx}`} className={s.slide} onClick={() => swiperRef.current?.slideNext()}>
@@ -46,14 +46,13 @@ export default function Gallery({ allProjects }: Props) {
 
       <button
         className={cn(s.prev, showNavigation === 'prev' && s.show)}
-        onClick={() => swiperRef.current.slidePrev()}
         onMouseEnter={() => setShowNavigation('prev')}
         onMouseLeave={() => setShowNavigation(null)}
+        onClick={() => swiperRef.current.slidePrev()}
         style={buttonStyle}
       >←</button>
 
       <button
-        id="next"
         className={cn(s.next, showNavigation === 'next' && s.show)}
         onMouseEnter={() => setShowNavigation('next')}
         onMouseLeave={() => setShowNavigation(null)}
