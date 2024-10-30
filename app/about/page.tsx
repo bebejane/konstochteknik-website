@@ -11,9 +11,9 @@ export default async function AboutPage() {
   ])
 
   return (
-    <article>
+    <>
       <About allCommisioners={allCommisioners} about={about} show={true} />
-      <DraftMode url={draftUrl} />
-    </article>
+      <DraftMode url={draftUrl} path={`/about`} />
+    </>
   )
 }
