@@ -6,6 +6,7 @@ import cn from 'classnames'
 import { useStore } from "@lib/store";
 import About from "./About";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 type Props = {
   allCommisioners: AllCommisionersQuery['allCommisioners'],
@@ -16,7 +17,7 @@ export default function Navbar({ about, allCommisioners }: Props) {
 
   const pathname = usePathname();
   const [project, showAbout, setShowAbout] = useStore((s) => [s.project, s.showAbout, s.setShowAbout]);
-  const color = (showAbout || !pathname.startsWith('/projects')) ? "var(--white)" : project?.color?.hex;
+  const color = showAbout ? "var(--white)" : project?.color?.hex;
 
   return (
     <>
@@ -34,7 +35,6 @@ export default function Navbar({ about, allCommisioners }: Props) {
               &nbsp;·&nbsp;
             </>
           }
-
           <button onClick={() => setShowAbout(!showAbout)}>{showAbout ? 'Close' : 'About'}</button>
         </div>
       </nav >

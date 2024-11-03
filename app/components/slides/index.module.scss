@@ -44,6 +44,10 @@
       width: 100%;
     }
 
+    a {
+      color: inherit;
+    }
+
     &.fill {
       background-color: var(--white);
       color: var(--black) !important;

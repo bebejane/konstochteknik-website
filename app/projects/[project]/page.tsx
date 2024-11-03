@@ -13,7 +13,7 @@ export default async function ProjectPage({ params }) {
 
   return (
     <>
-      <Slide project={project} />
+      <Slide project={project} single={true} />
       <DraftMode url={draftUrl} path={`/projects/${slug}`} />
     </>
   )

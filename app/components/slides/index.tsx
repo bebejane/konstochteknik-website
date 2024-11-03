@@ -10,13 +10,14 @@ import { useEffect } from "react";
 
 type Props = {
   project: AllProjectsQuery['allProjects'][0]
+  single?: boolean
 
 }
 
-export default function Slide({ project }: Props) {
+export default function Slide({ project, single }: Props) {
 
   const [currentProject, setProject] = useStore((s) => [s.project, s.setProject]);
-  const active = currentProject?.id === project.id
+  const active = currentProject?.id === project.id || single
 
   useEffect(() => {
     active && setProject(project as ProjectRecord)
