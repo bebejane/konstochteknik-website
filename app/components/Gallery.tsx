@@ -6,7 +6,7 @@ import cn from 'classnames'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import Slide from './slides'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStore } from "@lib/store";
 
 type Props = {
@@ -21,6 +21,12 @@ export default function Gallery({ allProjects }: Props) {
   const [setProject] = useStore((s) => [s.setProject]);
   const buttonStyle = { color: allProjects[index].color?.hex }
 
+  useEffect(() => {
+    setProject(allProjects[index] as ProjectRecord)
+    window.history.replaceState(null, '', index === 0 ? '/' : `/projects/${allProjects[index].slug}`)
+    if (index === 0) swiperRef.current?.slideTo(0)
+  }, [index])
+
   return (
     <>
       <SwiperReact
@@ -30,10 +36,7 @@ export default function Gallery({ allProjects }: Props) {
         loop={true}
         wrapperClass={s.swiper}
         onSwiper={(swiper) => swiperRef.current = swiper}
-        onSlideChange={({ realIndex }) => {
-          setIndex(realIndex)
-          setProject(allProjects[realIndex] as ProjectRecord)
-        }}
+        onSlideChange={({ realIndex }) => setIndex(realIndex)}
       >
         {allProjects?.map((p, idx) =>
           <SwiperSlide key={`${p.id}-${idx}`} className={s.slide} onClick={() => swiperRef.current?.slideNext()}>
@@ -60,6 +63,5 @@ export default function Gallery({ allProjects }: Props) {
         style={buttonStyle}
       >→</button>
     </>
-
   )
 }

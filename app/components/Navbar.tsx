@@ -5,8 +5,6 @@ import s from "./Navbar.module.scss";
 import cn from 'classnames'
 import { useStore } from "@lib/store";
 import About from "./About";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 type Props = {
   allCommisioners: AllCommisionersQuery['allCommisioners'],
@@ -15,7 +13,6 @@ type Props = {
 
 export default function Navbar({ about, allCommisioners }: Props) {
 
-  const pathname = usePathname();
   const [project, showAbout, setShowAbout] = useStore((s) => [s.project, s.showAbout, s.setShowAbout]);
   const color = showAbout ? "var(--white)" : project?.color?.hex;
 
@@ -23,10 +20,11 @@ export default function Navbar({ about, allCommisioners }: Props) {
     <>
       <nav style={{ color }} className={cn(s.navbar, 'color-transition')}>
         <h1>
-          <Link href="/">Konst & Teknik
+          <a href="/">
+            Konst & Teknik
             <br />
             <span><em>Selected Works</em></span>
-          </Link>
+          </a>
         </h1>
         <div className={s.menu}>
           {!showAbout &&
