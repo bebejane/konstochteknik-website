@@ -23,7 +23,7 @@ export default function Gallery({ allProjects }: Props) {
 
   useEffect(() => {
     setProject(allProjects[index] as ProjectRecord)
-    window.history.replaceState(null, '', index === 0 ? '/' : `/projects/${allProjects[index].slug}`)
+    window.history.pushState(null, '', index === 0 ? '/' : `/projects/${allProjects[index].slug}`)
     if (index === 0) swiperRef.current?.slideTo(0)
   }, [index])
 

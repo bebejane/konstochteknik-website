@@ -16,10 +16,10 @@
     "update-utils": "pnpm up github:bebejane/next-dato-util && git add . && git commit -m \"next-dato-utils up\" && git push"
   },
   "dependencies": {
-    "@datocms/cma-client-browser": "^3.3.12",
+    "@datocms/cma-client-browser": "^3.3.15",
     "@datocms/cma-client-node": "^3.3.15",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@next/env": "^15.0.1",
+    "@next/env": "^15.0.2",
     "@types/is-integer": "^1.0.2",
     "classnames": "^2.5.1",
     "css-to-style": "^1.4.0",
