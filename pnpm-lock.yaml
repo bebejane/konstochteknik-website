@@ -18,7 +18,7 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.11.0)
       '@next/env':
-        specifier: ^15.5.4
+        specifier: ^15.0.2
         version: 15.5.4
       '@types/is-integer':
         specifier: ^1.0.2
