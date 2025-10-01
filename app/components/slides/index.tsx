@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Markdown } from 'next-dato-utils/components';
 import ImageSlide from './ImageSlide';
 import VideoSlide from './VideoSlide';
-import { useShallow, useStore } from '@lib/store';
+import { useShallow, useStore } from '@/lib/store';
 import { useEffect } from 'react';
 
 type Props = {

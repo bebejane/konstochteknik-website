@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://www.konst-teknik.se
-
-# Sitemaps
-Sitemap: https://www.konst-teknik.se/sitemap.xml

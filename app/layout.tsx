@@ -1,7 +1,7 @@
-import '@styles/index.scss';
+import '@/styles/index.scss';
 import s from './layout.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { AboutDocument, AllCommisionersDocument, GlobalDocument } from '@graphql';
+import { AboutDocument, AllCommisionersDocument, GlobalDocument } from '@/graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import Navbar from './components/Navbar';

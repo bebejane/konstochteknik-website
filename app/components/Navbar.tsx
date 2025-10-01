@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import s from './Navbar.module.scss';
 import cn from 'classnames';
-import { useStore, useShallow } from '@lib/store';
+import { useStore, useShallow } from '@/lib/store';
 import About from './About';
 
 type Props = {

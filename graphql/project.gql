@@ -1,6 +1,9 @@
-query AllProjects {
-	allProjects(first: 100, orderBy: position_ASC) {
+query AllProjects($first: IntType, $skip: IntType) {
+	allProjects(first: $first, skip: $skip, orderBy: position_ASC) {
 		...ProjectFragment
+	}
+	_allProjectsMeta {
+		count
 	}
 }
 

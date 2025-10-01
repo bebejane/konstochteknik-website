@@ -4,16 +4,15 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbo & npm run codegen",
-		"build": "next build && npm run postbuild",
+		"build": "next build",
 		"clear": "rm -rf ./node_modules && rm -rf .next && pnpm i",
 		"clear:cache": "rm -rf .next/cache",
 		"codegen": "graphql-codegen --watch",
 		"start": "next start",
 		"lint": "next lint",
 		"preview": "npm run build && npm run start",
-		"postbuild": "next-sitemap",
 		"reset": "rm -rf .next node_modules pnpm-lock.yaml ; pnpm i",
-		"update-utils": "pnpm up github:bebejane/next-dato-util && git add . && git commit -m \"next-dato-utils up\" && git push"
+		"update-utils": "pnpm up github:bebejane/next-dato-utils#next15 && git add . && git commit -m \"next-dato-utils up\" && git push"
 	},
 	"dependencies": {
 		"@datocms/cma-client-browser": "^5.1.18",
@@ -31,8 +30,6 @@
 		"next": "^15.5.4",
 		"next-dato-utils": "github:bebejane/next-dato-utils#next15",
 		"next-seo": "^5.15.0",
-		"next-sitemap": "^3.1.55",
-		"nextjs-google-analytics": "^2.3.7",
 		"object-traversal": "^1.0.1",
 		"react-datocms": "^8.0.0-1",
 		"react-icons": "^5.5.0",
@@ -54,8 +51,8 @@
 		"@graphql-codegen/typescript-resolvers": "^2.7.13",
 		"@parcel/watcher": "^2.4.1",
 		"@types/node": "^22.8.1",
-		"@types/react": "^18.3.12",
-		"@types/react-dom": "^18.3.1",
+		"@types/react": "^19.1.16",
+		"@types/react-dom": "^19.1.9",
 		"chokidar-cli": "^3.0.0",
 		"eslint": "^9.13.0",
 		"eslint-config-next": "^12.3.4",

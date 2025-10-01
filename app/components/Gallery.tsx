@@ -7,7 +7,7 @@ import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import Slide from './slides';
 import { useEffect, useRef, useState } from 'react';
-import { useShallow, useStore } from '@lib/store';
+import { useShallow, useStore } from '@/lib/store';
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
