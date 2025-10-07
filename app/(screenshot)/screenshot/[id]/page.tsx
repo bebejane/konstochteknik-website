@@ -9,7 +9,6 @@ export type ProjectPageProps = {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
 	const { id }: { id: string } = await params;
-	console.log(id);
 	const { project } = await apiQuery<ProjectByIdQuery, ProjectByIdQueryVariables>(ProjectByIdDocument, {
 		variables: { id },
 	});

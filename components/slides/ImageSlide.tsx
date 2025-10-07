@@ -10,11 +10,11 @@ type Props = {
 	data: ImageSlideRecord;
 };
 
-export default function ImageSlide({ data: { layout, images, backgroundImage, css } }: Props) {
+export default function ImageSlide({ data: { layout, images, backgroundImage, css }, active }: Props) {
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
 
 	return (
-		<div className={s.imageslide}>
+		<div className={s.imageslide} key={active ? 'active' : null}>
 			{images
 				.filter(({ image }) => image?.responsiveImage)
 				.map(({ image, background, layout: imageLayout }) => (

@@ -38,6 +38,7 @@ export default function Gallery({ allProjects }: Props) {
 		else swiperRef.current?.slideTo(index);
 	}, [project]);
 
+	console.log(project);
 	return (
 		<>
 			<SwiperReact
