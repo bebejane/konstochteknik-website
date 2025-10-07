@@ -1,17 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
-import client from '@/lib/client';
-import fs from 'fs';
-import hash from 'object-hash';
-
-export async function POST(request: NextRequest) {
-	const { searchParams } = new URL(request.url);
-	const { entity } = await request.json();
-	const id = entity ? entity.id : searchParams.get('id');
-	const width = parseInt(searchParams.get('width') || '800');
-	const height = parseInt(searchParams.get('height') || '800');
-
-	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
-
+export async function updaateScreenshot(id: string, screenshot: string) {
 	const record = await client.items.find(id);
 
 	if (!record) return new NextResponse('Record not found', { status: 404 });
