@@ -1,17 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sleep } from 'next-dato-utils/utils';
 import client from '@/lib/client';
 import fs from 'fs';
 import hash from 'object-hash';
 
 export async function POST(request: NextRequest) {
-	console.log('screenshot api route');
 	const { searchParams } = new URL(request.url);
 	const { entity } = await request.json();
 	const id = entity ? entity.id : searchParams.get('id');
 	const width = parseInt(searchParams.get('width') || '800');
 	const height = parseInt(searchParams.get('height') || '800');
 
-	console.log('id', id);
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
 	const record = await client.items.find(id, { nested: true, version: 'published' });
@@ -53,6 +52,7 @@ export async function POST(request: NextRequest) {
 		const page = await browser.newPage();
 		await page.setViewport({ width, height });
 		await page.goto(url, { waitUntil: 'networkidle2' });
+		await sleep(2000);
 		const screenshot = await page.screenshot({ type: 'png' });
 		const filename = `${record.slug}-screenshot.png`;
 		const filePath = `/tmp/${filename}`;
