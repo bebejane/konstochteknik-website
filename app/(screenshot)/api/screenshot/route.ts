@@ -4,12 +4,14 @@ import fs from 'fs';
 import hash from 'object-hash';
 
 export async function POST(request: NextRequest) {
+	console.log('screenshot api route');
 	const { searchParams } = new URL(request.url);
 	const { entity } = await request.json();
 	const id = entity ? entity.id : searchParams.get('id');
 	const width = parseInt(searchParams.get('width') || '800');
 	const height = parseInt(searchParams.get('height') || '800');
 
+	console.log('id', id);
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
 	const record = await client.items.find(id);
