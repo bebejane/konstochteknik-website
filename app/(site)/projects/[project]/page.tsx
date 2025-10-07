@@ -1,11 +1,17 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProjectsDocument, ProjectDocument } from '@/graphql';
 import { notFound } from 'next/navigation';
-import Slide from '../../components/slides';
+import Slide from '@/components/slides';
 import { DraftMode } from 'next-dato-utils/components';
+import { SearchParams } from 'next/dist/server/request/search-params';
 
-export default async function ProjectPage({ params }) {
+export type ProjectPageProps = {
+	params: Promise<{ project: string }>;
+};
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
 	const { project: slug }: { project: string } = await params;
+
 	const { project, draftUrl } = await apiQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, {
 		variables: { slug },
 	});

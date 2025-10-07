@@ -13,6 +13,12 @@ query Project($slug: String!) {
 	}
 }
 
+query ProjectById($id: ItemId!) {
+	project(filter: { id: { eq: $id } }) {
+		...ProjectFragment
+	}
+}
+
 fragment ProjectFragment on ProjectRecord {
 	id
 	title

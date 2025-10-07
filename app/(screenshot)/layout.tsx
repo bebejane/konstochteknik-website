@@ -1,4 +1,5 @@
 import '@/styles/index.scss';
+import s from '../layout.module.scss';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -6,8 +7,10 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	return (
-		<html lang='en'>
-			<body id='root'>{children}</body>
-		</html>
+		<>
+			<main className={s.main}>
+				<article>{children}</article>
+			</main>
+		</>
 	);
 }

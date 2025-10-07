@@ -1,6 +1,6 @@
-import { buildClient } from '@datocms/cma-client-browser'
+import { buildClient } from '@datocms/cma-client-node';
 
 export default buildClient({
-  apiToken: process.env.DATOCMS_API_TOKEN,
-  environment: process.env.DATOCMS_ENVIRONMENT,
+	apiToken: process.env.DATOCMS_API_TOKEN,
+	environment: process.env.DATOCMS_ENVIRONMENT,
 });

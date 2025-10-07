@@ -21,8 +21,8 @@ const config = {
 		public: 'https://konstochteknik.vercel.app',
 	},
 	theme: {
-		background: '#efefef',
-		color: '#349f49',
+		background: '#ffffff',
+		color: '#000000',
 	},
 	routes,
 	sitemap: async () => {
