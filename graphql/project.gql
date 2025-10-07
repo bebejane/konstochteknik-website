@@ -31,6 +31,9 @@ fragment ProjectFragment on ProjectRecord {
 	background {
 		...ColorFragment
 	}
+	thumbnail {
+		...ImageThumbnailFragment
+	}
 	position
 	slug
 	slide {

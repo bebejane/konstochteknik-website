@@ -1,0 +1,29 @@
+.swiper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	width: 100%;
+	min-width: 100vw;
+	height: var(--thumbnail-height);
+	z-index: var(--z-index-thumbs);
+	cursor: pointer;
+
+	.slide {
+		position: relative;
+		width: fit-content;
+		filter: grayscale(1);
+
+		&.active,
+		&:hover {
+			filter: grayscale(0);
+		}
+
+		img {
+			height: var(--thumbnail-height);
+			width: var(--thumbnail-height);
+		}
+	}
+}

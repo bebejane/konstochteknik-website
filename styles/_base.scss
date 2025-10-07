@@ -1,5 +1,5 @@
-@use "fonts";
-@use "mediaqueries";
+@use 'fonts';
+@use 'mediaqueries';
 
 :root {
 	--black: #161616;
@@ -12,11 +12,14 @@
 	--other-margin: 5vw;
 	--line-height: 1.25;
 
+	--thumbnail-height: 70px;
+
 	--z-index-menu: 1000;
+	--z-index-thumbs: 1001;
 	--z-index-about: 900;
 
-	--body-font: "AnselmTen", Times New Roman, serif;
-	--headline-font: "AnselmTen", Times New Roman, serif;
+	--body-font: 'AnselmTen', Times New Roman, serif;
+	--headline-font: 'AnselmTen', Times New Roman, serif;
 
 	@include mq($from: tablet) {
 		--other-margin: 1.2rem;
@@ -32,15 +35,15 @@ body {
 	background-color: var(--background);
 	font-family: var(--body-font);
 	-webkit-font-smoothing: antialiased;
-	font-feature-settings: "liga", "kern";
-
+	font-feature-settings: 'liga', 'kern';
 }
 
 html {
 	box-sizing: border-box;
 }
 
-main {}
+main {
+}
 
 ::-webkit-scrollbar {
 	-webkit-appearance: none;
@@ -68,7 +71,6 @@ main {}
 a {
 	text-decoration: none;
 	color: var(--foreground);
-
 }
 
 article p a {
@@ -87,16 +89,21 @@ article p a {
 }
 
 button {
-	color: var(--foreground);
-	border: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid var(--black);
+	height: 2rem;
+	border-radius: 2rem;
+	padding: 1rem;
+	text-transform: uppercase;
+	cursor: pointer;
 
-	@include mediaqueries.mq($from: tablet) {}
-
-	&.back {
-
-		@include mediaqueries.mq($from: tablet) {}
+	&:hover,
+	&[data-enabled='true'] {
+		background-color: var(--black);
+		color: var(--white);
 	}
-
 }
 
 figcaption {
@@ -105,11 +112,13 @@ figcaption {
 	margin-bottom: 1em;
 }
 
-hr {}
+hr {
+}
 
 input,
 textarea,
-select {}
+select {
+}
 
 select {
 	-webkit-appearance: none;
