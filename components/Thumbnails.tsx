@@ -4,10 +4,13 @@ import 'swiper/css';
 import s from './Thumbnails.module.scss';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import type { Swiper } from 'swiper';
-import { useRef, useState } from 'react';
+import Swiper from 'swiper';
+import { FreeMode, Mousewheel } from 'swiper/modules';
+import { useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
 import { Image } from 'react-datocms';
+
+Swiper.use([FreeMode, Mousewheel]);
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
@@ -16,6 +19,8 @@ type Props = {
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [project, setProject] = useStore(useShallow((s) => [s.project, s.setProject]));
+	const [index, setIndex] = useState(0);
+
 	return (
 		<>
 			<SwiperReact
@@ -39,18 +44,20 @@ export default function Thumbnails({ allProjects }: Props) {
 				}}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 			>
-				{allProjects?.map(({ id, thumbnail }, idx) => (
-					<SwiperSlide
-						key={`${id}-${idx}`}
-						className={cn(s.slide, project?.id === id && s.active)}
-						onClick={(e) => {
-							e.stopPropagation();
-							setProject(allProjects[idx] as ProjectRecord);
-						}}
-					>
-						<Image data={thumbnail.responsiveImage} />
-					</SwiperSlide>
-				))}
+				{allProjects
+					?.filter(({ thumbnail }) => thumbnail?.responsiveImage)
+					.map((p, idx) => (
+						<SwiperSlide
+							key={`${p.id}-${idx}`}
+							className={cn(s.slide, project?.id === p.id && s.active)}
+							onClick={(e) => {
+								e.stopPropagation();
+								setProject(p as ProjectRecord);
+							}}
+						>
+							<Image data={p.thumbnail.responsiveImage} />
+						</SwiperSlide>
+					))}
 			</SwiperReact>
 		</>
 	);
