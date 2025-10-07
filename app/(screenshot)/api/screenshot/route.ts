@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 	console.log('id', id);
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
-	const record = await client.items.find(id);
+	const record = await client.items.find(id, { nested: true, version: 'published' });
 
 	if (!record) return new NextResponse('Record not found', { status: 404 });
 
