@@ -6,7 +6,7 @@ import { ApiError } from '@datocms/cma-client';
 
 const routes: DatoCmsConfig['routes'] = {
 	about: async (record, locale) => ['/about', '/'],
-	project: async (record, locale) => [`/projects/${record.slug}`, '/'],
+	project: async (record, locale) => [`/projects/${record.slug}`, '/', `/screenshot/${record.id}`],
 	artist: async (record, locale) => ['/', '/about'],
 	commisioner: async (record, locale) => ['/', '/about'],
 	lp_record: async (record, locale) => ['/', '/about'],
