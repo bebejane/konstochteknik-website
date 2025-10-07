@@ -16,8 +16,6 @@ type Props = {
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [project, setProject] = useStore(useShallow((s) => [s.project, s.setProject]));
-	const [index, setIndex] = useState(0);
-
 	return (
 		<>
 			<SwiperReact
@@ -40,7 +38,6 @@ export default function Thumbnails({ allProjects }: Props) {
 					sticky: false,
 				}}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
-				onSlideChange={({ realIndex }) => setIndex(realIndex)}
 			>
 				{allProjects?.map(({ id, thumbnail }, idx) => (
 					<SwiperSlide

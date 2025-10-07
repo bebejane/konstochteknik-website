@@ -8,8 +8,8 @@ export async function POST(request: NextRequest) {
 	const { searchParams } = new URL(request.url);
 	const { entity } = await request.json();
 	const id = entity ? entity.id : searchParams.get('id');
-	const width = parseInt(searchParams.get('width') || '800');
-	const height = parseInt(searchParams.get('height') || '800');
+	const width = parseInt(searchParams.get('width') || '1400');
+	const height = parseInt(searchParams.get('height') || '1050');
 
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
