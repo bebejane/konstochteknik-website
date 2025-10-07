@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 		? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
 		: null;
 
-	if (thumbnail.default_field_metadata?.en?.custom_data.hash === recordHash)
+	if (thumbnail?.default_field_metadata?.en?.custom_data.hash === recordHash)
 		return new NextResponse('skip', { status: 200 });
 
 	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
