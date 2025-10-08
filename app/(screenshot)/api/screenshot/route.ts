@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 		await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
 		//await client.items.publish(record.id);
 		await sleep(3000);
-		const paths = await config.routes?.program(record);
+		const paths = await config.routes?.project(record);
 		paths?.forEach((path) => revalidatePath(path));
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
