@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
 
 		const page = await browser.newPage();
 		await page.setViewport({ width, height });
-		await sleep(3000);
 		await page.goto(url, { waitUntil: 'networkidle2' });
+		await sleep(3000);
 
 		const screenshot = await page.screenshot({ type: 'png' });
 		const filename = `${record.slug}-screenshot.png`;
