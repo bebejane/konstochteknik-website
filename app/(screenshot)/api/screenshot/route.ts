@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
 	const width = parseInt(searchParams.get('width') || '1400');
 	const height = parseInt(searchParams.get('height') || '1050');
 
+	console.log('screenshot', id);
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
 	const record = await client.items.find(id, { nested: true, version: 'published' });
@@ -22,13 +23,17 @@ export async function POST(request: NextRequest) {
 		? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
 		: null;
 
-	if (thumbnail?.default_field_metadata?.en?.custom_data.hash === recordHash)
+	if (thumbnail?.default_field_metadata?.en?.custom_data.hash === recordHash) {
+		console.log('screenshot', 'skip');
 		return new NextResponse('skip', { status: 200 });
+	}
 
 	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
 
 	let browser;
 	try {
+		console.time('screenshot');
+
 		const isVercel = !!process.env.VERCEL_ENV;
 		let puppeteer: any,
 			launchOptions: any = {
@@ -51,8 +56,10 @@ export async function POST(request: NextRequest) {
 
 		const page = await browser.newPage();
 		await page.setViewport({ width, height });
+		await sleep(3000);
 		await page.goto(url, { waitUntil: 'networkidle2' });
 		await sleep(2000);
+
 		const screenshot = await page.screenshot({ type: 'png' });
 		const filename = `${record.slug}-screenshot.png`;
 		const filePath = `/tmp/${filename}`;
@@ -85,5 +92,6 @@ export async function POST(request: NextRequest) {
 		if (browser) {
 			await browser.close();
 		}
+		console.timeEnd('screenshot');
 	}
 }
