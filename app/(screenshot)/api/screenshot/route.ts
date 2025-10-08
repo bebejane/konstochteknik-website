@@ -4,7 +4,9 @@ import { revalidatePath } from 'next/cache';
 import config from '@/datocms.config';
 import client from '@/lib/client';
 import fs from 'fs';
+import { Project } from '@/@types/datcms-cma';
 import hash from 'object-hash';
+import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client-node';
 
 export async function POST(request: NextRequest) {
 	const { searchParams } = new URL(request.url);
@@ -13,10 +15,11 @@ export async function POST(request: NextRequest) {
 	const width = parseInt(searchParams.get('width') || '1400');
 	const height = parseInt(searchParams.get('height') || '1050');
 
-	console.log('screenshot', id);
+	console.log('screenshot api route:', id);
+
 	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
-	const record = await client.items.find(id, { nested: true, version: 'published' });
+	const record = await client.items.find<Project>(id, { nested: true, version: 'published' });
 
 	if (!record) return new NextResponse('Record not found', { status: 404 });
 
@@ -34,7 +37,7 @@ export async function POST(request: NextRequest) {
 
 	let browser;
 	try {
-		console.time('screenshot');
+		console.time('screenshot ok:');
 
 		const isVercel = !!process.env.VERCEL_ENV;
 		let puppeteer: any,
@@ -64,22 +67,35 @@ export async function POST(request: NextRequest) {
 		const screenshot = await page.screenshot({ type: 'png' });
 		const filename = `${record.slug}-screenshot.png`;
 		const filePath = `/tmp/${filename}`;
-		const title = `${record.title} (screenshot)`;
+		const title = `${record.title}`;
 
 		fs.writeFileSync(filePath, screenshot);
 
-		const upload = await client.uploads.createFromLocalFile({
-			localPath: filePath,
+		let upload: ApiTypes.Upload;
+		const uploadMetadata = {
+			tags: ['screenshot'],
 			default_field_metadata: {
 				en: {
 					title,
 					alt: title,
+
 					custom_data: {
 						hash: recordHash,
 					},
 				},
 			},
-		});
+		};
+
+		if (record.thumbnail?.upload_id) {
+			const uploadId = record.thumbnail?.upload_id;
+			await client.uploads.update(uploadId, { ...uploadMetadata });
+			upload = await client.uploads.update(uploadId, { path: await uploadLocalFileAndReturnPath(client, filePath) });
+		} else {
+			upload = await client.uploads.createFromLocalFile({
+				localPath: filePath,
+				...uploadMetadata,
+			});
+		}
 
 		await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
 		//await client.items.publish(record.id);
@@ -94,6 +110,6 @@ export async function POST(request: NextRequest) {
 		if (browser) {
 			await browser.close();
 		}
-		console.timeEnd('screenshot');
+		console.timeEnd('screenshot ok:');
 	}
 }
