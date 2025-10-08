@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sleep } from 'next-dato-utils/utils';
+import { revalidatePath } from 'next/cache';
+import config from '@/datocms.config';
 import client from '@/lib/client';
 import fs from 'fs';
 import hash from 'object-hash';
@@ -58,7 +60,6 @@ export async function POST(request: NextRequest) {
 		await page.setViewport({ width, height });
 		await sleep(3000);
 		await page.goto(url, { waitUntil: 'networkidle2' });
-		await sleep(2000);
 
 		const screenshot = await page.screenshot({ type: 'png' });
 		const filename = `${record.slug}-screenshot.png`;
@@ -80,10 +81,11 @@ export async function POST(request: NextRequest) {
 			},
 		});
 
-		await client.items.update(record.id, {
-			thumbnail: { upload_id: upload.id },
-		});
-
+		await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
+		//await client.items.publish(record.id);
+		await sleep(3000);
+		const paths = await config.routes?.program(record);
+		paths?.forEach((path) => revalidatePath(path));
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
 		console.error(error);
