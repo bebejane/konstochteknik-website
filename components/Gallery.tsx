@@ -17,11 +17,11 @@ export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject, category] = useStore(useShallow((s) => [s.project, s.setProject, s.category]));
+	const [project, setProject, category, index, setIndex] = useStore(
+		useShallow((s) => [s.project, s.setProject, s.category, s.index, s.setIndex])
+	);
 	const buttonStyle = { color: project?.color?.hex };
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
-	const index =
-		projects.findIndex((p) => p.id === project?.id) > -1 ? projects.findIndex((p) => p.id === project?.id) : 0;
 
 	function swipeNext() {
 		if (index === allProjects.length - 1) return;
@@ -35,9 +35,8 @@ export default function Gallery({ allProjects }: Props) {
 
 	useEffect(() => {
 		//window.history.pushState(null, '', index === 0 ? '/' : `/projects/${allProjects[index].slug}`);
-		if (index === 0) swiperRef.current?.slideTo(0);
-		else swiperRef.current?.slideTo(index);
-	}, [project]);
+		swiperRef.current?.slideTo(index);
+	}, [index]);
 
 	return (
 		<>
@@ -47,7 +46,7 @@ export default function Gallery({ allProjects }: Props) {
 				initialSlide={0}
 				loop={true}
 				wrapperClass={s.swiper}
-				onRealIndexChange={(swiper) => setProject(projects[swiper.realIndex] as ProjectRecord)}
+				onRealIndexChange={({ realIndex }) => setIndex(realIndex)}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 			>
 				{projects.map((p, idx) => (
@@ -63,7 +62,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.prev, showNavigation === 'prev' && s.show)}
 				onMouseEnter={() => setShowNavigation('prev')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={swipePrev}
+				onClick={() => swiperRef.current?.slidePrev()}
 				style={buttonStyle}
 			>
 				←
@@ -73,7 +72,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.next, showNavigation === 'next' && s.show)}
 				onMouseEnter={() => setShowNavigation('next')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={swipeNext}
+				onClick={() => swiperRef.current?.slideNext()}
 				style={buttonStyle}
 			>
 				→

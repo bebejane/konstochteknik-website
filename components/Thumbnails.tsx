@@ -18,7 +18,7 @@ type Props = {
 
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-	const [project, setProject, category] = useStore(useShallow((s) => [s.project, s.setProject, s.category]));
+	const [category, index, setIndex] = useStore(useShallow((s) => [s.category, s.index, s.setIndex]));
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	return (
@@ -29,7 +29,7 @@ export default function Thumbnails({ allProjects }: Props) {
 				slidesPerView={'auto'}
 				spaceBetween={0}
 				initialSlide={0}
-				loop={false}
+				loop={true}
 				wrapperClass={s.swiper}
 				direction={'horizontal'}
 				mousewheel={{
@@ -48,10 +48,10 @@ export default function Thumbnails({ allProjects }: Props) {
 				{projects.map((p, idx) => (
 					<SwiperSlide
 						key={`${p.id}-${idx}-${category}`}
-						className={cn(s.slide, project?.id === p.id && s.active)}
+						className={cn(s.slide, idx === index && s.active)}
 						onClick={(e) => {
 							e.stopPropagation();
-							setProject(p as ProjectRecord);
+							setIndex(idx);
 						}}
 					>
 						<Image

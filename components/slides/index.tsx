@@ -19,10 +19,9 @@ export default function Slide({ project, single, clean }: Props) {
 	const active = (currentProject?.id === project.id || single) && !clean ? true : false;
 
 	useEffect(() => {
-		active && setProject(project as ProjectRecord);
+		//active && setProject(project as ProjectRecord);
 	}, [active]);
 
-	active && console.log(project.caption);
 	return (
 		<div key={project.id} style={{ backgroundColor: project?.background?.hex }} className={s.slide}>
 			<>
