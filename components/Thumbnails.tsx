@@ -9,6 +9,7 @@ import { FreeMode, Mousewheel } from 'swiper/modules';
 import { useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
 import { Image } from 'react-datocms';
+import * as Tone from 'tone';
 
 Swiper.use([FreeMode, Mousewheel]);
 
@@ -18,9 +19,50 @@ type Props = {
 
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-	const [hover, setHover] = useState<{ [key: string]: boolean } | null>(null);
+	const toneRef = useRef<Tone.DuoSynth | null>(null);
+	const [hover, setHover] = useState<string | null>(null);
 	const [category, index, setIndex] = useStore(useShallow((s) => [s.category, s.index, s.setIndex]));
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
+
+	function initTone() {
+		if (toneRef.current) return;
+		console.log('initTone');
+		const feedbackDelay = new Tone.FeedbackDelay('8n', 0.9).toDestination();
+		const phaser = new Tone.Phaser(500, 3, 300).toDestination();
+
+		feedbackDelay.wet.value = 0.5;
+		phaser.wet.value = 0.5;
+
+		toneRef.current = new Tone.DuoSynth({
+			volume: 0.1,
+			harmonicity: 0.5,
+			vibratoAmount: 0.5,
+			vibratoRate: 0.5,
+			context: {
+				latencyHint: 'interactive',
+			},
+		})
+			.connect(feedbackDelay)
+			.connect(phaser)
+
+			.toDestination();
+
+		//toneRef.current.volume.value = 0.5;
+	}
+
+	function playNote() {
+		const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+		const octave = 5;
+		const piano = notes.map((n, i) => `${n}${octave}`).concat(notes.map((n, i) => `${n}${octave + 1}`));
+		const idx = Math.floor(projects.findIndex((p) => p.id === hover) % piano.length);
+
+		toneRef.current?.triggerAttackRelease(piano[idx], 2, Tone.now(), 0.1);
+		console.log('play note', piano[idx]);
+	}
+
+	useEffect(() => {
+		//if (hover === null) return;
+	}, [hover]);
 
 	return (
 		<>
@@ -45,18 +87,20 @@ export default function Thumbnails({ allProjects }: Props) {
 					sticky: false,
 				}}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
+				onClick={() => initTone()}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
 						key={`${p.id}-${idx}-${category}`}
-						className={cn(s.slide, idx === index && s.active, hover?.[p.id] && s.hover)}
+						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
 						onClick={(e) => {
 							e.stopPropagation();
+							playNote();
 							setIndex(idx);
-							setHover((h) => ({ ...h, [p.id]: false }));
+							setHover(p.id);
 						}}
-						onMouseEnter={() => setHover((h) => ({ ...h, [p.id]: true }))}
-						onMouseLeave={() => setHover((h) => ({ ...h, [p.id]: false }))}
+						onMouseEnter={() => setHover(p.id)}
+						onMouseLeave={() => setHover(null)}
 					>
 						<Image
 							data={{ ...p.thumbnail.responsiveImage, bgColor: p.background?.hex ?? undefined }}
