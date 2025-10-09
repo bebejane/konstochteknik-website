@@ -17,6 +17,9 @@ type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
 };
 
+const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const octave = 5;
+
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const toneRef = useRef<Tone.DuoSynth | null>(null);
@@ -27,14 +30,14 @@ export default function Thumbnails({ allProjects }: Props) {
 	function initTone() {
 		if (toneRef.current) return;
 		console.log('initTone');
-		const feedbackDelay = new Tone.FeedbackDelay('8n', 0.9).toDestination();
-		const phaser = new Tone.Phaser(500, 3, 300).toDestination();
+		const feedbackDelay = new Tone.FeedbackDelay('2n', 0.9).toDestination();
+		const phaser = new Tone.Phaser(300, 1, 200).toDestination();
 
-		feedbackDelay.wet.value = 0.5;
-		phaser.wet.value = 0.5;
+		//feedbackDelay.wet.value = 0.8;
+		//phaser.wet.value = 0.6;
 
 		toneRef.current = new Tone.DuoSynth({
-			volume: 0.1,
+			volume: 0,
 			harmonicity: 0.5,
 			vibratoAmount: 0.5,
 			vibratoRate: 0.5,
@@ -43,25 +46,21 @@ export default function Thumbnails({ allProjects }: Props) {
 			},
 		})
 			.connect(feedbackDelay)
-			.connect(phaser)
-
+			//.connect(phaser)
 			.toDestination();
-
-		//toneRef.current.volume.value = 0.5;
 	}
 
 	function playNote() {
-		const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-		const octave = 5;
 		const piano = notes.map((n, i) => `${n}${octave}`).concat(notes.map((n, i) => `${n}${octave + 1}`));
 		const idx = Math.floor(projects.findIndex((p) => p.id === hover) % piano.length);
 
-		toneRef.current?.triggerAttackRelease(piano[idx], 2, Tone.now(), 0.1);
+		toneRef.current?.triggerAttackRelease(piano[idx], 3, Tone.now() + 0.05, 0.4);
 		console.log('play note', piano[idx]);
 	}
 
 	useEffect(() => {
 		//if (hover === null) return;
+		//toneRef.current?.triggerAttackRelease('C5', 1, Tone.now(), 1);
 	}, [hover]);
 
 	return (
@@ -97,7 +96,7 @@ export default function Thumbnails({ allProjects }: Props) {
 							e.stopPropagation();
 							playNote();
 							setIndex(idx);
-							setHover(p.id);
+							setHover(null);
 						}}
 						onMouseEnter={() => setHover(p.id)}
 						onMouseLeave={() => setHover(null)}
