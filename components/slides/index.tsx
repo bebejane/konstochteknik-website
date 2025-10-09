@@ -16,12 +16,13 @@ type Props = {
 
 export default function Slide({ project, single, clean }: Props) {
 	const [currentProject, setProject] = useStore(useShallow((s) => [s.project, s.setProject]));
-	const active = (currentProject?.id === project.id || single) && !clean;
+	const active = (currentProject?.id === project.id || single) && !clean ? true : false;
 
 	useEffect(() => {
 		active && setProject(project as ProjectRecord);
 	}, [active]);
 
+	active && console.log(project.caption);
 	return (
 		<div key={project.id} style={{ backgroundColor: project?.background?.hex }} className={s.slide}>
 			<>
@@ -31,7 +32,7 @@ export default function Slide({ project, single, clean }: Props) {
 					<VideoSlide data={project.slide[0] as VideoSlideRecord} active={active} />
 				) : null}
 			</>
-			{active && (
+			{active && project.caption && (
 				<h2
 					key={`${currentProject?.id}-${active}`}
 					className={cn(s[project.captionStyle], 'color-transition')}

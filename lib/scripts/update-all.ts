@@ -22,8 +22,9 @@ const main = async function () {
 		try {
 			await client.items.update(project.id, {
 				...project,
-				thumbnail: null,
+				category: 'art',
 			});
+			await client.items.publish(project.id);
 		} catch (e) {
 			console.log(e);
 		}

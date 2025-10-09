@@ -18,13 +18,14 @@ type Props = {
 
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-	const [project, setProject] = useStore(useShallow((s) => [s.project, s.setProject]));
-	const [index, setIndex] = useState(0);
+	const [project, setProject, category] = useStore(useShallow((s) => [s.project, s.setProject, s.category]));
+	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	return (
 		<>
 			<SwiperReact
 				id='thumbnails'
+				key={category}
 				slidesPerView={'auto'}
 				spaceBetween={0}
 				initialSlide={0}
@@ -44,20 +45,22 @@ export default function Thumbnails({ allProjects }: Props) {
 				}}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 			>
-				{allProjects
-					?.filter(({ thumbnail }) => thumbnail?.responsiveImage)
-					.map((p, idx) => (
-						<SwiperSlide
-							key={`${p.id}-${idx}`}
-							className={cn(s.slide, project?.id === p.id && s.active)}
-							onClick={(e) => {
-								e.stopPropagation();
-								setProject(p as ProjectRecord);
-							}}
-						>
-							<Image data={p.thumbnail.responsiveImage} />
-						</SwiperSlide>
-					))}
+				{projects.map((p, idx) => (
+					<SwiperSlide
+						key={`${p.id}-${idx}-${category}`}
+						className={cn(s.slide, project?.id === p.id && s.active)}
+						onClick={(e) => {
+							e.stopPropagation();
+							setProject(p as ProjectRecord);
+						}}
+					>
+						<Image
+							data={{ ...p.thumbnail.responsiveImage, bgColor: p.background?.hex ?? undefined }}
+							intersectionMargin={'0px 100% 0px 100%'}
+							usePlaceholder={false}
+						/>
+					</SwiperSlide>
+				))}
 			</SwiperReact>
 		</>
 	);

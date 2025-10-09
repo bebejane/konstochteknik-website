@@ -12,6 +12,7 @@ type Props = {
 
 export default function ImageSlide({ data: { layout, images, backgroundImage, css }, active }: Props) {
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
+
 	return (
 		<div className={s.imageslide}>
 			{images
@@ -28,6 +29,7 @@ export default function ImageSlide({ data: { layout, images, backgroundImage, cs
 						}}
 					>
 						<Image
+							key={image.mimeType === 'image/gif' && active ? image.id : undefined}
 							data={image.responsiveImage}
 							fadeInDuration={0}
 							intersectionMargin='0px 100% 0px 100%'

@@ -17,19 +17,20 @@ export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject] = useStore(useShallow((s) => [s.project, s.setProject]));
+	const [project, setProject, category] = useStore(useShallow((s) => [s.project, s.setProject, s.category]));
 	const buttonStyle = { color: project?.color?.hex };
+	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 	const index =
-		allProjects.findIndex((p) => p.id === project?.id) > -1 ? allProjects.findIndex((p) => p.id === project?.id) : 0;
+		projects.findIndex((p) => p.id === project?.id) > -1 ? projects.findIndex((p) => p.id === project?.id) : 0;
 
 	function swipeNext() {
 		if (index === allProjects.length - 1) return;
-		setProject(allProjects[index + 1] as ProjectRecord);
+		swiperRef.current?.slideTo(index + 1);
 	}
 
 	function swipePrev() {
 		if (index === 0) return;
-		setProject(allProjects[index - 1] as ProjectRecord);
+		swiperRef.current?.slideTo(index - 1);
 	}
 
 	useEffect(() => {
@@ -46,10 +47,11 @@ export default function Gallery({ allProjects }: Props) {
 				initialSlide={0}
 				loop={true}
 				wrapperClass={s.swiper}
+				onRealIndexChange={(swiper) => setProject(projects[swiper.realIndex] as ProjectRecord)}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 			>
-				{allProjects?.map((p, idx) => (
-					<SwiperSlide key={`${p.id}-${idx}`} className={s.slide} onClick={swipeNext}>
+				{projects.map((p, idx) => (
+					<SwiperSlide key={`${p.id}-${idx}-${category}`} className={s.slide} onClick={swipeNext}>
 						<div className={s.slidewrap} style={{ backgroundColor: p?.background?.hex }}>
 							<Slide project={p} />
 						</div>

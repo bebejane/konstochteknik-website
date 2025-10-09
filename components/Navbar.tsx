@@ -13,30 +13,29 @@ type Props = {
 };
 
 export default function Navbar({ about, allCommisioners }: Props) {
-	const [selected, setSelected] = useState<'art' | 'tech' | 'and' | null>(null);
-	const [project, showAbout, setShowAbout] = useStore(useShallow((s) => [s.project, s.showAbout, s.setShowAbout]));
+	const [project, showAbout, setShowAbout, category, setCategory, setProject] = useStore(
+		useShallow((s) => [s.project, s.showAbout, s.setShowAbout, s.category, s.setCategory, s.setProject])
+	);
 	const color = showAbout ? 'var(--white)' : project?.color?.hex;
 
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
-		setSelected(
-			e.currentTarget.dataset.id === selected ? null : (e.currentTarget.dataset.id as 'art' | 'tech' | 'and')
-		);
+		const c =
+			e.currentTarget.dataset.id === category ? undefined : (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
+		setCategory(c);
+		setProject(null);
 	}
 
 	return (
-		<>
-			<nav style={{ color }} className={cn(s.navbar)}>
-				<button onClick={toggle} data-enabled={selected === 'art'} data-id='art'>
-					Konst
-				</button>
-				<button className={s.round} onClick={toggle} data-enabled={selected === 'and'} data-id='and'>
-					&
-				</button>
-				<button onClick={toggle} data-enabled={selected === 'tech'} data-id='tech'>
-					Teknik
-				</button>
-			</nav>
-			{/*<About allCommisioners={allCommisioners} about={about} show={showAbout} modal={true} />*/}
-		</>
+		<nav style={{ color }} className={cn(s.navbar)}>
+			<button onClick={toggle} data-enabled={category === 'art'} data-id='art'>
+				Konst
+			</button>
+			<button className={s.round} onClick={toggle} data-enabled={!category ? true : false}>
+				&
+			</button>
+			<button onClick={toggle} data-enabled={category === 'tech'} data-id='tech'>
+				Teknik
+			</button>
+		</nav>
 	);
 }

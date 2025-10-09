@@ -24,6 +24,7 @@ fragment ProjectFragment on ProjectRecord {
 	title
 	caption(markdown: false)
 	captionStyle
+	category
 	url
 	color {
 		...ColorFragment
