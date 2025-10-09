@@ -18,6 +18,7 @@ type Props = {
 
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
+	const [hover, setHover] = useState<{ [key: string]: boolean } | null>(null);
 	const [category, index, setIndex] = useStore(useShallow((s) => [s.category, s.index, s.setIndex]));
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
@@ -48,11 +49,14 @@ export default function Thumbnails({ allProjects }: Props) {
 				{projects.map((p, idx) => (
 					<SwiperSlide
 						key={`${p.id}-${idx}-${category}`}
-						className={cn(s.slide, idx === index && s.active)}
+						className={cn(s.slide, idx === index && s.active, hover?.[p.id] && s.hover)}
 						onClick={(e) => {
 							e.stopPropagation();
 							setIndex(idx);
+							setHover((h) => ({ ...h, [p.id]: false }));
 						}}
+						onMouseEnter={() => setHover((h) => ({ ...h, [p.id]: true }))}
+						onMouseLeave={() => setHover((h) => ({ ...h, [p.id]: false }))}
 					>
 						<Image
 							data={{ ...p.thumbnail.responsiveImage, bgColor: p.background?.hex ?? undefined }}
