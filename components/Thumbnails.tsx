@@ -105,7 +105,7 @@ export default function Thumbnails({ allProjects }: Props) {
 						<Image
 							data={{ ...p.thumbnail.responsiveImage, bgColor: p.background?.hex ?? undefined }}
 							intersectionMargin={'0px 100% 0px 100%'}
-							usePlaceholder={false}
+							//usePlaceholder={false}
 						/>
 					</SwiperSlide>
 				))}
