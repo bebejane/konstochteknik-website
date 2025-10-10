@@ -55,7 +55,7 @@ export default function Gallery({ allProjects }: Props) {
 				initialSlide={0}
 				effect={'fade'}
 				modules={[EffectFade]}
-				speed={2000}
+				speed={1500}
 				loop={true}
 				wrapperClass={s.swiper}
 				onRealIndexChange={({ realIndex }) => setIndex(realIndex)}

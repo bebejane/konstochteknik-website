@@ -28,16 +28,18 @@ export default function Thumbnails({ allProjects }: Props) {
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	function initTone() {
-		if (toneRef.current) return;
+		//if (toneRef.current) return;
 		console.log('initTone');
+		//const panner = new Tone.Panner(0).toDestination();
 		const feedbackDelay = new Tone.FeedbackDelay('2n', 0.9).toDestination();
-		const phaser = new Tone.Phaser(300, 1, 200).toDestination();
+		const phaser = new Tone.Phaser(2, 1, 200).toDestination();
+		const volume = new Tone.Gain(-2, 'gain').toDestination();
 
-		//feedbackDelay.wet.value = 0.8;
-		//phaser.wet.value = 0.6;
+		feedbackDelay.wet.value = 0.8;
+		phaser.wet.value = 0.3;
 
 		toneRef.current = new Tone.DuoSynth({
-			volume: 0,
+			volume: 0.1,
 			harmonicity: 0.5,
 			vibratoAmount: 0.5,
 			vibratoRate: 0.5,
@@ -45,8 +47,7 @@ export default function Thumbnails({ allProjects }: Props) {
 				latencyHint: 'interactive',
 			},
 		})
-			.connect(feedbackDelay)
-			//.connect(phaser)
+			.chain(feedbackDelay, phaser, volume)
 			.toDestination();
 	}
 
@@ -54,7 +55,7 @@ export default function Thumbnails({ allProjects }: Props) {
 		const piano = notes.map((n, i) => `${n}${octave}`).concat(notes.map((n, i) => `${n}${octave + 1}`));
 		const idx = Math.floor(projects.findIndex((p) => p.id === hover) % piano.length);
 
-		toneRef.current?.triggerAttackRelease(piano[idx], 3, Tone.now() + 0.05, 0.4);
+		toneRef.current?.triggerAttackRelease(piano[idx], 3, Tone.now() + 0.05, 0.005);
 		console.log('play note', piano[idx]);
 	}
 

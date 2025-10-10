@@ -8,12 +8,13 @@ import { Project } from '@/@types/datcms-cma';
 import hash from 'object-hash';
 import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client-node';
 
+const width = 1920;
+const height = 1080;
+
 export async function POST(request: NextRequest) {
 	const { searchParams } = new URL(request.url);
 	const { entity } = await request.json();
 	const id = entity ? entity.id : searchParams.get('id');
-	const width = parseInt(searchParams.get('width') || '1400');
-	const height = parseInt(searchParams.get('height') || '1050');
 
 	console.log('screenshot api route:', id);
 
