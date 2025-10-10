@@ -32,6 +32,7 @@
 
 		img {
 			height: var(--thumbnail-height);
+			aspect-ratio: 16/9;
 			cursor: pointer;
 		}
 	}

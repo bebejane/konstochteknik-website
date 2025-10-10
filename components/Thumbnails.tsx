@@ -102,11 +102,7 @@ export default function Thumbnails({ allProjects }: Props) {
 						onMouseEnter={() => setHover(p.id)}
 						onMouseLeave={() => setHover(null)}
 					>
-						<Image
-							data={{ ...p.thumbnail.responsiveImage, bgColor: p.background?.hex ?? undefined }}
-							intersectionMargin={'0px 100% 0px 100%'}
-							//usePlaceholder={false}
-						/>
+						<img src={`${p.thumbnail.url}?w=400`} alt={p.title} className={s.thumbnail} />
 					</SwiperSlide>
 				))}
 			</SwiperReact>

@@ -32,10 +32,8 @@ const main = async function () {
 				...project,
 				thumbnail: null,
 			});
-
-			if (project.thumbnail?.upload_id) await client.uploads.destroy(project.thumbnail.upload_id);
-
 			await client.items.publish(project.id);
+			if (project.thumbnail?.upload_id) await client.uploads.destroy(project.thumbnail.upload_id);
 		} catch (e) {
 			console.log(e);
 		}
