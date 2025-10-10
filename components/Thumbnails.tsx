@@ -28,9 +28,7 @@ export default function Thumbnails({ allProjects }: Props) {
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	function initTone() {
-		//if (toneRef.current) return;
-		console.log('initTone');
-		//const panner = new Tone.Panner(0).toDestination();
+		if (toneRef.current) return;
 		const feedbackDelay = new Tone.FeedbackDelay('2n', 0.9).toDestination();
 		const phaser = new Tone.Phaser(2, 1, 200).toDestination();
 		const volume = new Tone.Gain(-2, 'gain').toDestination();
