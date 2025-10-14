@@ -8,8 +8,8 @@ import Swiper from 'swiper';
 import { FreeMode, Mousewheel } from 'swiper/modules';
 import { useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
-import { Image } from 'react-datocms';
-import * as Tone from 'tone';
+import Mixer from '@/lib/mixer/index';
+import youngfolks from '@/lib/mixer/youngfolks';
 
 Swiper.use([FreeMode, Mousewheel]);
 
@@ -17,49 +17,32 @@ type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
 };
 
-const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const octave = 5;
-
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-	const toneRef = useRef<Tone.DuoSynth | null>(null);
-	const masterRef = useRef<Tone.Channel | null>(null);
-
+	const mixerRef = useRef<Mixer | null>(null);
+	const yfIndexRef = useRef<number>(-1);
 	const [hover, setHover] = useState<string | null>(null);
 	const [category, index, setIndex] = useStore(useShallow((s) => [s.category, s.index, s.setIndex]));
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	function initTone() {
-		if (toneRef.current) return;
-		if (toneRef.current) toneRef.current.dispose();
+		if (mixerRef.current) return;
 
-		const feedbackDelay = new Tone.FeedbackDelay('2n', 0.9);
-		const phaser = new Tone.Phaser(2, 1, 200);
-
-		feedbackDelay.wet.value = 0.1;
-		phaser.wet.value = 0.3;
-
-		masterRef.current = new Tone.Channel(-10, 0).toDestination();
-		toneRef.current = new Tone.DuoSynth({
-			volume: 0.1,
-			harmonicity: 0.5,
-			vibratoAmount: 0.5,
-			vibratoRate: 0.5,
-			context: {
-				latencyHint: 'interactive',
-			},
-		}).chain(feedbackDelay, phaser, masterRef.current);
+		mixerRef.current = new Mixer();
 	}
 
 	function playNote() {
-		const piano = notes.map((n, i) => `${n}${octave}`).concat(notes.map((n, i) => `${n}${octave + 1}`));
-		const idx = Math.floor(projects.findIndex((p) => p.id === hover) % piano.length);
-		toneRef.current?.triggerAttackRelease(piano[idx], 3, Tone.now() + 0.05, 0.005);
-		console.log('play note', piano[idx]);
+		return playYoungFolks();
 	}
-
+	function playYoungFolks() {
+		yfIndexRef.current + 1 > youngfolks.length - 1 ? (yfIndexRef.current = 0) : (yfIndexRef.current += 1);
+		mixerRef.current?.playNote(youngfolks[yfIndexRef.current], 5, 0.5);
+	}
 	function playShortNote() {
-		toneRef.current?.triggerAttackRelease('C5', 0.05, Tone.now(), 0.005);
+		yfIndexRef.current + 1 > youngfolks.length - 1 ? (yfIndexRef.current = 0) : (yfIndexRef.current += 1);
+		const note = youngfolks[yfIndexRef.current].split('')[0];
+		const octave = parseInt(youngfolks[yfIndexRef.current].split('')[1]);
+		mixerRef.current?.playBass(`${note}${1}`, 0.2, 1);
 	}
 
 	return (
@@ -86,12 +69,19 @@ export default function Thumbnails({ allProjects }: Props) {
 				}}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 				onClick={() => initTone()}
+				onMouseLeave={() => {
+					yfIndexRef.current = -1;
+					setHover(null);
+				}}
+				onTouchStart={() => {
+					playNote();
+				}}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
 						key={`${p.id}-${idx}-${category}`}
 						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
-						onClick={(e) => {
+						onClick={async (e) => {
 							e.stopPropagation();
 							playNote();
 							setIndex(idx);
