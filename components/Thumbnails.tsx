@@ -26,19 +26,23 @@ export default function Thumbnails({ allProjects }: Props) {
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	function initTone() {
+		return;
 		if (mixerRef.current) return;
 
 		mixerRef.current = new Mixer();
 	}
 
 	function playNote() {
+		return;
 		return playYoungFolks();
 	}
 	function playYoungFolks() {
+		return;
 		yfIndexRef.current + 1 > youngfolks.length - 1 ? (yfIndexRef.current = 0) : (yfIndexRef.current += 1);
 		mixerRef.current?.playNote(youngfolks[yfIndexRef.current], 5, 0.5);
 	}
 	function playShortNote() {
+		return;
 		yfIndexRef.current + 1 > youngfolks.length - 1 ? (yfIndexRef.current = 0) : (yfIndexRef.current += 1);
 		const note = youngfolks[yfIndexRef.current].split('')[0];
 		const octave = parseInt(youngfolks[yfIndexRef.current].split('')[1]);
