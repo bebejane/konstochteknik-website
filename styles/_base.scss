@@ -22,7 +22,7 @@
 	--headline-font: "Sans", Times New Roman, serif;
 
 	@include mq($from: tablet) {
-		--other-margin: 1.3rem;
+		--other-margin: 3vw;
 		--outer-margin: 4vw;
 	}
 }
