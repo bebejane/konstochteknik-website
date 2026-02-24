@@ -53,7 +53,6 @@ export default function Gallery({ allProjects }: Props) {
 				slidesPerView={1}
 				spaceBetween={0}
 				initialSlide={0}
-				effect={'fade'}
 				modules={[EffectFade]}
 				speed={1500}
 				loop={true}

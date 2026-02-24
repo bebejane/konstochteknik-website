@@ -3,18 +3,39 @@
 	top: 0;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: calc(100vw - var(--other-margin));
 	z-index: var(--z-index-menu);
-	padding-top: var(--other-margin);
+	padding-top: calc(0.75 * var(--other-margin));
+	padding-left: var(--other-margin);
+	//padding-right: var(--outer-margin);
 	color: var(--black);
+	font-family: var(--headline-font);
 
-	button.round {
-		width: 2rem;
-		height: 2rem;
-		border-radius: 50%;
-		margin-left: 0.5rem;
-		margin-right: 0.5rem;
+	button {
+		//width: 2rem;
+		//height: 2rem;
+		//border-radius: 50%;
+		//margin-left: 0.5rem;
+		//margin-right: 0.5rem;
+		padding: 0;
+		background-color: transparent;
+		border: 0px;
+		color: inherit;
+		line-height: 1;
+
+		&[data-enabled='true'] {
+			font-style: italic;
+		}
+	}
+
+	.logo {
+		display: flex;
+
+		button:nth-child(2) {
+			padding-left: 0.5em;
+			padding-right: 0.5em;
+		}
 	}
 }

@@ -14,11 +14,11 @@
 		left: 50%;
 		bottom: var(--thumbnail-height);
 		height: 3rem;
-		border: 3px solid var(--black);
+		//border: 3px solid var(--black);
 		border-radius: 3rem;
-		padding: 1rem;
+		padding: 0.5rem;
 		margin: 0;
-		transform: translateX(-50%);
+		//transform: translateX(-50%);
 		margin-bottom: var(--other-margin); //0; //calc(1.5 * var(--other-margin));
 		line-height: 1;
 		color: var(--black);
@@ -62,10 +62,12 @@
 			padding-bottom: 0.7rem;
 			max-width: calc(100% - (2 * var(--other-margin)));
 			margin-right: var(--other-margin);
+			padding-left: 1.5em;
+			padding-right: 1.5em;
 		}
 
 		&.transparent {
-			background-color: transparent;
+			background-color: transparent !important;
 		}
 	}
 }

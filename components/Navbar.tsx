@@ -13,8 +13,8 @@ type Props = {
 };
 
 export default function Navbar({ about, allCommisioners }: Props) {
-	const [project, showAbout, setShowAbout, category, setCategory, setProject] = useStore(
-		useShallow((s) => [s.project, s.showAbout, s.setShowAbout, s.category, s.setCategory, s.setProject])
+	const [project, showAbout, setShowAbout, category, setCategory, setProject, setH2Override] = useStore(
+		useShallow((s) => [s.project, s.showAbout, s.setShowAbout, s.category, s.setCategory, s.setProject, s.setH2Override])
 	);
 	const color = showAbout ? 'var(--white)' : project?.color?.hex;
 
@@ -27,15 +27,37 @@ export default function Navbar({ about, allCommisioners }: Props) {
 
 	return (
 		<nav style={{ color }} className={cn(s.navbar)}>
-			<button onClick={toggle} data-enabled={category === 'art'} data-id='art'>
-				Konst
-			</button>
-			<button className={s.round} onClick={toggle} data-enabled={!category ? true : false}>
-				&
-			</button>
-			<button onClick={toggle} data-enabled={category === 'tech'} data-id='tech'>
-				Teknik
-			</button>
+			{/* [Added by assistant] Hover on Konst/Teknik temporarily overrides Gallery h2 text; mouse out restores original. */}
+			<section className={s.logo}>
+				<button
+					onClick={toggle}
+					data-enabled={category === 'art'}
+					data-id='art'
+					onMouseEnter={() => setH2Override('Filter works on design and printed matter.')}
+					onMouseLeave={() => setH2Override(null)}
+				>
+					Konst
+				</button>
+				<button
+					className={s.and}
+					onClick={toggle}
+					data-enabled={!category ? true : false}
+					onMouseEnter={() => setH2Override('Show all selected works.')}
+					onMouseLeave={() => setH2Override(null)}
+				>
+					&
+				</button>
+				<button
+					onClick={toggle}
+					data-enabled={category === 'tech'}
+					data-id='tech'
+					onMouseEnter={() => setH2Override('Filter works by interactive projects')}
+					onMouseLeave={() => setH2Override(null)}
+				>
+					Teknik
+				</button>
+			</section>
+			<section><button>About</button></section>
 		</nav>
 	);
 }

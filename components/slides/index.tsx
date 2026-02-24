@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function Slide({ project, single, clean }: Props) {
-	const [currentProject] = useStore(useShallow((s) => [s.project, s.setProject]));
+	const [currentProject, h2Override] = useStore(useShallow((s) => [s.project, s.h2Override]));
 	const active = (currentProject?.id === project.id || single) && !clean ? true : false;
 
 	return (
@@ -27,14 +27,15 @@ export default function Slide({ project, single, clean }: Props) {
 					<VideoSlide data={project.slide[0] as VideoSlideRecord} active={active} />
 				) : null}
 			</>
-			{active && project.caption && (
+			{/* [Added by assistant] When h2Override is set (nav hover), show it; otherwise show project caption. Original caption restored on mouse out. */}
+			{active && (project.caption || h2Override) && (
 				<h2
-					key={`${currentProject?.id}-${active}`}
+					key={`${currentProject?.id}-${active}-${h2Override ?? 'caption'}`}
 					className={cn(s[project.captionStyle], 'color-transition')}
 					style={{ color: project?.color?.hex }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					<Markdown content={project.caption} />
+					{h2Override ? h2Override : <Markdown content={project.caption!} />}
 				</h2>
 			)}
 		</div>
