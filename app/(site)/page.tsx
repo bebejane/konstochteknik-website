@@ -5,7 +5,7 @@ import Gallery from '@/components/Gallery';
 import Thumbnails from '@/components/Thumbnails';
 
 export default async function Home() {
-	const { allProjects, draftUrl } = await apiQuery<AllProjectsQuery>(AllProjectsDocument, { all: true });
+	const { allProjects, draftUrl } = await apiQuery(AllProjectsDocument, { all: true });
 
 	return (
 		<>

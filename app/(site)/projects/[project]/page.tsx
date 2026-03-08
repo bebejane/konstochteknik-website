@@ -3,7 +3,6 @@ import { AllProjectsDocument, ProjectDocument } from '@/graphql';
 import { notFound } from 'next/navigation';
 import Slide from '@/components/slides';
 import { DraftMode } from 'next-dato-utils/components';
-import { SearchParams } from 'next/dist/server/request/search-params';
 
 export type ProjectPageProps = {
 	params: Promise<{ project: string }>;
@@ -12,7 +11,7 @@ export type ProjectPageProps = {
 export default async function ProjectPage({ params }: ProjectPageProps) {
 	const { project: slug }: { project: string } = await params;
 
-	const { project, draftUrl } = await apiQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, {
+	const { project, draftUrl } = await apiQuery(ProjectDocument, {
 		variables: { slug },
 	});
 
@@ -27,7 +26,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 }
 
 export async function generateStaticParams() {
-	const { allProjects } = await apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(AllProjectsDocument, {
+	const { allProjects } = await apiQuery(AllProjectsDocument, {
 		all: true,
 		tags: ['project'],
 	});
