@@ -20,7 +20,7 @@ export default function Gallery({ allProjects }: Props) {
 
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
 	const [project, setProject, category, index, setIndex] = useStore(
-		useShallow((s) => [s.project, s.setProject, s.category, s.index, s.setIndex])
+		useShallow((s) => [s.project, s.setProject, s.category, s.index, s.setIndex]),
 	);
 	const buttonStyle = { color: project?.color?.hex };
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
@@ -36,16 +36,9 @@ export default function Gallery({ allProjects }: Props) {
 	}
 
 	useEffect(() => {
-		//window.history.pushState(null, '', index === 0 ? '/' : `/projects/${allProjects[index].slug}`);
-
 		swiperRef.current?.slideTo(index);
 		setTimeout(() => setProject(projects[index] as ProjectRecord), 200);
 	}, [index]);
-
-	useEffect(() => {
-		//if (index === 0) return;
-		//swiperRef.current.coverflowEffect = customEffect;
-	}, [swiperRef]);
 
 	return (
 		<>
@@ -54,7 +47,7 @@ export default function Gallery({ allProjects }: Props) {
 				spaceBetween={0}
 				initialSlide={0}
 				modules={[EffectFade]}
-				speed={1500}
+				speed={500}
 				loop={true}
 				wrapperClass={s.swiper}
 				onRealIndexChange={({ realIndex }) => setIndex(realIndex)}

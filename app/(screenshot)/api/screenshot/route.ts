@@ -79,7 +79,6 @@ export async function POST(request: NextRequest) {
 				en: {
 					title,
 					alt: title,
-
 					custom_data: {
 						hash: recordHash,
 					},
@@ -90,7 +89,11 @@ export async function POST(request: NextRequest) {
 		if (record.thumbnail?.upload_id) {
 			const uploadId = record.thumbnail?.upload_id;
 			await client.uploads.update(uploadId, { ...uploadMetadata });
-			upload = await client.uploads.update(uploadId, { path: await uploadLocalFileAndReturnPath(client, filePath) });
+			upload = await client.uploads.update(
+				uploadId,
+				{ path: await uploadLocalFileAndReturnPath(client, filePath) },
+				{ replace_strategy: 'keep_url' },
+			);
 		} else {
 			upload = await client.uploads.createFromLocalFile({
 				localPath: filePath,

@@ -6,15 +6,12 @@ const nextConfig: NextConfig = {
 		includePaths: ['./components', './app'],
 		silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
 		prependData: `
-			@use "sass:math";
-    	@import "./styles/mediaqueries";
+			@use "sass:math";			
+    	@use "@/styles/mediaqueries" as *;
   	`,
 	},
 	typescript: {
 		ignoreBuildErrors: true,
-	},
-	eslint: {
-		ignoreDuringBuilds: true,
 	},
 	webpack: (config) => {
 		config.module.exprContextCritical = false;
