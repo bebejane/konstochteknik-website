@@ -8,14 +8,14 @@
 	h2 {
 		position: absolute;
 		left: 50%;
-		bottom: var(--thumbnail-height);
+		//bottom: var(--thumbnail-height);
 		top: unset;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 3rem;
+		height: auto;
 		border-radius: 3rem;
-		padding: 0.5rem;
+		padding: var(--other-margin);
 		margin: 0;
 		margin-bottom: var(--other-margin);
 		line-height: 1;
@@ -24,7 +24,14 @@
 		z-index: 10;
 		text-align: center;
 		opacity: 0;
-		animation: fadeUp 1s ease-in-out 1s forwards;
+		animation: fadeUp 1s ease-in-out 0.5s forwards;
+		bottom: -0.5rem;
+
+		@include mq($from: desktop) {
+			bottom: -1rem;
+			padding: 0.5rem;
+			height: 3rem;
+		}
 
 		@keyframes fadeUp {
 			0% {
@@ -57,11 +64,20 @@
 		&.fill {
 			background-color: var(--white);
 			color: var(--black) !important;
-			padding-bottom: 0.7rem;
 			max-width: calc(100% - (2 * var(--other-margin)));
 			margin-right: var(--other-margin);
 			padding-left: 1.5em;
 			padding-right: 1.5em;
+			padding-top: 0.7rem;
+			padding-bottom: 0.7rem;
+
+			@include mq($until: desktop) {
+				margin-bottom: 1.5rem;
+			}
+
+			@include mq($from: desktop) {
+				padding-bottom: 0.7rem;
+			}
 		}
 
 		&.transparent {
