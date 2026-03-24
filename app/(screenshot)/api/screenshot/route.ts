@@ -100,7 +100,6 @@ export async function POST(request: NextRequest) {
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
 		console.error(error);
-		console.timeEnd('screenshot');
 		return NextResponse.json(
 			{
 				error: 'An error occurred while generating the screenshot.',
