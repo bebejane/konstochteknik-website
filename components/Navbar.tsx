@@ -1,18 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import s from './Navbar.module.scss';
 import cn from 'classnames';
+import Link from 'next/link';
 import { useStore, useShallow } from '@/lib/store';
-import About from './About';
-import { useState } from 'react';
 
 type Props = {
 	allCommisioners: AllCommisionersQuery['allCommisioners'];
 	about: AboutQuery['about'];
 };
 
-export default function Navbar({ about, allCommisioners }: Props) {
+export default function Navbar() {
 	const [project, showAbout, setShowAbout, category, setCategory, setProject, setH2Override] =
 		useStore(
 			useShallow((s) => [
@@ -39,7 +37,7 @@ export default function Navbar({ about, allCommisioners }: Props) {
 	return (
 		<nav style={{ color }} className={cn(s.navbar)}>
 			{/* [Added by assistant] Hover on Konst/Teknik temporarily overrides Gallery h2 text; mouse out restores original. */}
-			<section className={s.logo}>
+			<div className={s.logo}>
 				<button
 					onClick={toggle}
 					data-enabled={category === 'art'}
@@ -67,12 +65,12 @@ export default function Navbar({ about, allCommisioners }: Props) {
 				>
 					Teknik
 				</button>
-			</section>
-			<section>
+			</div>
+			<div>
 				<Link href='/about'>
-					<button>About</button>
+					<button style={{ color }}>About</button>
 				</Link>
-			</section>
+			</div>
 		</nav>
 	);
 }

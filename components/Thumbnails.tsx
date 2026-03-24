@@ -24,6 +24,8 @@ export default function Thumbnails({ allProjects }: Props) {
 		useShallow((s) => [s.category, s.index, s.setIndex]),
 	);
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
+	const width = 400;
+	const sharpness = 80;
 
 	return (
 		<>
@@ -66,11 +68,15 @@ export default function Thumbnails({ allProjects }: Props) {
 							setHover(p.id);
 							setHide(true);
 						}}
+						onWheel={() => {
+							setHover(p.id);
+							setHide(true);
+						}}
 						onMouseLeave={() => setHover(null)}
 					>
 						{p.thumbnail?.url && (
 							<img
-								src={p.thumbnail.url}
+								src={`${p.thumbnail.url}?w=${width}&sharp=${sharpness}`}
 								alt={p.title}
 								className={cn(s.image, hover === p.id && s.hover)}
 							/>

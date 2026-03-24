@@ -18,7 +18,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 
 	return (
 		<>
-			<Navbar about={about} allCommisioners={allCommisioners} />
+			<Navbar />
 			<main className={s.main}>
 				<article>{children}</article>
 			</main>

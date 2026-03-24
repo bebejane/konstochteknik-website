@@ -49,6 +49,8 @@ export default function Gallery({ allProjects }: Props) {
 				modules={[EffectFade]}
 				speed={500}
 				loop={true}
+				//cssMode={true}
+				//simulateTouch={false}
 				wrapperClass={s.swiper}
 				onRealIndexChange={({ realIndex }) => setIndex(realIndex)}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
