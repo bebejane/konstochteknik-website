@@ -1,0 +1,12 @@
+.close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: calc(0.6 * var(--other-margin));
+	z-index: calc(var(--z-index-about) + 1);
+
+	button {
+		color: var(--white);
+		background-color: transparent;
+	}
+}

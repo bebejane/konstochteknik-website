@@ -13,14 +13,25 @@ type Props = {
 };
 
 export default function Navbar({ about, allCommisioners }: Props) {
-	const [project, showAbout, setShowAbout, category, setCategory, setProject, setH2Override] = useStore(
-		useShallow((s) => [s.project, s.showAbout, s.setShowAbout, s.category, s.setCategory, s.setProject, s.setH2Override])
-	);
+	const [project, showAbout, setShowAbout, category, setCategory, setProject, setH2Override] =
+		useStore(
+			useShallow((s) => [
+				s.project,
+				s.showAbout,
+				s.setShowAbout,
+				s.category,
+				s.setCategory,
+				s.setProject,
+				s.setH2Override,
+			]),
+		);
 	const color = showAbout ? 'var(--white)' : project?.color?.hex;
 
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
 		const c =
-			e.currentTarget.dataset.id === category ? undefined : (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
+			e.currentTarget.dataset.id === category
+				? undefined
+				: (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
 		setCategory(c);
 		setProject(null);
 	}
@@ -57,7 +68,11 @@ export default function Navbar({ about, allCommisioners }: Props) {
 					Teknik
 				</button>
 			</section>
-			<section><button>About</button></section>
+			<section>
+				<Link href='/about'>
+					<button>About</button>
+				</Link>
+			</section>
 		</nav>
 	);
 }
