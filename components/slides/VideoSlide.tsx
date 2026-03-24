@@ -8,10 +8,14 @@ type Props = {
 	active: boolean;
 	data: VideoSlideRecord;
 };
-export default function VideoSlide({ data: { backgroundImage, video, poster, id, css }, active }: Props) {
+export default function VideoSlide({
+	data: { backgroundImage, video, poster, id, css },
+	active,
+}: Props) {
 	const ref = useRef<HTMLVideoElement>(null);
 
 	useEffect(() => {
+		return;
 		if (active) {
 			ref.current.currentTime = 0;
 			ref.current.play();
@@ -28,7 +32,7 @@ export default function VideoSlide({ data: { backgroundImage, video, poster, id,
 		>
 			<div className={s.monitor}>
 				<img src='/images/monitor.png' alt='monitor' />
-				<video ref={ref} poster={poster?.url} muted playsInline>
+				<video ref={ref} poster={poster?.url} muted={true} autoPlay={true} playsInline>
 					<source src={video.video.mp4Url} type='video/mp4' />
 					<track kind='captions' />
 				</video>
