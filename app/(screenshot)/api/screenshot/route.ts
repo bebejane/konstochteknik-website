@@ -11,6 +11,14 @@ import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client
 const width = 1920;
 const height = 1080;
 
+const CHROMIUM_PACK_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
+	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/chromium-pack.tar`
+	: 'https://github.com/gabenunez/puppeteer-on-vercel/raw/refs/heads/main/example/chromium-dont-use-in-prod.tar';
+
+// Cache the Chromium executable path to avoid re-downloading on subsequent requests
+let cachedExecutablePath: string | null = null;
+let downloadPromise: Promise<string> | null = null;
+
 export async function POST(request: NextRequest) {
 	const { searchParams } = new URL(request.url);
 	const { entity } = await request.json();
@@ -49,10 +57,12 @@ export async function POST(request: NextRequest) {
 		if (isVercel) {
 			const chromium = (await import('@sparticuz/chromium')).default;
 			puppeteer = await import('puppeteer-core');
+
+			const executablePath = await getChromiumPath();
 			launchOptions = {
 				...launchOptions,
 				args: chromium.args,
-				executablePath: await chromium.executablePath(),
+				executablePath,
 			};
 		} else {
 			puppeteer = await import('puppeteer');
@@ -118,4 +128,28 @@ export async function POST(request: NextRequest) {
 		}
 		console.timeEnd('screenshot ok:');
 	}
+}
+
+async function getChromiumPath(): Promise<string> {
+	// Return cached path if available
+	if (cachedExecutablePath) return cachedExecutablePath;
+
+	// Prevent concurrent downloads by reusing the same promise
+	if (!downloadPromise) {
+		const chromium = (await import('@sparticuz/chromium-min')).default;
+		downloadPromise = chromium
+			.executablePath(CHROMIUM_PACK_URL)
+			.then((path) => {
+				cachedExecutablePath = path;
+				console.log('Chromium path resolved:', path);
+				return path;
+			})
+			.catch((error) => {
+				console.error('Failed to get Chromium path:', error);
+				downloadPromise = null; // Reset on error to allow retry
+				throw error;
+			});
+	}
+
+	return downloadPromise;
 }

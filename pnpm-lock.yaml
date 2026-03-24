@@ -20,6 +20,9 @@ importers:
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.13.2)
+      '@sparticuz/chromium-min':
+        specifier: ^143.0.4
+        version: 143.0.4
       chrome-aws-lambda:
         specifier: ^10.1.0
         version: 10.1.0(puppeteer-core@23.11.1)
@@ -1015,6 +1018,10 @@ packages:
 
   '@repeaterjs/repeater@3.0.6':
     resolution: {integrity: sha512-Javneu5lsuhwNCryN+pXH93VPQ8g0dBX7wItHFgYiwQmzE1sVdg5tWHiOgHywzL2W21XQopa7IwIEnNbmeUJYA==}
+
+  '@sparticuz/chromium-min@143.0.4':
+    resolution: {integrity: sha512-vAV731SUEVH0FUmMc+404ZoRq0glq7DlhEGpAX0C7/rXupZ0HasOIJHbrjNNNE+VElenkdmwBm8MVTzwYcFPyQ==}
+    engines: {node: '>=20.11.0'}
 
   '@sparticuz/chromium@141.0.0':
     resolution: {integrity: sha512-JsTp4AqgStkqKki4dUpEM0GoisAjQhsqZ1lQTNMSKK5A9pw6BbIuIvv2HVYMYzSZGyDdQNJYBPPDg2eggCkezA==}
@@ -3949,6 +3956,15 @@ snapshots:
       - supports-color
 
   '@repeaterjs/repeater@3.0.6': {}
+
+  '@sparticuz/chromium-min@143.0.4':
+    dependencies:
+      follow-redirects: 1.15.11
+      tar-fs: 3.1.1
+    transitivePeerDependencies:
+      - bare-buffer
+      - debug
+      - react-native-b4a
 
   '@sparticuz/chromium@141.0.0':
     dependencies:
