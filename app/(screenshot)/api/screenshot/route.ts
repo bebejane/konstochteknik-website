@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
 		: null;
 
 	const currentHash = thumbnail?.default_field_metadata?.en?.custom_data.hash;
+
 	if (currentHash === recordHash) {
 		console.log('screenshot', 'skip since the same');
 		return new NextResponse('skip', { status: 200 });
@@ -45,32 +46,9 @@ export async function POST(request: NextRequest) {
 
 	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
 
-	let browser;
 	try {
-		console.time('screenshot ok:');
-
-		const isVercel = !!process.env.VERCEL_ENV;
-		let puppeteer: any,
-			launchOptions: any = {
-				headless: true,
-			};
-
-		if (isVercel) {
-			const chromium = (await import('@sparticuz/chromium')).default;
-			puppeteer = await import('puppeteer-core');
-
-			const executablePath = await getChromiumPath();
-			launchOptions = {
-				...launchOptions,
-				args: chromium.args,
-				executablePath,
-			};
-		} else {
-			puppeteer = await import('puppeteer');
-		}
-
-		browser = await puppeteer.launch(launchOptions);
-
+		console.time('screenshot');
+		const browser = await getBrowser();
 		const page = await browser.newPage();
 		await page.setViewport({ width, height });
 		await page.goto(url, { waitUntil: 'networkidle2' });
@@ -121,13 +99,45 @@ export async function POST(request: NextRequest) {
 
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
-		browser && (await browser.close());
 		console.error(error);
-		return new NextResponse('An error occurred while generating the screenshot.', { status: 500 });
+		console.timeEnd('screenshot');
+		return NextResponse.json(
+			{
+				error: 'An error occurred while generating the screenshot.',
+				message: error.message,
+			},
+			{
+				status: 500,
+			},
+		);
 	} finally {
-		browser && (await browser.close());
-		console.timeEnd('screenshot ok:');
+		console.timeEnd('screenshot');
 	}
+}
+
+async function getBrowser() {
+	console.log(CHROMIUM_PACK_URL);
+	const isVercel = !!process.env.VERCEL_ENV;
+	let puppeteer: any,
+		launchOptions: any = {
+			headless: true,
+		};
+
+	if (isVercel) {
+		const chromium = (await import('@sparticuz/chromium')).default;
+		puppeteer = await import('puppeteer-core');
+
+		const executablePath = await getChromiumPath();
+		launchOptions = {
+			...launchOptions,
+			args: chromium.args,
+			executablePath,
+		};
+	} else {
+		puppeteer = await import('puppeteer');
+	}
+
+	return await puppeteer.launch(launchOptions);
 }
 
 async function getChromiumPath(): Promise<string> {
