@@ -27,7 +27,7 @@
     "next": "^16.2.1",
     "next-dato-utils": "github:bebejane/next-dato-utils",
     "object-hash": "^3.0.0",
-    "puppeteer-core": "^23.11.0",
+    "puppeteer-core": "^24.40.0",
     "react": "^19.2.4",
     "react-datocms": "^8.0.2",
     "react-dom": "^19.2.4",
@@ -51,6 +51,6 @@
     "@types/node": "^25.5.0",
     "baseline-browser-mapping": "^2.10.10",
     "graphql-config": "^5.1.6",
-    "puppeteer": "^23.11.0"
+    "puppeteer": "^24.40.0"
   }
 }

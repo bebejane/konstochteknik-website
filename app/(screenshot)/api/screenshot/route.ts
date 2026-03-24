@@ -37,8 +37,9 @@ export async function POST(request: NextRequest) {
 		? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
 		: null;
 
-	if (thumbnail?.default_field_metadata?.en?.custom_data.hash === recordHash) {
-		console.log('screenshot', 'skip');
+	const currentHash = thumbnail?.default_field_metadata?.en?.custom_data.hash;
+	if (currentHash === recordHash) {
+		console.log('screenshot', 'skip since the same');
 		return new NextResponse('skip', { status: 200 });
 	}
 
@@ -120,12 +121,11 @@ export async function POST(request: NextRequest) {
 
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
+		browser && (await browser.close());
 		console.error(error);
 		return new NextResponse('An error occurred while generating the screenshot.', { status: 500 });
 	} finally {
-		if (browser) {
-			await browser.close();
-		}
+		browser && (await browser.close());
 		console.timeEnd('screenshot ok:');
 	}
 }
