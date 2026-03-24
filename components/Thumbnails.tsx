@@ -19,6 +19,7 @@ export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const yfIndexRef = useRef<number>(-1);
 	const [hover, setHover] = useState<string | null>(null);
+	const [hide, setHide] = useState(false);
 	const [category, index, setIndex] = useStore(
 		useShallow((s) => [s.category, s.index, s.setIndex]),
 	);
@@ -33,7 +34,7 @@ export default function Thumbnails({ allProjects }: Props) {
 				spaceBetween={0}
 				initialSlide={0}
 				loop={true}
-				wrapperClass={s.swiper}
+				wrapperClass={cn(s.swiper, hide && s.hide)}
 				direction={'horizontal'}
 				mousewheel={{
 					forceToAxis: true,
@@ -63,6 +64,7 @@ export default function Thumbnails({ allProjects }: Props) {
 						}}
 						onMouseEnter={() => {
 							setHover(p.id);
+							setHide(true);
 						}}
 						onMouseLeave={() => setHover(null)}
 					>

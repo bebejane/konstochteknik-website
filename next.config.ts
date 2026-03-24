@@ -23,11 +23,8 @@ const nextConfig: NextConfig = {
 			'datocms.config': './datocms.config.ts',
 		},
 	},
-	logging: {
-		fetches: {
-			fullUrl: true,
-		},
-	},
+	logging: false,
+	devIndicators: false,
 	async headers() {
 		return [
 			{
