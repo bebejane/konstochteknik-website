@@ -4,7 +4,6 @@ import path from 'path';
 const nextConfig: NextConfig = {
 	sassOptions: {
 		includePaths: ['./components', './app'],
-		silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
 		prependData: `
 			@use "sass:math";			
     	@use "@/styles/mediaqueries" as *;
