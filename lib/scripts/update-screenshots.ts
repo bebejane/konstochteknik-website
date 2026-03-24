@@ -1,5 +1,4 @@
-import * as dotenv from 'dotenv';
-dotenv.config({ path: './.env' });
+import 'dotenv/config';
 import { buildClient } from '@datocms/cma-client-node';
 import { Project } from '@/@types/datcms-cma';
 
@@ -10,7 +9,7 @@ const main = async function () {
 
 	const id = process.argv[2] ?? null;
 
-	for await (const record of client.items.listPagedIterator({
+	for await (const record of client.items.listPagedIterator<Project>({
 		nested: true,
 		version: 'published',
 		filter: { type: 'project' },
