@@ -1,15 +1,17 @@
+@use 'mediaqueries' as *;
+
 html,
 body {
-  font-size: 19px;
-  font-weight: normal;
+	font-size: 19px;
+	font-weight: normal;
 
-  @include mq($from: tablet) {
-    font-size: 20px;
-  }
+	@include mq($from: tablet) {
+		font-size: 20px;
+	}
 
-  @include mq($from: wide) {
-    font-size: 22px;
-  }
+	@include mq($from: wide) {
+		font-size: 22px;
+	}
 }
 
 h1,
@@ -17,24 +19,24 @@ h2,
 h3,
 h4,
 h5 {
-  strong {
-    font-weight: normal;
-  }
+	strong {
+		font-weight: normal;
+	}
 }
 
 h1,
 h2 {
-  font-size: 1rem;
-  line-height: 1.25;
-  font-family: var(--body-font);
-  font-weight: normal;
+	font-size: 1rem;
+	line-height: 1.25;
+	font-family: var(--body-font);
+	font-weight: normal;
 }
 
 p {
-  line-height: var(--line-height);
+	line-height: var(--line-height);
 }
 
 strong,
 b {
-  font-weight: bold;
+	font-weight: bold;
 }

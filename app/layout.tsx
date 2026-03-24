@@ -9,7 +9,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 	return (
 		<html lang='en'>
 			<body id='root'>{children}</body>
-			<DraftModeContentLink />
+			{/* <DraftModeContentLink /> */}
 		</html>
 	);
 }
