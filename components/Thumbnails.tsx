@@ -68,7 +68,13 @@ export default function Thumbnails({ allProjects }: Props) {
 						}}
 						onMouseLeave={() => setHover(null)}
 					>
-						<img src={`${p.thumbnail.url}?w=400`} alt={p.title} className={s.thumbnail} />
+						{p.thumbnail?.url && (
+							<img
+								src={p.thumbnail.url}
+								alt={p.title}
+								className={cn(s.image, hover === p.id && s.hover)}
+							/>
+						)}
 					</SwiperSlide>
 				))}
 			</SwiperReact>
