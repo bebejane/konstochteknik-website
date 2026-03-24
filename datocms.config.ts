@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next';
 const config = {
 	routes: {
 		project: async ({ id, slug }) => ['/', `/screenshot/${id}`],
-		about: async () => ['/'],
+		about: async () => ['/about', '/'],
 		commisioner: async () => ['/'],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
