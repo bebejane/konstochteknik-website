@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
 
 export function CloseButton() {
-	const [modal, setModal] = useState(true);
+	const [modal, setModal] = useState(false);
 	const segments = useSelectedLayoutSegment('modals');
 
 	useEffect(() => {
