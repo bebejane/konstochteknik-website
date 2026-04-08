@@ -15,7 +15,7 @@ export function CloseButton() {
 	}, [segments]);
 	if (!modal) return null;
 	return (
-		<Link href='/' className={s.close}>
+		<Link href='/' className={s.close} replace={true}>
 			<button>Close</button>
 		</Link>
 	);
