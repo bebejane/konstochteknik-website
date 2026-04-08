@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import s from './CloseButton.module.scss';
 import Link from 'next/link';
-import { useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 export function CloseButton() {
 	const [modal, setModal] = useState(false);
@@ -15,7 +15,7 @@ export function CloseButton() {
 	}, [segments]);
 	if (!modal) return null;
 	return (
-		<Link href='/' className={s.close} replace={true} prefetch={true}>
+		<Link href='/' className={s.close}>
 			<button>Close</button>
 		</Link>
 	);
