@@ -67,7 +67,7 @@ export default function Navbar() {
 				</button>
 			</div>
 			<div>
-				<Link href='/about'>
+				<Link href='/about' scroll={false}>
 					<button style={{ color }}>About</button>
 				</Link>
 			</div>
