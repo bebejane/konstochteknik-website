@@ -12,17 +12,18 @@
     "postinstall": "node lib/scripts/postinstall.mjs"
   },
   "dependencies": {
-    "@datocms/cma-client-browser": "^5.3.0",
-    "@datocms/cma-client-node": "^5.3.0",
-    "@datocms/content-link": "^0.3.19",
+    "@datocms/cma-client-browser": "^5.4.0",
+    "@datocms/cma-client-node": "^5.4.0",
+    "@datocms/content-link": "^0.3.20",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@sparticuz/chromium-min": "^143.0.4",
+    "@vercel/functions": "^3.4.3",
     "chrome-aws-lambda": "^10.1.0",
     "classnames": "^2.5.1",
     "css-to-style": "^1.4.0",
     "date-fns": "^2.30.0",
     "datocms-structured-text-utils": "^5.1.7",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.1",
     "graphql": "^16.13.2",
     "next": "^16.2.2",
     "next-dato-utils": "github:bebejane/next-dato-utils",
@@ -48,8 +49,8 @@
     "@graphql-codegen/typescript-operations": "^5.0.2",
     "@parcel/watcher": "^2.5.6",
     "@sparticuz/chromium": "^141.0.0",
-    "@types/node": "^25.5.0",
-    "baseline-browser-mapping": "^2.10.10",
+    "@types/node": "^25.5.2",
+    "baseline-browser-mapping": "^2.10.16",
     "graphql-config": "^5.1.6",
     "puppeteer": "^24.40.0"
   }

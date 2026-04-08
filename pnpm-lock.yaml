@@ -9,20 +9,23 @@ importers:
   .:
     dependencies:
       '@datocms/cma-client-browser':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.4.0
+        version: 5.4.0
       '@datocms/cma-client-node':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.4.0
+        version: 5.4.0
       '@datocms/content-link':
-        specifier: ^0.3.19
-        version: 0.3.19
+        specifier: ^0.3.20
+        version: 0.3.20
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.13.2)
       '@sparticuz/chromium-min':
         specifier: ^143.0.4
         version: 143.0.4
+      '@vercel/functions':
+        specifier: ^3.4.3
+        version: 3.4.3
       chrome-aws-lambda:
         specifier: ^10.1.0
         version: 10.1.0(puppeteer-core@24.40.0)
@@ -39,8 +42,8 @@ importers:
         specifier: ^5.1.7
         version: 5.1.7
       dotenv:
-        specifier: ^17.3.1
-        version: 17.3.1
+        specifier: ^17.4.1
+        version: 17.4.1
       graphql:
         specifier: ^16.13.2
         version: 16.13.2
@@ -49,7 +52,7 @@ importers:
         version: 16.2.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4)
       next-dato-utils:
         specifier: github:bebejane/next-dato-utils
-        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/12d5bf2210cf44263f72a4980665e11209886a87(@datocms/cda-client@0.2.7(graphql@16.13.2))(@datocms/cma-client-browser@5.3.0)(@datocms/cma-client-node@5.3.0)(@datocms/cma-client@5.3.0)(@datocms/content-link@0.3.19)(@types/react@19.1.16)(@vercel/functions@3.4.3)(datocms-structured-text-utils@5.1.7)(graphql@16.13.2)(next@16.2.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4))(postmark@4.0.5)(react-datocms@8.0.2(@mux/mux-player-react@2.9.1(@types/react@19.1.16)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(graphql@16.13.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4)(sharp@0.34.5)(zod@4.1.11)
+        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/12d5bf2210cf44263f72a4980665e11209886a87(@datocms/cda-client@0.2.7(graphql@16.13.2))(@datocms/cma-client-browser@5.4.0)(@datocms/cma-client-node@5.4.0)(@datocms/cma-client@5.4.0)(@datocms/content-link@0.3.20)(@types/react@19.1.16)(@vercel/functions@3.4.3)(datocms-structured-text-utils@5.1.7)(graphql@16.13.2)(next@16.2.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4))(postmark@4.0.5)(react-datocms@8.0.2(@mux/mux-player-react@2.9.1(@types/react@19.1.16)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(graphql@16.13.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4)(sharp@0.34.5)(zod@4.1.11)
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -89,7 +92,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^6.1.3
-        version: 6.1.3(@parcel/watcher@2.5.6)(@types/node@25.5.0)(graphql@16.13.2)(typescript@5.9.3)
+        version: 6.1.3(@parcel/watcher@2.5.6)(@types/node@25.5.2)(graphql@16.13.2)(typescript@5.9.3)
       '@graphql-codegen/typed-document-node':
         specifier: ^6.0.2
         version: 6.1.7(graphql@16.13.2)
@@ -112,14 +115,14 @@ importers:
         specifier: ^141.0.0
         version: 141.0.0
       '@types/node':
-        specifier: ^25.5.0
-        version: 25.5.0
+        specifier: ^25.5.2
+        version: 25.5.2
       baseline-browser-mapping:
-        specifier: ^2.10.10
-        version: 2.10.10
+        specifier: ^2.10.16
+        version: 2.10.16
       graphql-config:
         specifier: ^5.1.6
-        version: 5.1.6(@types/node@25.5.0)(graphql@16.13.2)(typescript@5.9.3)
+        version: 5.1.6(@types/node@25.5.2)(graphql@16.13.2)(typescript@5.9.3)
       puppeteer:
         specifier: ^24.40.0
         version: 24.40.0(typescript@5.9.3)
@@ -229,17 +232,17 @@ packages:
   '@datocms/cda-client@0.2.7':
     resolution: {integrity: sha512-0dH411Os2NkjwLJrmrEH+9N2Scne8o7qaYFlil11ma22VBWJsPL9VgK2DwDK7n+3QfE1TA+lNvy4SYmRCYt+Ng==}
 
-  '@datocms/cma-client-browser@5.3.0':
-    resolution: {integrity: sha512-mTkhF+981dC6U8vfqekNIpUU63LreMLOv5fXqvJ1wcwf3eETKVxZJJi+hsnlrhRjrrGijByaZgJ7/mEi9te3Lw==}
+  '@datocms/cma-client-browser@5.4.0':
+    resolution: {integrity: sha512-IJdgPNjBjVGg9k3pJIntbmVHCWYAbCfCtffS7rDn8Ve30dtjfGGku4sWyRwQGJZiDa8jwUwFR29GSSSvdoK/Nw==}
 
-  '@datocms/cma-client-node@5.3.0':
-    resolution: {integrity: sha512-m6PmqlHVCMSHMxX0cfk71OBYm/tbKQN6gNeP/gYRds7C7ZhKwfKHw/T1tzt27CV7GeLtMluvUBZdHHy+Q5BU/w==}
+  '@datocms/cma-client-node@5.4.0':
+    resolution: {integrity: sha512-QugxEmdD+/7OnTWysSw2XIRW/hDlAQXBgw7EDhndhkHv66AF/nvxVTbuTVIUBaoMlRZs/ZcPmV+VyfJPi242Cg==}
 
-  '@datocms/cma-client@5.3.0':
-    resolution: {integrity: sha512-aKezzQ2ViWSLz39hdf+EU4tE2cqme+UwRp2fAr20i4NkeZOPmPBmiiFLPJ2lMrVCKl7eeN2Jd5Zz5oqqPYtgQA==}
+  '@datocms/cma-client@5.4.0':
+    resolution: {integrity: sha512-X7rtZOW1G7ibMBDGaK8QzjvlkISf4yN24Gl5wMH0A2pgKYN7qO+HB8qdNMAGXobiLktG1TuverGDnl3UqOGmbQ==}
 
-  '@datocms/content-link@0.3.19':
-    resolution: {integrity: sha512-5k2UWDzxMwscwZNy5vQur3sDKq850LJhSXEeE+bhAvjDw+xAgxWp528ODfaTNCZS0ld/Mu3h790qvuaRUeQFxw==}
+  '@datocms/content-link@0.3.20':
+    resolution: {integrity: sha512-1VkFngKb1wC+XTjhjUPzamOg28LWeY1gpNJ+iuVj4GJq+RMOHg/r05VgOaQocICxgx0sAuuwywucI6tY3as04A==}
     engines: {node: '>=18'}
 
   '@datocms/rest-client-utils@5.2.8':
@@ -1077,11 +1080,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@24.9.2':
-    resolution: {integrity: sha512-uWN8YqxXxqFMX2RqGOrumsKeti4LlmIMIyV0lgut4jx7KQBcBiW6vkDtIBvHnHIquwNfJhk8v2OtmO8zXWHfPA==}
-
-  '@types/node@25.5.0':
-    resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
+  '@types/node@25.5.2':
+    resolution: {integrity: sha512-tO4ZIRKNC+MDWV4qKVZe3Ql/woTnmHDr5JD8UI5hn2pwBrHEwOEMZK7WlNb5RKB6EoJ02gwmQS9OrjuFnZYdpg==}
 
   '@types/react@19.1.16':
     resolution: {integrity: sha512-WBM/nDbEZmDUORKnh5i1bTnAz6vTohUf9b8esSMu+b24+srbaxa04UbJgWx78CVfNXA20sNu0odEIluZDFdCog==}
@@ -1251,8 +1251,8 @@ packages:
   bare-url@2.2.2:
     resolution: {integrity: sha512-g+ueNGKkrjMazDG3elZO1pNs3HY5+mMmOet1jtKyhOaCnkLzitxf26z7hoAEkDNgdNmnc1KIlt/dw6Po6xZMpA==}
 
-  baseline-browser-mapping@2.10.10:
-    resolution: {integrity: sha512-sUoJ3IMxx4AyRqO4MLeHlnGDkyXRoUG0/AI9fjK+vS72ekpV0yWVY7O0BVjmBcRtkNcsAO2QDZ4tdKKGoI6YaQ==}
+  baseline-browser-mapping@2.10.16:
+    resolution: {integrity: sha512-Lyf3aK28zpsD1yQMiiHD4RvVb6UdMoo8xzG2XzFIfR9luPzOpcBlAsT/qfB1XWS1bxWT+UtE4WmQgsp297FYOA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1518,8 +1518,8 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dotenv@17.3.1:
-    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+  dotenv@17.4.1:
+    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
     engines: {node: '>=12'}
 
   dset@3.1.4:
@@ -2747,9 +2747,6 @@ packages:
     resolution: {integrity: sha512-eXL4nmJT7oCpkZsHZUOJo8hcX3GbsiDOa0Qu9F646fi8dT3XuSVopVqAcEiVzSKKH7UoDti23wNX3qGFxcW5Qg==}
     engines: {node: '>=0.10.0'}
 
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
-
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
@@ -3057,25 +3054,25 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@datocms/cma-client-browser@5.3.0':
+  '@datocms/cma-client-browser@5.4.0':
     dependencies:
-      '@datocms/cma-client': 5.3.0
+      '@datocms/cma-client': 5.4.0
       '@datocms/rest-client-utils': 5.2.8
 
-  '@datocms/cma-client-node@5.3.0':
+  '@datocms/cma-client-node@5.4.0':
     dependencies:
-      '@datocms/cma-client': 5.3.0
+      '@datocms/cma-client': 5.4.0
       '@datocms/rest-client-utils': 5.2.8
       mime-types: 2.1.35
       tmp-promise: 3.0.3
 
-  '@datocms/cma-client@5.3.0':
+  '@datocms/cma-client@5.4.0':
     dependencies:
       '@datocms/rest-client-utils': 5.2.8
       datocms-structured-text-utils: 5.1.7
       uuid: 9.0.1
 
-  '@datocms/content-link@0.3.19': {}
+  '@datocms/content-link@0.3.20': {}
 
   '@datocms/rest-client-utils@5.2.8':
     dependencies:
@@ -3111,7 +3108,7 @@ snapshots:
       graphql: 16.13.2
       tslib: 2.6.3
 
-  '@graphql-codegen/cli@6.1.3(@parcel/watcher@2.5.6)(@types/node@25.5.0)(graphql@16.13.2)(typescript@5.9.3)':
+  '@graphql-codegen/cli@6.1.3(@parcel/watcher@2.5.6)(@types/node@25.5.2)(graphql@16.13.2)(typescript@5.9.3)':
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/template': 7.27.2
@@ -3122,20 +3119,20 @@ snapshots:
       '@graphql-tools/apollo-engine-loader': 8.0.28(graphql@16.13.2)
       '@graphql-tools/code-file-loader': 8.1.28(graphql@16.13.2)
       '@graphql-tools/git-loader': 8.0.32(graphql@16.13.2)
-      '@graphql-tools/github-loader': 9.0.6(@types/node@25.5.0)(graphql@16.13.2)
+      '@graphql-tools/github-loader': 9.0.6(@types/node@25.5.2)(graphql@16.13.2)
       '@graphql-tools/graphql-file-loader': 8.1.12(graphql@16.13.2)
       '@graphql-tools/json-file-loader': 8.0.26(graphql@16.13.2)
       '@graphql-tools/load': 8.1.8(graphql@16.13.2)
-      '@graphql-tools/url-loader': 9.0.6(@types/node@25.5.0)(graphql@16.13.2)
+      '@graphql-tools/url-loader': 9.0.6(@types/node@25.5.2)(graphql@16.13.2)
       '@graphql-tools/utils': 11.0.0(graphql@16.13.2)
-      '@inquirer/prompts': 7.9.0(@types/node@25.5.0)
+      '@inquirer/prompts': 7.9.0(@types/node@25.5.2)
       '@whatwg-node/fetch': 0.10.11
       chalk: 4.1.2
       cosmiconfig: 9.0.0(typescript@5.9.3)
       debounce: 2.2.0
       detect-indent: 6.1.0
       graphql: 16.13.2
-      graphql-config: 5.1.6(@types/node@25.5.0)(graphql@16.13.2)(typescript@5.9.3)
+      graphql-config: 5.1.6(@types/node@25.5.2)(graphql@16.13.2)(typescript@5.9.3)
       is-glob: 4.0.3
       jiti: 2.6.1
       json-to-pretty-yaml: 1.2.2
@@ -3376,7 +3373,7 @@ snapshots:
       - uWebSockets.js
       - utf-8-validate
 
-  '@graphql-tools/executor-http@3.1.0(@types/node@25.5.0)(graphql@16.13.2)':
+  '@graphql-tools/executor-http@3.1.0(@types/node@25.5.2)(graphql@16.13.2)':
     dependencies:
       '@graphql-hive/signal': 2.0.0
       '@graphql-tools/executor-common': 1.0.6(graphql@16.13.2)
@@ -3386,7 +3383,7 @@ snapshots:
       '@whatwg-node/fetch': 0.10.13
       '@whatwg-node/promise-helpers': 1.3.2
       graphql: 16.13.2
-      meros: 1.3.2(@types/node@25.5.0)
+      meros: 1.3.2(@types/node@25.5.2)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@types/node'
@@ -3425,9 +3422,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@graphql-tools/github-loader@9.0.6(@types/node@25.5.0)(graphql@16.13.2)':
+  '@graphql-tools/github-loader@9.0.6(@types/node@25.5.2)(graphql@16.13.2)':
     dependencies:
-      '@graphql-tools/executor-http': 3.1.0(@types/node@25.5.0)(graphql@16.13.2)
+      '@graphql-tools/executor-http': 3.1.0(@types/node@25.5.2)(graphql@16.13.2)
       '@graphql-tools/graphql-tag-pluck': 8.3.27(graphql@16.13.2)
       '@graphql-tools/utils': 11.0.0(graphql@16.13.2)
       '@whatwg-node/fetch': 0.10.13
@@ -3531,10 +3528,10 @@ snapshots:
       graphql: 16.13.2
       tslib: 2.8.1
 
-  '@graphql-tools/url-loader@9.0.6(@types/node@25.5.0)(graphql@16.13.2)':
+  '@graphql-tools/url-loader@9.0.6(@types/node@25.5.2)(graphql@16.13.2)':
     dependencies:
       '@graphql-tools/executor-graphql-ws': 3.1.4(graphql@16.13.2)
-      '@graphql-tools/executor-http': 3.1.0(@types/node@25.5.0)(graphql@16.13.2)
+      '@graphql-tools/executor-http': 3.1.0(@types/node@25.5.2)(graphql@16.13.2)
       '@graphql-tools/executor-legacy-ws': 1.1.25(graphql@16.13.2)
       '@graphql-tools/utils': 11.0.0(graphql@16.13.2)
       '@graphql-tools/wrap': 11.1.8(graphql@16.13.2)
@@ -3688,128 +3685,128 @@ snapshots:
 
   '@inquirer/ansi@1.0.1': {}
 
-  '@inquirer/checkbox@4.3.0(@types/node@25.5.0)':
+  '@inquirer/checkbox@4.3.0(@types/node@25.5.2)':
     dependencies:
       '@inquirer/ansi': 1.0.1
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
       '@inquirer/figures': 1.0.14
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/confirm@5.1.19(@types/node@25.5.0)':
+  '@inquirer/confirm@5.1.19(@types/node@25.5.2)':
     dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/core@10.3.0(@types/node@25.5.0)':
+  '@inquirer/core@10.3.0(@types/node@25.5.2)':
     dependencies:
       '@inquirer/ansi': 1.0.1
       '@inquirer/figures': 1.0.14
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
       cli-width: 4.1.0
       mute-stream: 2.0.0
       signal-exit: 4.1.0
       wrap-ansi: 6.2.0
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/editor@4.2.21(@types/node@25.5.0)':
+  '@inquirer/editor@4.2.21(@types/node@25.5.2)':
     dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/external-editor': 1.0.2(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/external-editor': 1.0.2(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/expand@4.0.21(@types/node@25.5.0)':
+  '@inquirer/expand@4.0.21(@types/node@25.5.2)':
     dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/external-editor@1.0.2(@types/node@25.5.0)':
+  '@inquirer/external-editor@1.0.2(@types/node@25.5.2)':
     dependencies:
       chardet: 2.1.0
       iconv-lite: 0.7.0
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
   '@inquirer/figures@1.0.14': {}
 
-  '@inquirer/input@4.2.5(@types/node@25.5.0)':
+  '@inquirer/input@4.2.5(@types/node@25.5.2)':
     dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/number@3.0.21(@types/node@25.5.0)':
+  '@inquirer/number@3.0.21(@types/node@25.5.2)':
     dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/password@4.0.21(@types/node@25.5.0)':
-    dependencies:
-      '@inquirer/ansi': 1.0.1
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
-    optionalDependencies:
-      '@types/node': 25.5.0
-
-  '@inquirer/prompts@7.9.0(@types/node@25.5.0)':
-    dependencies:
-      '@inquirer/checkbox': 4.3.0(@types/node@25.5.0)
-      '@inquirer/confirm': 5.1.19(@types/node@25.5.0)
-      '@inquirer/editor': 4.2.21(@types/node@25.5.0)
-      '@inquirer/expand': 4.0.21(@types/node@25.5.0)
-      '@inquirer/input': 4.2.5(@types/node@25.5.0)
-      '@inquirer/number': 3.0.21(@types/node@25.5.0)
-      '@inquirer/password': 4.0.21(@types/node@25.5.0)
-      '@inquirer/rawlist': 4.1.9(@types/node@25.5.0)
-      '@inquirer/search': 3.2.0(@types/node@25.5.0)
-      '@inquirer/select': 4.4.0(@types/node@25.5.0)
-    optionalDependencies:
-      '@types/node': 25.5.0
-
-  '@inquirer/rawlist@4.1.9(@types/node@25.5.0)':
-    dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
-      yoctocolors-cjs: 2.1.3
-    optionalDependencies:
-      '@types/node': 25.5.0
-
-  '@inquirer/search@3.2.0(@types/node@25.5.0)':
-    dependencies:
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/figures': 1.0.14
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
-      yoctocolors-cjs: 2.1.3
-    optionalDependencies:
-      '@types/node': 25.5.0
-
-  '@inquirer/select@4.4.0(@types/node@25.5.0)':
+  '@inquirer/password@4.0.21(@types/node@25.5.2)':
     dependencies:
       '@inquirer/ansi': 1.0.1
-      '@inquirer/core': 10.3.0(@types/node@25.5.0)
-      '@inquirer/figures': 1.0.14
-      '@inquirer/type': 3.0.9(@types/node@25.5.0)
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
+    optionalDependencies:
+      '@types/node': 25.5.2
+
+  '@inquirer/prompts@7.9.0(@types/node@25.5.2)':
+    dependencies:
+      '@inquirer/checkbox': 4.3.0(@types/node@25.5.2)
+      '@inquirer/confirm': 5.1.19(@types/node@25.5.2)
+      '@inquirer/editor': 4.2.21(@types/node@25.5.2)
+      '@inquirer/expand': 4.0.21(@types/node@25.5.2)
+      '@inquirer/input': 4.2.5(@types/node@25.5.2)
+      '@inquirer/number': 3.0.21(@types/node@25.5.2)
+      '@inquirer/password': 4.0.21(@types/node@25.5.2)
+      '@inquirer/rawlist': 4.1.9(@types/node@25.5.2)
+      '@inquirer/search': 3.2.0(@types/node@25.5.2)
+      '@inquirer/select': 4.4.0(@types/node@25.5.2)
+    optionalDependencies:
+      '@types/node': 25.5.2
+
+  '@inquirer/rawlist@4.1.9(@types/node@25.5.2)':
+    dependencies:
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
-  '@inquirer/type@3.0.9(@types/node@25.5.0)':
+  '@inquirer/search@3.2.0(@types/node@25.5.2)':
+    dependencies:
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/figures': 1.0.14
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
+      yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
+
+  '@inquirer/select@4.4.0(@types/node@25.5.2)':
+    dependencies:
+      '@inquirer/ansi': 1.0.1
+      '@inquirer/core': 10.3.0(@types/node@25.5.2)
+      '@inquirer/figures': 1.0.14
+      '@inquirer/type': 3.0.9(@types/node@25.5.2)
+      yoctocolors-cjs: 2.1.3
+    optionalDependencies:
+      '@types/node': 25.5.2
+
+  '@inquirer/type@3.0.9(@types/node@25.5.2)':
+    optionalDependencies:
+      '@types/node': 25.5.2
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -4022,11 +4019,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@24.9.2':
-    dependencies:
-      undici-types: 7.16.0
-
-  '@types/node@25.5.0':
+  '@types/node@25.5.2':
     dependencies:
       undici-types: 7.18.2
 
@@ -4040,11 +4033,11 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.9.2
+      '@types/node': 25.5.2
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
     optional: true
 
   '@ungap/structured-clone@1.3.0': {}
@@ -4185,7 +4178,7 @@ snapshots:
       bare-path: 3.0.0
     optional: true
 
-  baseline-browser-mapping@2.10.10: {}
+  baseline-browser-mapping@2.10.16: {}
 
   basic-ftp@5.0.5: {}
 
@@ -4199,7 +4192,7 @@ snapshots:
 
   browserslist@4.26.2:
     dependencies:
-      baseline-browser-mapping: 2.10.10
+      baseline-browser-mapping: 2.10.16
       caniuse-lite: 1.0.30001746
       electron-to-chromium: 1.5.228
       node-releases: 2.0.21
@@ -4450,7 +4443,7 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  dotenv@17.3.1: {}
+  dotenv@17.4.1: {}
 
   dset@3.1.4: {}
 
@@ -4651,13 +4644,13 @@ snapshots:
 
   gopd@1.2.0: {}
 
-  graphql-config@5.1.6(@types/node@25.5.0)(graphql@16.13.2)(typescript@5.9.3):
+  graphql-config@5.1.6(@types/node@25.5.2)(graphql@16.13.2)(typescript@5.9.3):
     dependencies:
       '@graphql-tools/graphql-file-loader': 8.1.12(graphql@16.13.2)
       '@graphql-tools/json-file-loader': 8.0.26(graphql@16.13.2)
       '@graphql-tools/load': 8.1.8(graphql@16.13.2)
       '@graphql-tools/merge': 9.1.7(graphql@16.13.2)
-      '@graphql-tools/url-loader': 9.0.6(@types/node@25.5.0)(graphql@16.13.2)
+      '@graphql-tools/url-loader': 9.0.6(@types/node@25.5.2)(graphql@16.13.2)
       '@graphql-tools/utils': 11.0.0(graphql@16.13.2)
       cosmiconfig: 8.3.6(typescript@5.9.3)
       graphql: 16.13.2
@@ -5085,9 +5078,9 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  meros@1.3.2(@types/node@25.5.0):
+  meros@1.3.2(@types/node@25.5.2):
     optionalDependencies:
-      '@types/node': 25.5.0
+      '@types/node': 25.5.2
 
   micromark-core-commonmark@2.0.3:
     dependencies:
@@ -5310,13 +5303,13 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/12d5bf2210cf44263f72a4980665e11209886a87(@datocms/cda-client@0.2.7(graphql@16.13.2))(@datocms/cma-client-browser@5.3.0)(@datocms/cma-client-node@5.3.0)(@datocms/cma-client@5.3.0)(@datocms/content-link@0.3.19)(@types/react@19.1.16)(@vercel/functions@3.4.3)(datocms-structured-text-utils@5.1.7)(graphql@16.13.2)(next@16.2.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4))(postmark@4.0.5)(react-datocms@8.0.2(@mux/mux-player-react@2.9.1(@types/react@19.1.16)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(graphql@16.13.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4)(sharp@0.34.5)(zod@4.1.11):
+  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/12d5bf2210cf44263f72a4980665e11209886a87(@datocms/cda-client@0.2.7(graphql@16.13.2))(@datocms/cma-client-browser@5.4.0)(@datocms/cma-client-node@5.4.0)(@datocms/cma-client@5.4.0)(@datocms/content-link@0.3.20)(@types/react@19.1.16)(@vercel/functions@3.4.3)(datocms-structured-text-utils@5.1.7)(graphql@16.13.2)(next@16.2.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4))(postmark@4.0.5)(react-datocms@8.0.2(@mux/mux-player-react@2.9.1(@types/react@19.1.16)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(graphql@16.13.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.80.4)(sharp@0.34.5)(zod@4.1.11):
     dependencies:
       '@datocms/cda-client': 0.2.7(graphql@16.13.2)
-      '@datocms/cma-client': 5.3.0
-      '@datocms/cma-client-browser': 5.3.0
-      '@datocms/cma-client-node': 5.3.0
-      '@datocms/content-link': 0.3.19
+      '@datocms/cma-client': 5.4.0
+      '@datocms/cma-client-browser': 5.4.0
+      '@datocms/cma-client-node': 5.4.0
+      '@datocms/content-link': 0.3.20
       '@opentelemetry/api': 1.9.0
       '@vercel/functions': 3.4.3
       commander: 11.1.0
@@ -5349,7 +5342,7 @@ snapshots:
     dependencies:
       '@next/env': 16.2.2
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.10
+      baseline-browser-mapping: 2.10.16
       caniuse-lite: 1.0.30001746
       postcss: 8.4.31
       react: 19.2.4
@@ -5587,7 +5580,7 @@ snapshots:
 
   react-datocms@8.0.2(@mux/mux-player-react@2.9.1(@types/react@19.1.16)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(graphql@16.13.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
-      '@datocms/content-link': 0.3.19
+      '@datocms/content-link': 0.3.20
       datocms-listen: 1.0.2(graphql@16.13.2)
       datocms-structured-text-generic-html-renderer: 5.1.7
       datocms-structured-text-utils: 5.1.7
@@ -5986,8 +5979,6 @@ snapshots:
   ua-parser-js@1.0.41: {}
 
   unc-path-regex@0.1.2: {}
-
-  undici-types@7.16.0: {}
 
   undici-types@7.18.2: {}
 

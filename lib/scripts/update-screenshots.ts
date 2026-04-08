@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { buildClient } from '@datocms/cma-client-node';
-import { Project } from '@/@types/datcms-cma';
+import { Project } from '@/types/datcms-cma';
 
 const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string });
 

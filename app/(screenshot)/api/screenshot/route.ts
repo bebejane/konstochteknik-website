@@ -4,9 +4,11 @@ import { revalidatePath } from 'next/cache';
 import config from '@/datocms.config';
 import client from '@/lib/client';
 import fs from 'fs';
-import { Project } from '@/@types/datcms-cma';
+import { Project } from '@/types/datcms-cma';
 import hash from 'object-hash';
 import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client-node';
+import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { waitUntil } from '@vercel/functions';
 
 const width = 1920;
 const height = 1080;
@@ -20,82 +22,39 @@ let cachedExecutablePath: string | null = null;
 let downloadPromise: Promise<string> | null = null;
 
 export async function POST(request: NextRequest) {
-	const { searchParams } = new URL(request.url);
-	const { entity } = await request.json();
-	const id = entity ? entity.id : searchParams.get('id');
-
-	console.log('screenshot api route:', id);
-
-	if (!id) return new NextResponse('Please provide a id.', { status: 400 });
-
-	const record = await client.items.find<Project>(id, { nested: true, version: 'published' });
-
-	if (!record) return new NextResponse('Record not found', { status: 404 });
-
-	const recordHash = hash({ ...record, meta: undefined, thumbnail: undefined });
-	const thumbnail = (record.thumbnail as any)?.upload_id
-		? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
-		: null;
-
-	const currentHash = thumbnail?.default_field_metadata?.en?.custom_data.hash;
-
-	if (currentHash === recordHash) {
-		console.log('screenshot', 'skip since the same');
-		return new NextResponse('skip', { status: 200 });
-	}
-
-	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
-
 	try {
-		console.time('screenshot');
-		const browser = await getBrowser();
-		const page = await browser.newPage();
-		await page.setViewport({ width, height });
-		await page.goto(url, { waitUntil: 'networkidle2' });
-		await sleep(3000);
+		const { searchParams } = new URL(request.url);
+		const { entity } = await request.json();
+		const id = entity ? entity.id : searchParams.get('id');
 
-		const screenshot = await page.screenshot({ type: 'png' });
-		const filename = `${record.slug}-screenshot.png`;
-		const filePath = `/tmp/${filename}`;
-		const title = `${record.title}`;
+		console.log('screenshot api route:', id);
 
-		fs.writeFileSync(filePath, screenshot);
+		if (!id) return new NextResponse('Please provide a id.', { status: 400 });
 
-		let upload: ApiTypes.Upload;
-		const uploadMetadata = {
-			tags: ['screenshot'],
-			default_field_metadata: {
-				en: {
-					title,
-					alt: title,
-					custom_data: {
-						hash: recordHash,
-					},
-				},
-			},
-		};
+		const record = await client.items.find<Project>(id, { version: 'published' });
 
-		if (record.thumbnail?.upload_id) {
-			const uploadId = record.thumbnail?.upload_id;
-			await client.uploads.update(uploadId, { ...uploadMetadata });
-			upload = await client.uploads.update(
-				uploadId,
-				{ path: await uploadLocalFileAndReturnPath(client, filePath) },
-				{ replace_strategy: 'create_new_url' },
-			);
-		} else {
-			upload = await client.uploads.createFromLocalFile({
-				localPath: filePath,
-				...uploadMetadata,
-			});
+		if (!record) return new NextResponse('Record not found', { status: 404 });
+
+		const recordHash = hash({ ...record, meta: undefined, thumbnail: undefined });
+		const thumbnail = (record.thumbnail as any)?.upload_id
+			? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
+			: null;
+
+		const currentHash = thumbnail?.default_field_metadata?.en?.custom_data.hash;
+
+		if (currentHash === recordHash) {
+			console.log('screenshot', 'skip since the same');
+			return new NextResponse('skip', { status: 200 });
 		}
-
-		await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
-		await client.items.publish(record.id);
-		await sleep(3000);
-
-		const paths = await config.routes?.project(record);
-		paths?.forEach((path) => revalidatePath(path));
+		waitUntil(
+			generate(record, recordHash)
+				.then(() => {
+					console.log('done');
+				})
+				.catch((e) => {
+					console.error(e);
+				}),
+		);
 
 		return new NextResponse('ok', { status: 200 });
 	} catch (error) {
@@ -137,6 +96,60 @@ async function getBrowser() {
 	}
 
 	return await puppeteer.launch(launchOptions);
+}
+
+async function generate(record: Item<Project>, recordHash: string) {
+	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
+
+	console.time('screenshot');
+	const browser = await getBrowser();
+	const page = await browser.newPage();
+	await page.setViewport({ width, height });
+	await page.goto(url, { waitUntil: 'networkidle2' });
+	await sleep(3000);
+
+	const screenshot = await page.screenshot({ type: 'png' });
+	const filename = `${record.slug}-screenshot.png`;
+	const filePath = `/tmp/${filename}`;
+	const title = `${record.title}`;
+
+	fs.writeFileSync(filePath, screenshot);
+
+	let upload: ApiTypes.Upload;
+	const uploadMetadata = {
+		tags: ['screenshot'],
+		default_field_metadata: {
+			en: {
+				title,
+				alt: title,
+				custom_data: {
+					hash: recordHash,
+				},
+			},
+		},
+	};
+
+	if (record.thumbnail?.upload_id) {
+		const uploadId = record.thumbnail?.upload_id;
+		await client.uploads.update(uploadId, { ...uploadMetadata });
+		upload = await client.uploads.update(
+			uploadId,
+			{ path: await uploadLocalFileAndReturnPath(client, filePath) },
+			{ replace_strategy: 'create_new_url' },
+		);
+	} else {
+		upload = await client.uploads.createFromLocalFile({
+			localPath: filePath,
+			...uploadMetadata,
+		});
+	}
+
+	await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
+	await client.items.publish(record.id);
+	await sleep(3000);
+
+	const paths = await config.routes?.project(record);
+	paths?.forEach((path) => revalidatePath(path));
 }
 
 async function getChromiumPath(): Promise<string> {
