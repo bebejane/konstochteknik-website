@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 			upload = await client.uploads.update(
 				uploadId,
 				{ path: await uploadLocalFileAndReturnPath(client, filePath) },
-				{ replace_strategy: 'keep_url' },
+				{ replace_strategy: 'create_new_url' },
 			);
 		} else {
 			upload = await client.uploads.createFromLocalFile({
