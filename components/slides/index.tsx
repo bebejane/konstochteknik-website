@@ -14,24 +14,34 @@ type Props = {
 };
 
 export default function Slide({ project, single, clean }: Props) {
-	const [currentProject, h2Override] = useStore(useShallow((s) => [s.project, s.h2Override]));
-	const active = (currentProject?.id === project.id || single) && !clean ? true : false;
+	const [color, projectId, h2Override] = useStore(
+		useShallow((s) => [s.color, s.projectId, s.h2Override]),
+	);
+	const active = (projectId === project.id || single) && !clean ? true : false;
 
 	return (
-		<div key={project.id} style={{ backgroundColor: project?.background?.hex }} className={s.slide}>
+		<div style={{ backgroundColor: color }} className={s.slide}>
 			<>
 				{project.slide[0].__typename === 'ImageSlideRecord' ? (
-					<ImageSlide data={project.slide[0] as ImageSlideRecord} active={active} />
+					<ImageSlide
+						key={project.slide[0].id}
+						data={project.slide[0] as ImageSlideRecord}
+						active={active}
+					/>
 				) : project.slide[0].__typename === 'VideoSlideRecord' ? (
-					<VideoSlide data={project.slide[0] as VideoSlideRecord} active={active} />
+					<VideoSlide
+						key={project.slide[0].id}
+						data={project.slide[0] as VideoSlideRecord}
+						active={active}
+					/>
 				) : null}
 			</>
-			{/* [Added by assistant] When h2Override is set (nav hover), show it; otherwise show project caption. Original caption restored on mouse out. */}
+
 			{active && (project.caption || h2Override) && (
 				<h2
-					key={`${currentProject?.id}-${active}-${h2Override ?? 'caption'}`}
+					key={`${project.id}-${active}-${h2Override ?? 'caption'}`}
 					className={cn(s[project.captionStyle], 'color-transition')}
-					style={{ color: project?.color?.hex }}
+					style={{ color }}
 					onClick={(e) => e.stopPropagation()}
 				>
 					{h2Override ? h2Override : <Markdown content={project.caption!} />}

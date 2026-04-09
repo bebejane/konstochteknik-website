@@ -1,15 +1,12 @@
 'use client';
 
-import 'swiper/css';
 import s from './Thumbnails.module.scss';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import Swiper from 'swiper';
 import { FreeMode, Mousewheel } from 'swiper/modules';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
-
-Swiper.use([FreeMode, Mousewheel]);
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
@@ -17,7 +14,6 @@ type Props = {
 
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-	const yfIndexRef = useRef<number>(-1);
 	const [hover, setHover] = useState<string | null>(null);
 	const [hide, setHide] = useState(false);
 	const [category, index, setIndex] = useStore(
@@ -31,13 +27,14 @@ export default function Thumbnails({ allProjects }: Props) {
 		<>
 			<SwiperReact
 				id='thumbnails'
-				key={category}
+				key={`thumbnails-${category ?? ''}`}
 				slidesPerView={'auto'}
 				spaceBetween={0}
 				initialSlide={0}
 				loop={true}
 				wrapperClass={cn(s.swiper, hide && s.hide)}
 				direction={'horizontal'}
+				modules={[FreeMode, Mousewheel]}
 				mousewheel={{
 					forceToAxis: true,
 					releaseOnEdges: true,
@@ -49,15 +46,13 @@ export default function Thumbnails({ allProjects }: Props) {
 					momentum: true,
 					sticky: false,
 				}}
+				onInit={() => console.log('init thumbs')}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
-				onMouseLeave={() => {
-					yfIndexRef.current = -1;
-					setHover(null);
-				}}
+				onMouseLeave={() => setHover(null)}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
-						key={`${p.id}-${idx}-${category}`}
+						key={`${p.id}-${idx}-${category ?? ''}`}
 						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
 						onClick={async (e) => {
 							e.stopPropagation();

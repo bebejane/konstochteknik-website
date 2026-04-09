@@ -1,11 +1,8 @@
 'use client';
 
-import 'swiper/css';
-import 'swiper/css/effect-fade';
 import s from './Gallery.module.scss';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import { EffectFade } from 'swiper/modules';
 import type { Swiper } from 'swiper';
 import Slide from './slides';
 import { useEffect, useRef, useState } from 'react';
@@ -17,48 +14,58 @@ type Props = {
 
 export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
-
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject, category, index, setIndex] = useStore(
-		useShallow((s) => [s.project, s.setProject, s.category, s.index, s.setIndex]),
+	const [color, setColor, setProjectId, category, index] = useStore(
+		useShallow((s) => [s.color, s.setColor, s.setProjectId, s.category, s.index]),
 	);
-	const buttonStyle = { color: project?.color?.hex };
+	const buttonStyle = { color };
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
 	function swipeNext() {
 		if (index === allProjects.length - 1) return;
-		swiperRef.current?.slideTo(index + 1);
+		swiperRef.current?.slideNext();
 	}
 
-	function swipePrev() {
-		if (index === 0) return;
-		swiperRef.current?.slideTo(index - 1);
+	function handleTransitionEnd({ activeIndex }: { activeIndex: number }) {
+		requestAnimationFrame(() => {
+			const project = projects[activeIndex];
+			if (!project) return;
+			const { color, id } = projects[activeIndex];
+			setProjectId(id);
+			setColor(color?.hex ?? null);
+		});
 	}
 
 	useEffect(() => {
-		swiperRef.current?.slideTo(index);
-		setTimeout(() => setProject(projects[index] as ProjectRecord), 200);
+		if (!swiperRef.current) return;
+		const speed = Math.min(Math.abs(swiperRef.current.realIndex - index) * 200, 1000);
+		swiperRef.current.slideTo(index, speed);
 	}, [index]);
 
 	return (
 		<>
 			<SwiperReact
+				key={`gallery-${category ?? ''}`}
+				id='gallery'
 				slidesPerView={1}
 				spaceBetween={0}
 				initialSlide={0}
-				modules={[EffectFade]}
 				speed={500}
 				loop={true}
-				//cssMode={true}
-				//simulateTouch={false}
+				cssMode={true}
 				wrapperClass={s.swiper}
-				onRealIndexChange={({ realIndex }) => setIndex(realIndex)}
+				onTransitionEnd={handleTransitionEnd}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
+				onInit={() => console.log('init gallery')}
 			>
 				{projects.map((p, idx) => (
-					<SwiperSlide key={`${p.id}-${idx}-${category}`} className={s.slide} onClick={swipeNext}>
-						<div className={s.slidewrap} style={{ backgroundColor: p?.background?.hex }}>
-							<Slide project={p} />
+					<SwiperSlide
+						key={`${p.id}-${idx}-${category ?? ''}`}
+						className={s.slide}
+						onClick={swipeNext}
+					>
+						<div className={s.slidewrap} style={{ backgroundColor: p.background?.hex }}>
+							<Slide key={p.id} project={p} />
 						</div>
 					</SwiperSlide>
 				))}

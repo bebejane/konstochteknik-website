@@ -5,25 +5,17 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { useStore, useShallow } from '@/lib/store';
 
-type Props = {
-	allCommisioners: AllCommisionersQuery['allCommisioners'];
-	about: AboutQuery['about'];
-};
-
 export default function Navbar() {
-	const [project, showAbout, setShowAbout, category, setCategory, setProject, setH2Override] =
-		useStore(
-			useShallow((s) => [
-				s.project,
-				s.showAbout,
-				s.setShowAbout,
-				s.category,
-				s.setCategory,
-				s.setProject,
-				s.setH2Override,
-			]),
-		);
-	const color = showAbout ? 'var(--white)' : project?.color?.hex;
+	const [color, showAbout, category, setCategory, setProjectId, setH2Override] = useStore(
+		useShallow((s) => [
+			s.color,
+			s.showAbout,
+			s.category,
+			s.setProjectId,
+			s.setCategory,
+			s.setH2Override,
+		]),
+	);
 
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
 		const c =
@@ -31,12 +23,11 @@ export default function Navbar() {
 				? undefined
 				: (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
 		setCategory(c);
-		setProject(null);
+		setProjectId(null);
 	}
 
 	return (
-		<nav style={{ color }} className={cn(s.navbar)}>
-			{/* [Added by assistant] Hover on Konst/Teknik temporarily overrides Gallery h2 text; mouse out restores original. */}
+		<nav style={{ color: showAbout ? 'var(--white)' : color }} className={s.navbar}>
 			<div className={s.logo}>
 				<button
 					onClick={toggle}

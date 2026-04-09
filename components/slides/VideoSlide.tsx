@@ -8,19 +8,9 @@ type Props = {
 	active: boolean;
 	data: VideoSlideRecord;
 };
-export default function VideoSlide({
-	data: { backgroundImage, video, poster, id, css },
-	active,
-}: Props) {
-	const ref = useRef<HTMLVideoElement>(null);
 
-	useEffect(() => {
-		return;
-		if (active) {
-			ref.current.currentTime = 0;
-			ref.current.play();
-		} else ref.current.pause();
-	}, [active]);
+export default function VideoSlide({ data: { backgroundImage, video, poster, css } }: Props) {
+	const ref = useRef<HTMLVideoElement>(null);
 
 	return (
 		<div
