@@ -31,7 +31,7 @@ export default function Gallery({ allProjects }: Props) {
 		requestAnimationFrame(() => {
 			const project = projects[activeIndex];
 			if (!project) return;
-			setTimeout(() => setProject(project), 500);
+			setTimeout(() => setProject(project), 300);
 		});
 	}
 
@@ -40,6 +40,10 @@ export default function Gallery({ allProjects }: Props) {
 		const speed = Math.min(Math.abs(swiperRef.current.realIndex - index) * 200, 1000);
 		swiperRef.current.slideTo(index, speed);
 	}, [index]);
+
+	useEffect(() => {
+		setProject(allProjects[0]);
+	}, [allProjects]);
 
 	return (
 		<>
