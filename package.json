@@ -17,6 +17,7 @@
 		"@datocms/cma-client-node": "^5.4.0",
 		"@datocms/content-link": "^0.3.20",
 		"@graphql-typed-document-node/core": "^3.2.0",
+		"@mux/mux-player-react": "^3.11.7",
 		"@sparticuz/chromium-min": "^143.0.4",
 		"@vercel/functions": "^3.4.3",
 		"chrome-aws-lambda": "^10.1.0",
