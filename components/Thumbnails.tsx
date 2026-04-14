@@ -16,10 +16,10 @@ export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [hover, setHover] = useState<string | null>(null);
 	const [hide, setHide] = useState(false);
-	const [category, index, setIndex] = useStore(
-		useShallow((s) => [s.category, s.index, s.setIndex]),
+	const [showThumbnails, setShowThumbnails, filter, index, setIndex] = useStore(
+		useShallow((s) => [s.showThumbnails, s.setShowThumbnails, s.filter, s.index, s.setIndex]),
 	);
-	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
+	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	const width = 400;
 	const sharpness = 80;
 
@@ -27,12 +27,12 @@ export default function Thumbnails({ allProjects }: Props) {
 		<>
 			<SwiperReact
 				id='thumbnails'
-				key={`thumbnails-${category ?? ''}`}
+				key={`thumbnails-${filter ?? ''}`}
 				slidesPerView={'auto'}
 				spaceBetween={0}
 				initialSlide={0}
 				loop={true}
-				wrapperClass={cn(s.swiper, hide && s.hide)}
+				wrapperClass={cn(s.swiper, !showThumbnails && s.hide)}
 				direction={'horizontal'}
 				modules={[FreeMode, Mousewheel]}
 				mousewheel={{
@@ -46,13 +46,12 @@ export default function Thumbnails({ allProjects }: Props) {
 					momentum: true,
 					sticky: false,
 				}}
-				onInit={() => console.log('init thumbs')}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 				onMouseLeave={() => setHover(null)}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
-						key={`${p.id}-${idx}-${category ?? ''}`}
+						key={`${p.id}-${idx}-${filter ?? ''}`}
 						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
 						onClick={async (e) => {
 							e.stopPropagation();
@@ -61,11 +60,11 @@ export default function Thumbnails({ allProjects }: Props) {
 						}}
 						onMouseEnter={() => {
 							setHover(p.id);
-							setHide(true);
+							setShowThumbnails(false);
 						}}
 						onWheel={() => {
 							setHover(p.id);
-							setHide(true);
+							setShowThumbnails(false);
 						}}
 						onMouseLeave={() => setHover(null)}
 					>
