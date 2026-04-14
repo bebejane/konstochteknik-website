@@ -15,6 +15,7 @@ type Props = {
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [hover, setHover] = useState<string | null>(null);
+	const [init, setInit] = useState(false);
 	const [showThumbnails, setShowThumbnails, filter, index, setIndex, project] = useStore(
 		useShallow((s) => [
 			s.showThumbnails,
@@ -25,32 +26,19 @@ export default function Thumbnails({ allProjects }: Props) {
 			s.project,
 		]),
 	);
+
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	const width = 400;
 	const sharpness = 80;
 
-	function centerSlide(swiper: Swiper, targetIndex: number): void {
-		return;
-		const slides = Array.from(swiper.slides);
-		const targetSlide = slides.find(
-			(slide) => (slide as any).getAttribute('data-swiper-slide-index') === String(targetIndex),
-		);
-
-		if (!targetSlide) return;
-
-		const rect = targetSlide.getBoundingClientRect();
-		const containerRect = swiper.el.getBoundingClientRect();
-		const centerPos = rect.left - containerRect.left + rect.width / 2;
-
-		swiper.setTranslate(-centerPos + swiper.width / 2);
+	function centerSlide(index: number): void {
+		swiperRef.current?.slideToLoop(index, 300, true);
 	}
 
 	useEffect(() => {
-		console.log('change prject slide', hover);
 		if (!project) return;
-		const slideWidth = swiperRef.current.width;
 		const index = projects.findIndex((p) => p.id === project?.id);
-		centerSlide(swiperRef.current, index);
+		centerSlide(index);
 	}, [project?.id]);
 
 	return (
@@ -60,11 +48,11 @@ export default function Thumbnails({ allProjects }: Props) {
 				key={`thumbnails-${filter ?? ''}`}
 				slidesPerView={'auto'}
 				spaceBetween={0}
-				initialSlide={0}
 				loop={true}
-				wrapperClass={cn(s.swiper, !showThumbnails && s.hide)}
-				direction={'horizontal'}
 				centeredSlides={true}
+				initialSlide={0}
+				wrapperClass={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
+				direction={'horizontal'}
 				modules={[FreeMode, Mousewheel]}
 				mousewheel={{
 					forceToAxis: true,
@@ -77,8 +65,11 @@ export default function Thumbnails({ allProjects }: Props) {
 					momentum: true,
 					sticky: false,
 				}}
-				onSwiper={(swiper) => (swiperRef.current = swiper)}
+				onSwiper={(swiper) => {
+					swiperRef.current = swiper;
+				}}
 				onMouseLeave={() => setHover(null)}
+				onAfterInit={() => setInit(true)}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
@@ -87,7 +78,8 @@ export default function Thumbnails({ allProjects }: Props) {
 						onClick={async (e) => {
 							e.stopPropagation();
 							setIndex(idx);
-							//setHover(null);
+							setHover(null);
+							centerSlide(idx);
 						}}
 						onMouseEnter={() => {
 							setHover(p.id);
