@@ -41,6 +41,10 @@ export default function Thumbnails({ allProjects }: Props) {
 		centerSlide(index);
 	}, [project?.id]);
 
+	useEffect(() => {
+		//!hover && !init && setShowThumbnails(false);
+	}, [init, hover]);
+
 	return (
 		<>
 			<SwiperReact
@@ -68,7 +72,6 @@ export default function Thumbnails({ allProjects }: Props) {
 				onSwiper={(swiper) => {
 					swiperRef.current = swiper;
 				}}
-				onMouseLeave={() => setHover(null)}
 				onAfterInit={() => setInit(true)}
 			>
 				{projects.map((p, idx) => (
@@ -81,13 +84,12 @@ export default function Thumbnails({ allProjects }: Props) {
 							setHover(null);
 							centerSlide(idx);
 						}}
-						onMouseEnter={() => {
-							setHover(p.id);
+						onMouseEnter={() => setHover(p.id)}
+						onWheel={() => setHover(p.id)}
+						onMouseLeave={() => {
+							setHover(null);
+							setShowThumbnails(false);
 						}}
-						onWheel={() => {
-							setHover(p.id);
-						}}
-						onMouseLeave={() => setHover(null)}
 					>
 						{p.thumbnail?.url && (
 							<img

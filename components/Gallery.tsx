@@ -57,7 +57,7 @@ export default function Gallery({ allProjects }: Props) {
 				slidesPerView={1}
 				spaceBetween={0}
 				initialSlide={0}
-				speed={500}
+				speed={600}
 				loop={true}
 				cssMode={true}
 				noSwiping={true}
