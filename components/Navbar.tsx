@@ -3,26 +3,18 @@
 import s from './Navbar.module.scss';
 import Link from 'next/link';
 import { useStore, useShallow } from '@/lib/store';
+import { useState } from 'react';
 
 export default function Navbar() {
-	const [project, setProject, showAbout, category, setCategory, setH2Override] = useStore(
-		useShallow((s) => [
-			s.project,
-			s.setProject,
-			s.showAbout,
-			s.category,
-			s.setCategory,
-			s.setH2Override,
-		]),
+	const [project, setProject, showAbout, setFilter, filter] = useStore(
+		useShallow((s) => [s.project, s.setProject, s.showAbout, s.setFilter, s.filter]),
 	);
 
+	const [category, setCategory] = useState<'art' | 'tech' | null>(filter);
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
-		const c =
-			e.currentTarget.dataset.id === category
-				? undefined
-				: (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
-		setCategory(c);
 		setProject(null);
+		const f = (e.currentTarget.dataset.id as 'art' | 'tech' | undefined) || null;
+		setFilter(f);
 	}
 
 	const color = project?.color?.hex ?? 'var(--black)';
@@ -32,32 +24,39 @@ export default function Navbar() {
 			<div className={s.logo}>
 				<button
 					onClick={toggle}
-					data-enabled={category === 'art'}
+					data-enabled={filter === 'art'}
 					data-id='art'
-					onMouseEnter={() => setH2Override('Filter works on design and printed matter.')}
-					onMouseLeave={() => setH2Override(null)}
+					onMouseEnter={() => setCategory('art')}
+					onMouseLeave={() => setCategory(null)}
 				>
 					Konst
 				</button>
 				<button
 					className={s.and}
 					onClick={toggle}
-					data-enabled={!category ? true : false}
-					onMouseEnter={() => setH2Override('Show all selected works.')}
-					onMouseLeave={() => setH2Override(null)}
+					data-enabled={!filter ? true : false}
+					onMouseEnter={() => setCategory(null)}
+					onMouseLeave={() => setCategory(null)}
 				>
 					&
 				</button>
 				<button
 					onClick={toggle}
-					data-enabled={category === 'tech'}
+					data-enabled={filter === 'tech'}
 					data-id='tech'
-					onMouseEnter={() => setH2Override('Filter works by interactive projects')}
-					onMouseLeave={() => setH2Override(null)}
+					onMouseEnter={() => setCategory('tech')}
+					onMouseLeave={() => setCategory(null)}
 				>
 					Teknik
 				</button>
 			</div>
+			{category && (
+				<div className={s.filter}>
+					{category === 'art'
+						? 'Filter works on design and printed matter'
+						: 'Filter works by interactive projects'}
+				</div>
+			)}
 			<div>
 				<Link href='/about' scroll={false}>
 					<button style={{ color }}>About</button>

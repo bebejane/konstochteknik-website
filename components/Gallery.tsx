@@ -15,12 +15,12 @@ type Props = {
 export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject, category, index] = useStore(
-		useShallow((s) => [s.project, s.setProject, s.category, s.index]),
+	const [project, setProject, filter, index, setShowThumbnails] = useStore(
+		useShallow((s) => [s.project, s.setProject, s.filter, s.index, s.setShowThumbnails]),
 	);
 	const color = project?.color?.hex ?? 'var(--black)';
 	const buttonStyle = { color };
-	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
+	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 
 	function swipeNext() {
 		if (index === allProjects.length - 1) return;
@@ -28,6 +28,7 @@ export default function Gallery({ allProjects }: Props) {
 	}
 
 	function handleIndexChange({ activeIndex }: { activeIndex: number }) {
+		setShowThumbnails(false);
 		requestAnimationFrame(() => {
 			const project = projects[activeIndex];
 			if (!project) return;
@@ -42,13 +43,13 @@ export default function Gallery({ allProjects }: Props) {
 	}, [index]);
 
 	useEffect(() => {
-		setProject(allProjects[0]);
-	}, [allProjects]);
+		setProject(projects[0]);
+	}, [projects, filter]);
 
 	return (
 		<>
 			<SwiperReact
-				key={`gallery-${category ?? ''}`}
+				key={`gallery-${filter ?? ''}`}
 				id='gallery'
 				slidesPerView={1}
 				spaceBetween={0}
@@ -60,11 +61,10 @@ export default function Gallery({ allProjects }: Props) {
 				wrapperClass={s.swiper}
 				onRealIndexChange={handleIndexChange}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
-				onInit={() => console.log('init gallery')}
 			>
 				{projects.map((p, idx) => (
 					<SwiperSlide
-						key={`${p.id}-${idx}-${category ?? ''}`}
+						key={`${p.id}-${idx}-${filter ?? ''}`}
 						className={s.slide}
 						onClick={swipeNext}
 					>
