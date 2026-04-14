@@ -22,6 +22,8 @@ export default function Gallery({ allProjects }: Props) {
 	const buttonStyle = { color };
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 
+	const indexChangeTimeout = useRef<NodeJS.Timeout | null>(null);
+
 	function swipeNext() {
 		if (index === allProjects.length - 1) return;
 		swiperRef.current?.slideNext();
@@ -29,11 +31,12 @@ export default function Gallery({ allProjects }: Props) {
 
 	function handleIndexChange({ activeIndex }: { activeIndex: number }) {
 		setShowThumbnails(false);
-		requestAnimationFrame(() => {
+		indexChangeTimeout.current && clearTimeout(indexChangeTimeout.current);
+		indexChangeTimeout.current = setTimeout(() => {
 			const project = projects[activeIndex];
 			if (!project) return;
-			setTimeout(() => setProject(project), 300);
-		});
+			setProject(project);
+		}, 300);
 	}
 
 	useEffect(() => {
