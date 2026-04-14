@@ -3,13 +3,14 @@ import { MetadataRoute } from 'next';
 
 const config = {
 	routes: {
-		project: async ({ id, slug }) => [`/screenshot/${id}`, '/'],
+		project: async ({ id }) => [`/screenshot/${id}`, '/'],
 		about: async () => ['/about', '/'],
 		commisioner: async () => ['/about', '/'],
+		intro: async () => ['/'],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
-		return ['/'].map((p) => ({
+		return ['/', '/about'].map((p) => ({
 			url: `${process.env.NEXT_PUBLIC_SITE_URL}${p}`,
 			lastModified: new Date().toISOString(),
 			changeFrequency: 'weekly',
