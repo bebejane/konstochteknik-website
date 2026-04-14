@@ -26,7 +26,7 @@ export default function Gallery({ allProjects }: Props) {
 		swiperRef.current?.slideNext();
 	}
 
-	function handleTransitionEnd({ activeIndex }: { activeIndex: number }) {
+	function handleIndexChange({ activeIndex }: { activeIndex: number }) {
 		requestAnimationFrame(() => {
 			const project = projects[activeIndex];
 			if (!project) return;
@@ -53,8 +53,9 @@ export default function Gallery({ allProjects }: Props) {
 				speed={500}
 				loop={true}
 				cssMode={true}
+				noSwiping={true}
 				wrapperClass={s.swiper}
-				onTransitionEnd={handleTransitionEnd}
+				onRealIndexChange={handleIndexChange}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 				onInit={() => console.log('init gallery')}
 			>
