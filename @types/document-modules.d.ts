@@ -99,6 +99,15 @@ export const SiteFragment: DocumentNode;
 }
     
 
+declare module '*/intro.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Intro: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/project.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

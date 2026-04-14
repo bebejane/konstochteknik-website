@@ -1,0 +1,13 @@
+query Intro {
+	intro {
+		speed
+		duration
+		loader {
+			... on LoaderItemRecord {
+				id
+				title
+				subtitle
+			}
+		}
+	}
+}

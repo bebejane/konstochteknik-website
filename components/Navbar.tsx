@@ -60,7 +60,7 @@ export default function Navbar() {
 							: category === 'tech'
 								? 'Filter works by interactive projects'
 								: category === 'all'
-									? 'Show all selected works.'
+									? 'Show all selected works'
 									: null}
 					</h2>
 				</div>
