@@ -52,6 +52,7 @@
     "@types/node": "^25.5.2",
     "baseline-browser-mapping": "^2.10.16",
     "graphql-config": "^5.1.6",
-    "puppeteer": "^24.40.0"
+    "puppeteer": "^24.40.0",
+    "typescript": "6.0.2"
   }
 }
