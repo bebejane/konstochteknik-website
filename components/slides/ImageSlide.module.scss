@@ -48,9 +48,8 @@
 			height: auto;
 		}
 
-		.image-margin img {
+		.image-margin {
 			object-fit: contain;
-			padding: 5%;
 
 			@include mq($until: tablet) {
 				object-fit: cover;

@@ -30,7 +30,9 @@
 		@include mq($from: desktop) {
 			bottom: -1rem;
 			padding: 0.5rem;
-			height: 3rem;
+			padding-left: 1.2rem;
+			padding-right: 1.2rem;
+			height: 2.8rem;
 		}
 
 		@keyframes fadeUp {
