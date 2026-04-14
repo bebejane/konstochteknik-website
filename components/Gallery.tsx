@@ -15,9 +15,10 @@ type Props = {
 export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [color, setColor, setProjectId, category, index] = useStore(
-		useShallow((s) => [s.color, s.setColor, s.setProjectId, s.category, s.index]),
+	const [project, setProject, category, index] = useStore(
+		useShallow((s) => [s.project, s.setProject, s.category, s.index]),
 	);
+	const color = project?.color?.hex ?? 'var(--black)';
 	const buttonStyle = { color };
 	const projects = allProjects.filter(({ category: cat }) => !category || cat === category);
 
@@ -30,9 +31,7 @@ export default function Gallery({ allProjects }: Props) {
 		requestAnimationFrame(() => {
 			const project = projects[activeIndex];
 			if (!project) return;
-			const { color, id } = projects[activeIndex];
-			setProjectId(id);
-			setColor(color?.hex ?? null);
+			setTimeout(() => setProject(project), 500);
 		});
 	}
 

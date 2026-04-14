@@ -1,17 +1,16 @@
 'use client';
 
 import s from './Navbar.module.scss';
-import cn from 'classnames';
 import Link from 'next/link';
 import { useStore, useShallow } from '@/lib/store';
 
 export default function Navbar() {
-	const [color, showAbout, category, setCategory, setProjectId, setH2Override] = useStore(
+	const [project, setProject, showAbout, category, setCategory, setH2Override] = useStore(
 		useShallow((s) => [
-			s.color,
+			s.project,
+			s.setProject,
 			s.showAbout,
 			s.category,
-			s.setProjectId,
 			s.setCategory,
 			s.setH2Override,
 		]),
@@ -23,8 +22,10 @@ export default function Navbar() {
 				? undefined
 				: (e.currentTarget.dataset.id as 'art' | 'tech' | undefined);
 		setCategory(c);
-		setProjectId(null);
+		setProject(null);
 	}
+
+	const color = project?.color?.hex ?? 'var(--black)';
 
 	return (
 		<nav style={{ color: showAbout ? 'var(--white)' : color }} className={s.navbar}>

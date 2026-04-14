@@ -15,15 +15,15 @@ type Props = {
 };
 
 export default function Slide({ project, single, clean }: Props) {
-	const [color, projectId, h2Override] = useStore(
-		useShallow((s) => [s.color, s.projectId, s.h2Override]),
-	);
+	const [activeProject, h2Override] = useStore(useShallow((s) => [s.project, s.h2Override]));
 	const [loading, setLoading] = useState(true);
-	const active = (projectId === project.id || single) && !clean ? true : false;
+	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
+	const backgroundColor = project.background?.hex;
+	const color = project.color?.hex ?? 'var(--black)';
 
 	return (
-		<div style={{ backgroundColor: color }} className={s.slide}>
+		<div style={{ backgroundColor }} className={s.slide}>
 			<>
 				{slide.__typename === 'ImageSlideRecord' ? (
 					<ImageSlide
