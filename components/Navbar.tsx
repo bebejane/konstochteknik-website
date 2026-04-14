@@ -10,11 +10,12 @@ export default function Navbar() {
 		useShallow((s) => [s.project, s.setProject, s.showAbout, s.setFilter, s.filter]),
 	);
 
-	const [category, setCategory] = useState<'art' | 'tech' | null>(filter);
+	const [category, setCategory] = useState<'art' | 'tech' | 'all' | null>(filter);
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
 		setProject(null);
-		const f = (e.currentTarget.dataset.id as 'art' | 'tech' | undefined) || null;
-		setFilter(f);
+		const f = (e.currentTarget.dataset.id as 'art' | 'tech' | 'all' | undefined) || null;
+		setFilter(f === 'all' ? null : f);
+		setCategory(null);
 	}
 
 	const color = project?.color?.hex ?? 'var(--black)';
@@ -35,7 +36,7 @@ export default function Navbar() {
 					className={s.and}
 					onClick={toggle}
 					data-enabled={!filter ? true : false}
-					onMouseEnter={() => setCategory(null)}
+					onMouseEnter={() => setCategory('all')}
 					onMouseLeave={() => setCategory(null)}
 				>
 					&
@@ -54,7 +55,11 @@ export default function Navbar() {
 				<div className={s.filter}>
 					{category === 'art'
 						? 'Filter works on design and printed matter'
-						: 'Filter works by interactive projects'}
+						: category === 'tech'
+							? 'Filter works by interactive projects'
+							: category === 'all'
+								? 'Show all selected works.'
+								: null}
 				</div>
 			)}
 			<div>

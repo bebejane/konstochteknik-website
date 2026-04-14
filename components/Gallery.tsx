@@ -44,7 +44,7 @@ export default function Gallery({ allProjects }: Props) {
 
 	useEffect(() => {
 		setProject(projects[0]);
-	}, [projects, filter]);
+	}, [filter]);
 
 	return (
 		<>
