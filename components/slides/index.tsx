@@ -15,11 +15,11 @@ type Props = {
 };
 
 export default function Slide({ project, single, clean }: Props) {
-	const [activeProject, h2Override] = useStore(useShallow((s) => [s.project, s.h2Override]));
+	const [activeProject] = useStore(useShallow((s) => [s.project]));
 	const [loading, setLoading] = useState(true);
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
-	const backgroundColor = project.background?.hex;
+	const backgroundColor = project.background?.hex ?? 'transparent';
 	const color = project.color?.hex ?? 'var(--black)';
 
 	return (
@@ -42,14 +42,14 @@ export default function Slide({ project, single, clean }: Props) {
 				) : null}
 			</>
 
-			{active && (project.caption || h2Override) && (
+			{active && project.caption && (
 				<h2
-					key={`${project.id}-${active}-${h2Override ?? 'caption'}`}
+					key={`${project.id}-${active}`}
 					className={cn(s[project.captionStyle], 'color-transition')}
 					style={{ color }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					{h2Override ? h2Override : <Markdown content={project.caption!} />}
+					<Markdown content={project.caption!} />
 				</h2>
 			)}
 		</div>

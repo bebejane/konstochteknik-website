@@ -18,7 +18,8 @@ export default function Navbar() {
 		setCategory(null);
 	}
 
-	const color = project?.color?.hex ?? 'var(--black)';
+	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
+	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
 
 	return (
 		<nav style={{ color: showAbout ? 'var(--white)' : color }} className={s.navbar}>
@@ -52,7 +53,7 @@ export default function Navbar() {
 				</button>
 			</div>
 			{category && (
-				<div className={s.filter}>
+				<div className={s.filter} style={{ backgroundColor, color }}>
 					{category === 'art'
 						? 'Filter works on design and printed matter'
 						: category === 'tech'

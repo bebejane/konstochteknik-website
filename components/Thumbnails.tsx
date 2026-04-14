@@ -15,7 +15,6 @@ type Props = {
 export default function Thumbnails({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [hover, setHover] = useState<string | null>(null);
-	const [hide, setHide] = useState(false);
 	const [showThumbnails, setShowThumbnails, filter, index, setIndex] = useStore(
 		useShallow((s) => [s.showThumbnails, s.setShowThumbnails, s.filter, s.index, s.setIndex]),
 	);
