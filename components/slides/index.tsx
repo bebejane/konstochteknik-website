@@ -6,9 +6,10 @@ import { Markdown } from 'next-dato-utils/components';
 import ImageSlide from './ImageSlide';
 import VideoSlide from './VideoSlide';
 import { useShallow, useStore } from '@/lib/store';
+import { useState } from 'react';
 
 type Props = {
-	project: AllProjectsQuery['allProjects'][0];
+	project: AllProjectsQuery['allProjects'][number];
 	single?: boolean;
 	clean?: boolean;
 };
@@ -17,22 +18,26 @@ export default function Slide({ project, single, clean }: Props) {
 	const [color, projectId, h2Override] = useStore(
 		useShallow((s) => [s.color, s.projectId, s.h2Override]),
 	);
+	const [loading, setLoading] = useState(true);
 	const active = (projectId === project.id || single) && !clean ? true : false;
+	const slide = project.slide[0];
 
 	return (
 		<div style={{ backgroundColor: color }} className={s.slide}>
 			<>
-				{project.slide[0].__typename === 'ImageSlideRecord' ? (
+				{slide.__typename === 'ImageSlideRecord' ? (
 					<ImageSlide
-						key={project.slide[0].id}
-						data={project.slide[0] as ImageSlideRecord}
+						key={slide.id}
+						data={slide as ImageSlideRecord}
 						active={active}
+						onLoad={() => setLoading(false)}
 					/>
-				) : project.slide[0].__typename === 'VideoSlideRecord' ? (
+				) : slide.__typename === 'VideoSlideRecord' ? (
 					<VideoSlide
-						key={project.slide[0].id}
-						data={project.slide[0] as VideoSlideRecord}
+						key={slide.id}
+						data={slide as VideoSlideRecord}
 						active={active}
+						onLoad={() => setLoading(false)}
 					/>
 				) : null}
 			</>
