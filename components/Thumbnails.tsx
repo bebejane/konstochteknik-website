@@ -26,10 +26,11 @@ export default function Thumbnails({ allProjects }: Props) {
 			s.project,
 		]),
 	);
+
+	const width = 400;
 	const showThumbnailsRef = useRef(showThumbnails);
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
-	const width = 400;
-	const sharpness = 90;
+	if (projects.length < 20) projects.push.apply(projects, projects);
 
 	function centerSlide(index: number): void {
 		swiperRef.current?.slideToLoop(index, 300, true);
@@ -78,18 +79,17 @@ export default function Thumbnails({ allProjects }: Props) {
 					<SwiperSlide
 						key={`${p.id}-${idx}-${filter ?? ''}`}
 						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
-						onClick={async (e) => {
-							e.stopPropagation();
-							setIndex(idx);
-						}}
 						onMouseEnter={() => setHover(p.id)}
 						onWheel={() => setHover(p.id)}
 						onMouseLeave={() => setHover(null)}
+						onClick={(e) => {
+							e.stopPropagation();
+							setIndex(idx);
+						}}
 					>
 						{p.thumbnail?.url && (
 							<img
-								src={`${p.thumbnail.url}?w=${width}&sharp=${sharpness}`}
-								alt={p.title}
+								src={`${p.thumbnail.url}?w=${width}`}
 								className={cn(s.image, hover === p.id && s.hover)}
 							/>
 						)}

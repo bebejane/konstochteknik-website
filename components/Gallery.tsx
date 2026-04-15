@@ -4,7 +4,6 @@ import s from './Gallery.module.scss';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { Navigation } from 'swiper/modules';
 import Slide from './slides';
 import { useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
@@ -22,6 +21,7 @@ export default function Gallery({ allProjects }: Props) {
 	const color = project?.color?.hex ?? 'var(--black)';
 	const buttonStyle = { color };
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
+	if (projects.length < 20) projects.push.apply(projects, projects);
 
 	const indexChangeTimeout = useRef<NodeJS.Timeout | null>(null);
 
