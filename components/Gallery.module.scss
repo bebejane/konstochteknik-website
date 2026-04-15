@@ -90,7 +90,7 @@
 	flex-direction: column;
 	top: -0.15rem;
 	height: 100%;
-	width: 10%;
+	width: 20vw;
 	z-index: 1;
 	background-color: transparent !important;
 	border: 0;
@@ -112,11 +112,13 @@
 .prev {
 	justify-content: center;
 	align-items: flex-start;
-	left: var(--outer-margin);
+	left: 0;
+	padding-left: var(--outer-margin);
 }
 
 .next {
 	justify-content: center;
 	align-items: flex-end;
-	right: var(--outer-margin);
+	right: 0;
+	padding-right: var(--outer-margin);
 }
