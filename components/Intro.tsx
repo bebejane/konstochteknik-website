@@ -31,11 +31,12 @@ export default function Intro({ intro }: Props) {
 	if (!show) return null;
 	return (
 		<div className={s.intro} onClick={() => setShow(false)}>
-			<h1>
+			<h1 className="big">
 				<span className={s.title}>{loader.title}</span>
-				<span className={s.and}>&</span>
+				<span className={s.and}><i>&</i></span>
 				<span className={s.subtitle}>{loader.subtitle}</span>
 			</h1>
+			<h2><i>Loading...</i></h2>
 		</div>
 	);
 }

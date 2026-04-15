@@ -1,5 +1,5 @@
-@use 'fonts';
-@use 'mediaqueries' as *;
+@use "fonts";
+@use "mediaqueries" as *;
 
 :root {
 	--black: #161616;
@@ -19,12 +19,16 @@
 	--z-index-about: 1002;
 	--z-index-intro: 2000;
 
-	--body-font: 'Serif', Times New Roman, serif;
-	--headline-font: 'Sans', Times New Roman, serif;
+	--body-font: "Serif", Times New Roman, serif;
+	--headline-font: "Sans", Times New Roman, serif;
 
 	@include mq($from: tablet) {
 		--other-margin: 3vw;
 		--outer-margin: 4vw;
+	}
+
+	@include mq($from: wide) {
+		--thumbnail-height: 5.5rem;
 	}
 }
 
@@ -36,7 +40,7 @@ body {
 	background-color: var(--background);
 	font-family: var(--body-font);
 	-webkit-font-smoothing: antialiased;
-	font-feature-settings: 'liga', 'kern';
+	font-feature-settings: "liga", "kern";
 }
 
 html {
@@ -102,7 +106,7 @@ button {
 	font-family: var(--body-font);
 
 	&:hover,
-	&[data-enabled='true'] {
+	&[data-enabled="true"] {
 		background-color: var(--black);
 		color: var(--white);
 	}

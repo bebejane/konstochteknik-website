@@ -1,4 +1,4 @@
-@use 'mediaqueries' as *;
+@use "mediaqueries" as *;
 
 html,
 body {
@@ -30,6 +30,10 @@ h2 {
 	line-height: 1.25;
 	font-family: var(--body-font);
 	font-weight: normal;
+}
+
+h1.big {
+	font-size: 6vw;
 }
 
 p {
