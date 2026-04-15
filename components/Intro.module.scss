@@ -8,8 +8,8 @@
 	align-items: center;
 	justify-content: center;
 	z-index: var(--z-index-intro);
-	background-color: var(--black);
-	color: var(--white);
+	background-color: var(--white);
+	color: var(--black);
 
 	h1 {
 		display: flex;
@@ -17,14 +17,13 @@
 		justify-content: center;
 		flex-direction: column;
 		position: relative;
+		line-height: 1;
 	}
 
 	.and {
 		display: inline-block;
 		transform-origin: center center;
-		animation:
-			rotate-z-3d 5s linear infinite,
-			rgb-loop 6s linear infinite;
+		animation: rotate-z-3d 5s linear infinite;
 		transform-style: preserve-3d;
 		//color: red;
 	}
@@ -32,6 +31,7 @@
 	h2 {
 		position: absolute;
 		margin-top: 1em;
+		display: none;
 	}
 
 	@keyframes rotate-z-3d {
