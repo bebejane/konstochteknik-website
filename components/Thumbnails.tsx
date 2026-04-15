@@ -2,9 +2,8 @@
 
 import s from './Thumbnails.module.scss';
 import cn from 'classnames';
-import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import Swiper from 'swiper';
-import { FreeMode, Mousewheel } from 'swiper/modules';
+import useEmblaCarousel from 'embla-carousel-react';
+import WheelGestures from 'embla-carousel-wheel-gestures';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
 
@@ -13,7 +12,11 @@ type Props = {
 };
 
 export default function Thumbnails({ allProjects }: Props) {
-	const swiperRef = useRef<Swiper | null>(null);
+	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, skipSnaps: true, duration: 0 }, [
+		WheelGestures({
+			forceWheelAxis: 'x',
+		}),
+	]);
 	const [hover, setHover] = useState<string | null>(null);
 	const [init, setInit] = useState(false);
 	const [showThumbnails, setShowThumbnails, filter, index, setIndex, project] = useStore(
@@ -30,66 +33,60 @@ export default function Thumbnails({ allProjects }: Props) {
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	const width = 400;
 	const sharpness = 80;
+	const showThumbnailsRef = useRef(showThumbnails);
 
+	function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+		e.stopPropagation();
+		const index = Number(e.currentTarget.dataset.index);
+
+		requestAnimationFrame(() => {
+			setIndex(index);
+		});
+	}
 	function centerSlide(index: number): void {
-		swiperRef.current?.slideToLoop(index, 300, true);
+		emblaApi?.scrollTo(index);
 	}
 
 	useEffect(() => {
-		if (!project) return;
-		const index = projects.findIndex((p) => p.id === project?.id);
-		centerSlide(index);
+		showThumbnailsRef.current = showThumbnails;
+	}, [showThumbnails]);
+
+	useEffect(() => {
+		if (!project || showThumbnailsRef.current) return;
+		const idx = projects.findIndex((p) => p.id === project?.id);
+		centerSlide(idx);
 	}, [project?.id]);
 
 	useEffect(() => {
-		//!hover && !init && setShowThumbnails(false);
-	}, [init, hover]);
+		emblaApi && setInit(true);
+	}, [emblaApi]);
+
+	useEffect(() => {
+		if (!emblaApi) return;
+		emblaApi.on('init', () => setInit(true));
+	}, [emblaApi]);
 
 	return (
-		<>
-			<SwiperReact
-				id='thumbnails'
-				key={`thumbnails-${filter ?? ''}`}
-				slidesPerView={'auto'}
-				spaceBetween={0}
-				loop={true}
-				centeredSlides={true}
-				initialSlide={0}
-				wrapperClass={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
-				direction={'horizontal'}
-				modules={[FreeMode, Mousewheel]}
-				mousewheel={{
-					forceToAxis: true,
-					releaseOnEdges: true,
-					invert: false,
-					sensitivity: 1,
-				}}
-				freeMode={{
-					enabled: true,
-					momentum: true,
-					sticky: false,
-				}}
-				onSwiper={(swiper) => {
-					swiperRef.current = swiper;
-				}}
-				onAfterInit={() => setInit(true)}
-			>
+		<div
+			className={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
+			ref={emblaRef}
+			onMouseLeave={() => {
+				setHover(null);
+				//setShowThumbnails(false);
+			}}
+		>
+			<div className={s.container}>
 				{projects.map((p, idx) => (
-					<SwiperSlide
+					<div
 						key={`${p.id}-${idx}-${filter ?? ''}`}
-						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
-						onClick={async (e) => {
-							e.stopPropagation();
-							setIndex(idx);
-							setHover(null);
-							centerSlide(idx);
+						data-index={idx}
+						className={cn(s.slide, idx === index && s.active)}
+						onClick={handleClick}
+						onMouseEnter={() => {
+							setHover(p.id);
+							setShowThumbnails(true);
 						}}
-						onMouseEnter={() => setHover(p.id)}
 						onWheel={() => setHover(p.id)}
-						onMouseLeave={() => {
-							setHover(null);
-							setShowThumbnails(false);
-						}}
 					>
 						{p.thumbnail?.url && (
 							<img
@@ -98,9 +95,9 @@ export default function Thumbnails({ allProjects }: Props) {
 								className={cn(s.image, hover === p.id && s.hover)}
 							/>
 						)}
-					</SwiperSlide>
+					</div>
 				))}
-			</SwiperReact>
-		</>
+			</div>
+		</div>
 	);
 }
