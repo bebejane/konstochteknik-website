@@ -30,33 +30,14 @@ export default function Gallery({ allProjects }: Props) {
 	}
 
 	function handleIndexChange({ realIndex }: { realIndex: number }) {
-		setShowThumbnails(false);
 		indexChangeTimeout.current && clearTimeout(indexChangeTimeout.current);
 		indexChangeTimeout.current = setTimeout(() => {
 			const project = projects[realIndex];
 			if (!project) return;
-			console.log({ realIndex });
+
 			setProject(project);
 		}, 300);
 	}
-
-	const goToSlide = (targetIndex) => {
-		const swiper = swiperRef.current;
-		const loopedSlides = swiper.loopedSlides;
-		const offset = loopedSlides; // slides added at start for loop
-		const currentReal = swiper.realIndex;
-
-		const total = loopedSlides;
-		let diff = targetIndex - currentReal;
-		if (diff > total / 2) diff -= total;
-		if (diff < -total / 2) diff += total;
-
-		// Get actual DOM index (current position in looped array + offset)
-		const currentDom = swiper.activeIndex;
-		const targetDom = currentDom + diff;
-
-		swiper.slideTo(targetDom, 500);
-	};
 
 	useEffect(() => {
 		if (!swiperRef.current) return;
@@ -80,7 +61,6 @@ export default function Gallery({ allProjects }: Props) {
 				speed={600}
 				loop={true}
 				cssMode={true}
-				//noSwiping={true}
 				wrapperClass={s.swiper}
 				onRealIndexChange={handleIndexChange}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}

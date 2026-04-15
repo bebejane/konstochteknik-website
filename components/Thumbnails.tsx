@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import Swiper from 'swiper';
 import { FreeMode, Mousewheel } from 'swiper/modules';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
 
 type Props = {
@@ -26,27 +26,27 @@ export default function Thumbnails({ allProjects }: Props) {
 			s.project,
 		]),
 	);
-
+	const showThumbnailsRef = useRef(showThumbnails);
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	const width = 400;
-	const sharpness = 80;
+	const sharpness = 90;
 
 	function centerSlide(index: number): void {
 		swiperRef.current?.slideToLoop(index, 300, true);
 	}
 
 	useEffect(() => {
-		if (!project) return;
+		showThumbnailsRef.current = showThumbnails;
+	}, [showThumbnails]);
+
+	useEffect(() => {
+		if (!project || showThumbnailsRef.current) return;
 		const index = projects.findIndex((p) => p.id === project?.id);
 		centerSlide(index);
 	}, [project?.id]);
 
-	useEffect(() => {
-		//!hover && !init && setShowThumbnails(false);
-	}, [init, hover]);
-
 	return (
-		<>
+		<div onMouseEnter={() => setShowThumbnails(true)} onMouseLeave={() => setShowThumbnails(false)}>
 			<SwiperReact
 				id='thumbnails'
 				key={`thumbnails-${filter ?? ''}`}
@@ -81,15 +81,10 @@ export default function Thumbnails({ allProjects }: Props) {
 						onClick={async (e) => {
 							e.stopPropagation();
 							setIndex(idx);
-							setHover(null);
-							centerSlide(idx);
 						}}
 						onMouseEnter={() => setHover(p.id)}
 						onWheel={() => setHover(p.id)}
-						onMouseLeave={() => {
-							setHover(null);
-							setShowThumbnails(false);
-						}}
+						onMouseLeave={() => setHover(null)}
 					>
 						{p.thumbnail?.url && (
 							<img
@@ -101,6 +96,6 @@ export default function Thumbnails({ allProjects }: Props) {
 					</SwiperSlide>
 				))}
 			</SwiperReact>
-		</>
+		</div>
 	);
 }
