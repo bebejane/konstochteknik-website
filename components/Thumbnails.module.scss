@@ -39,10 +39,15 @@
 			z-index: 10000;
 		}
 
-		img {
+		.image {
 			height: var(--thumbnail-height);
 			aspect-ratio: 16/9;
 			cursor: pointer;
+			transition: transform 0.3s ease-out;
+			transform: translateY(100%);
+			&.show {
+				transform: translateY(0);
+			}
 		}
 	}
 }

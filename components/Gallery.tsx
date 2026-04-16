@@ -15,8 +15,15 @@ type Props = {
 export default function Gallery({ allProjects }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject, filter, index, setShowThumbnails] = useStore(
-		useShallow((s) => [s.project, s.setProject, s.filter, s.index, s.setShowThumbnails]),
+	const [project, setProject, filter, index, setShowThumbnails, setLoading] = useStore(
+		useShallow((s) => [
+			s.project,
+			s.setProject,
+			s.filter,
+			s.index,
+			s.setShowThumbnails,
+			s.setLoading,
+		]),
 	);
 	const color = project?.color?.hex ?? 'var(--black)';
 	const buttonStyle = { color };
@@ -41,7 +48,6 @@ export default function Gallery({ allProjects }: Props) {
 
 	useEffect(() => {
 		if (!swiperRef.current) return;
-		console.log({ index });
 		const speed = Math.min(Math.abs(swiperRef.current.realIndex - index) * 200, 1000);
 		swiperRef.current.slideToLoop(index, speed);
 	}, [index]);
@@ -72,7 +78,11 @@ export default function Gallery({ allProjects }: Props) {
 						onClick={swipeNext}
 					>
 						<div className={s.slidewrap} style={{ backgroundColor: p.background?.hex }}>
-							<Slide key={p.id} project={p} />
+							<Slide
+								key={p.id}
+								project={p}
+								onLoad={() => idx === 0 && setLoading({ gallery: false })}
+							/>
 						</div>
 					</SwiperSlide>
 				))}

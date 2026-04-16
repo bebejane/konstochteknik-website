@@ -6,21 +6,26 @@ import { Markdown } from 'next-dato-utils/components';
 import ImageSlide from './ImageSlide';
 import VideoSlide from './VideoSlide';
 import { useShallow, useStore } from '@/lib/store';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 	single?: boolean;
 	clean?: boolean;
+	onLoad: () => void;
 };
 
-export default function Slide({ project, single, clean }: Props) {
+export default function Slide({ project, single, clean, onLoad }: Props) {
 	const [activeProject] = useStore(useShallow((s) => [s.project]));
 	const [loading, setLoading] = useState(true);
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
 	const backgroundColor = project.background?.hex ?? 'transparent';
 	const color = project.color?.hex ?? 'var(--black)';
+
+	useEffect(() => {
+		!loading && onLoad();
+	}, [loading]);
 
 	return (
 		<div style={{ backgroundColor }} className={s.slide}>

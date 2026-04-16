@@ -9,9 +9,12 @@ type Props = {
 };
 
 export default function Intro({ intro }: Props) {
-	const [inIntro, setInIntro] = useStore(useShallow((s) => [s.inIntro, s.setInIntro]));
+	const [inIntro, setInIntro, loading] = useStore(
+		useShallow((s) => [s.inIntro, s.setInIntro, s.loading]),
+	);
 	const [loader, setLoader] = useState<IntroQuery['intro']['loader'][number]>(intro.loader[0]);
 	const interval = useRef<NodeJS.Timeout | null>(null);
+	const timeout = useRef<NodeJS.Timeout | null>(null);
 
 	useEffect(() => {
 		interval.current = setInterval(() => {
@@ -21,13 +24,24 @@ export default function Intro({ intro }: Props) {
 			});
 		}, intro.speed);
 
-		setTimeout(() => {
+		timeout.current = setTimeout(() => {
 			clearInterval(interval.current);
 			setInIntro(false);
 		}, intro.duration);
 
-		return () => clearInterval(interval.current);
+		return () => {
+			clearInterval(interval.current);
+			clearTimeout(timeout.current);
+		};
 	}, [intro]);
+
+	useEffect(() => {
+		if (!loading.thumbs && !loading.gallery) {
+			clearTimeout(timeout.current);
+			clearInterval(interval.current);
+			setInIntro(false);
+		}
+	}, [loading]);
 
 	if (!inIntro) return null;
 
