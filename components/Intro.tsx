@@ -1,15 +1,16 @@
 'use client';
 
+import { useShallow, useStore } from '@/lib/store';
 import s from './Intro.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 
 type Props = {
 	intro: IntroQuery['intro'];
 };
 
 export default function Intro({ intro }: Props) {
+	const [inIntro, setInIntro] = useStore(useShallow((s) => [s.inIntro, s.setInIntro]));
 	const [loader, setLoader] = useState<IntroQuery['intro']['loader'][number]>(intro.loader[0]);
-	const [show, setShow] = useState(true);
 	const interval = useRef<NodeJS.Timeout | null>(null);
 
 	useEffect(() => {
@@ -22,15 +23,16 @@ export default function Intro({ intro }: Props) {
 
 		setTimeout(() => {
 			clearInterval(interval.current);
-			setShow(false);
+			setInIntro(false);
 		}, intro.duration);
 
 		return () => clearInterval(interval.current);
 	}, [intro]);
 
-	if (!show) return null;
+	if (!inIntro) return null;
+
 	return (
-		<div className={s.intro} onClick={() => setShow(false)}>
+		<div className={s.intro} onClick={() => setInIntro(false)}>
 			<h1 className='big'>
 				<span className={s.title}>{loader.title}</span>
 				<span className={s.and}>

@@ -2,12 +2,14 @@ import { create } from 'zustand';
 import { shallow, useShallow } from 'zustand/shallow';
 
 export interface StoreState {
+	inIntro: boolean;
 	showMenu: boolean;
 	showAbout: boolean;
 	showThumbnails: boolean;
 	project: AllProjectsQuery['allProjects'][number] | null;
 	index: number;
 	filter: 'art' | 'tech' | null;
+	setInIntro: (inIntro: boolean) => void;
 	setShowMenu: (showMenu: boolean) => void;
 	setProject: (project: AllProjectsQuery['allProjects'][number] | null) => void;
 	setShowAbout: (showAbout: boolean) => void;
@@ -17,12 +19,14 @@ export interface StoreState {
 }
 
 const useStore = create<StoreState>((set) => ({
+	inIntro: true,
 	showMenu: false,
 	showAbout: false,
 	showThumbnails: true,
 	project: null,
 	index: 0,
 	filter: null,
+	setInIntro: (inIntro) => set({ inIntro }),
 	setProject: (project) => set({ project }),
 	setShowMenu: (showMenu) => set({ showMenu }),
 	setShowAbout: (showAbout) => set({ showAbout }),

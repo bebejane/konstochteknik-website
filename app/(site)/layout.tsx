@@ -1,11 +1,12 @@
 import '@/styles/index.scss';
 import s from './layout.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { AboutDocument, AllCommisionersDocument, GlobalDocument, IntroDocument } from '@/graphql';
+import { AboutDocument, GlobalDocument, IntroDocument } from '@/graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import Navbar from '@/components/Navbar';
 import Intro from '@/components/Intro';
+import About from '@/components/About';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -13,11 +14,13 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	const { intro } = await apiQuery(IntroDocument);
+	const { about, allCommisioners } = await apiQuery<AboutQuery>(AboutDocument);
 
 	return (
 		<>
 			<Intro intro={intro} />
 			<Navbar />
+			<About about={about} allCommisioners={allCommisioners} />
 			<main className={s.main}>
 				<article>{children}</article>
 			</main>

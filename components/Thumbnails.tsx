@@ -27,7 +27,7 @@ export default function Thumbnails({ allProjects }: Props) {
 		]),
 	);
 
-	const width = 400;
+	const width = 600;
 	const showThumbnailsRef = useRef(showThumbnails);
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	if (projects.length < 20) projects.push.apply(projects, projects);

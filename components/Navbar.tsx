@@ -1,13 +1,22 @@
 'use client';
 
 import s from './Navbar.module.scss';
+import cn from 'classnames';
 import Link from 'next/link';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
 
 export default function Navbar() {
-	const [project, setProject, showAbout, setFilter, filter] = useStore(
-		useShallow((s) => [s.project, s.setProject, s.showAbout, s.setFilter, s.filter]),
+	const [project, setProject, showAbout, setFilter, filter, setShowAbout, inIntro] = useStore(
+		useShallow((s) => [
+			s.project,
+			s.setProject,
+			s.showAbout,
+			s.setFilter,
+			s.filter,
+			s.setShowAbout,
+			s.inIntro,
+		]),
 	);
 
 	const [category, setCategory] = useState<'art' | 'tech' | 'all' | null>(filter);
@@ -22,7 +31,10 @@ export default function Navbar() {
 	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
 
 	return (
-		<nav style={{ color: showAbout ? 'var(--white)' : color }} className={s.navbar}>
+		<nav
+			style={{ color: showAbout ? 'var(--white)' : color }}
+			className={cn(s.navbar, !inIntro && s.show)}
+		>
 			<div className={s.logo}>
 				<button
 					onClick={toggle}
@@ -66,7 +78,14 @@ export default function Navbar() {
 				</div>
 			)}
 			<div>
-				<Link href='/about' scroll={false}>
+				<Link
+					href='/about'
+					scroll={false}
+					onClick={(e) => {
+						e.preventDefault();
+						setShowAbout(true);
+					}}
+				>
 					<button style={{ color }}>About</button>
 				</Link>
 			</div>
