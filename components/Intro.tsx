@@ -6,9 +6,10 @@ import { use, useEffect, useRef, useState } from 'react';
 
 type Props = {
 	intro: IntroQuery['intro'];
+	project: AllProjectsQuery['allProjects'][number];
 };
 
-export default function Intro({ intro }: Props) {
+export default function Intro({ intro, project }: Props) {
 	const [inIntro, setInIntro, loading] = useStore(
 		useShallow((s) => [s.inIntro, s.setInIntro, s.loading]),
 	);
@@ -45,8 +46,11 @@ export default function Intro({ intro }: Props) {
 
 	if (!inIntro) return null;
 
+	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
+	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
+
 	return (
-		<div className={s.intro} onClick={() => setInIntro(false)}>
+		<div className={s.intro} onClick={() => setInIntro(false)} style={{ backgroundColor, color }}>
 			<h1 className='big'>
 				<span className={s.title}>{loader.title}</span>
 				<span className={s.and}>

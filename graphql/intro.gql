@@ -10,4 +10,7 @@ query Intro {
 			}
 		}
 	}
+	allProjects(first: 1) {
+		...ProjectFragment
+	}
 }
