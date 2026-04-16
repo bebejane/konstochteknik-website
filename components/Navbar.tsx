@@ -20,6 +20,9 @@ export default function Navbar() {
 	);
 
 	const [category, setCategory] = useState<'art' | 'tech' | 'all' | null>(filter);
+	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
+	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
+
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
 		setProject(null);
 		const f = (e.currentTarget.dataset.id as 'art' | 'tech' | 'all' | undefined) || null;
@@ -27,46 +30,58 @@ export default function Navbar() {
 		setCategory(null);
 	}
 
-	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
-	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
-
 	return (
-		<nav
-			style={{ color: showAbout ? 'var(--white)' : color }}
-			className={cn(s.navbar, !inIntro && s.show)}
-		>
-			<div className={s.logo}>
-				<button
-					onClick={toggle}
-					data-enabled={filter === 'art'}
-					data-id='art'
-					onMouseEnter={() => setCategory('art')}
-					onMouseLeave={() => setCategory(null)}
-				>
-					Konst
-				</button>
-				<button
-					className={s.and}
-					onClick={toggle}
-					data-enabled={!filter ? true : false}
-					onMouseEnter={() => setCategory('all')}
-					onMouseLeave={() => setCategory(null)}
-				>
-					&
-				</button>
-				<button
-					onClick={toggle}
-					data-enabled={filter === 'tech'}
-					data-id='tech'
-					onMouseEnter={() => setCategory('tech')}
-					onMouseLeave={() => setCategory(null)}
-				>
-					Teknik
-				</button>
-			</div>
+		<>
+			<nav
+				style={{ color: showAbout ? 'var(--white)' : color }}
+				className={cn(s.navbar, !inIntro && s.show)}
+			>
+				<div className={s.logo}>
+					<button
+						onClick={toggle}
+						data-enabled={filter === 'art'}
+						data-id='art'
+						onMouseEnter={() => setCategory('art')}
+						onMouseLeave={() => setCategory(null)}
+					>
+						Konst
+					</button>
+					<button
+						className={s.and}
+						onClick={toggle}
+						data-enabled={!filter ? true : false}
+						onMouseEnter={() => setCategory('all')}
+						onMouseLeave={() => setCategory(null)}
+					>
+						&
+					</button>
+					<button
+						onClick={toggle}
+						data-enabled={filter === 'tech'}
+						data-id='tech'
+						onMouseEnter={() => setCategory('tech')}
+						//onMouseLeave={() => setCategory(null)}
+					>
+						Teknik
+					</button>
+				</div>
+
+				<div className={s.about}>
+					<Link
+						href='/about'
+						scroll={false}
+						onClick={(e) => {
+							e.preventDefault();
+							setShowAbout(true);
+						}}
+					>
+						<button style={{ color }}>About</button>
+					</Link>
+				</div>
+			</nav>
 			{category && (
-				<div className={s.filter} style={{ backgroundColor, color }}>
-					<h2>
+				<div className={s.filter}>
+					<h2 style={{ backgroundColor, color }}>
 						{category === 'art'
 							? 'Filter works on design and printed matter'
 							: category === 'tech'
@@ -77,18 +92,6 @@ export default function Navbar() {
 					</h2>
 				</div>
 			)}
-			<div>
-				<Link
-					href='/about'
-					scroll={false}
-					onClick={(e) => {
-						e.preventDefault();
-						setShowAbout(true);
-					}}
-				>
-					<button style={{ color }}>About</button>
-				</Link>
-			</div>
-		</nav>
+		</>
 	);
 }
