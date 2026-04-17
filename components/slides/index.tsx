@@ -12,7 +12,7 @@ type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 	single?: boolean;
 	clean?: boolean;
-	onLoad: () => void;
+	onLoad?: () => void;
 };
 
 export default function Slide({ project, single, clean, onLoad }: Props) {
@@ -24,7 +24,7 @@ export default function Slide({ project, single, clean, onLoad }: Props) {
 	const color = project.color?.hex ?? 'var(--black)';
 
 	useEffect(() => {
-		!loading && onLoad();
+		!loading && onLoad?.();
 	}, [loading]);
 
 	return (

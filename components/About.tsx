@@ -37,7 +37,6 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 						</a>
 						<br />
 						+46 702 644 238
-
 					</li>
 					<li>
 						<a href='http://www.haraldpeter.se' target='_blank'>
@@ -59,12 +58,13 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 							<em>bjorn@konst-teknik.se</em>
 						</a>
 						<br />
-						+46 706 531 175
-
+						+46 709 732 079
 					</li>
 				</ul>
 				<p>
-					Visitors and post are welcome to Konst & Teknik, <a href='http://www.rutgerfuchsgatan9.se' target='_blank' rel='noreferrer'>Rutger Fuchsgatan 9
+					Visitors and post are welcome to Konst & Teknik,{' '}
+					<a href='http://www.rutgerfuchsgatan9.se' target='_blank' rel='noreferrer'>
+						Rutger Fuchsgatan 9
 					</a>
 					, 11667 Stockholm, Sweden
 				</p>
@@ -75,7 +75,9 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 					))}
 				</ul>
 
-				<div className={s.internships}><i>Interships</i> We do unfortunately not offer any internships. </div>
+				<div className={s.internships}>
+					<i>Interships</i> We do unfortunately not offer any internships.{' '}
+				</div>
 			</div>
 			<Link
 				href='/'

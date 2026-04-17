@@ -31,7 +31,7 @@
 		color: inherit;
 		line-height: 1;
 
-		&[data-enabled="true"] {
+		&[data-enabled='true'] {
 			font-style: italic;
 		}
 	}
@@ -44,30 +44,27 @@
 			padding-right: 0.5em;
 		}
 	}
-	.filter {
-		padding-top: 0.42rem;
-	}
+}
 
-	.filter {
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: var(--z-index-menu);
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex: 1 1 auto;
-		pointer-events: none;
-		@include mq($until: desktop) {
-			display: none;
-		}
-		h2 {
-			border-radius: 3rem;
-			padding-left: 1.5em;
-			padding-right: 1.5em;
-			padding-top: 0.7rem;
-			padding-bottom: 0.7rem;
-		}
+.filter {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: var(--z-index-menu);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1 1 auto;
+	pointer-events: none;
+	@include mq($until: desktop) {
+		display: none;
+	}
+	h2 {
+		border-radius: 3rem;
+		padding-left: 1.5em;
+		padding-right: 1.5em;
+		padding-top: 0.7rem;
+		padding-bottom: 0.7rem;
 	}
 }
