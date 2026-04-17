@@ -1,8 +1,13 @@
 query AllProjects($first: IntType, $skip: IntType) {
-	allProjects(first: $first, skip: $skip, orderBy: position_ASC) {
+	allProjects(
+		first: $first
+		skip: $skip
+		orderBy: position_ASC
+		filter: { thumbnail: { exists: true } }
+	) {
 		...ProjectFragment
 	}
-	_allProjectsMeta {
+	_allProjectsMeta(filter: { thumbnail: { exists: true } }) {
 		count
 	}
 }

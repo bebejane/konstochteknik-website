@@ -8,8 +8,8 @@
 	align-items: center;
 	justify-content: center;
 	z-index: var(--z-index-intro);
-	//background-color: var(--white);
 	color: var(--white);
+	background-color: black;
 
 	h1 {
 		display: flex;
@@ -25,7 +25,6 @@
 		transform-origin: center center;
 		animation: rotate-z-3d 5s linear infinite;
 		transform-style: preserve-3d;
-		//color: red;
 	}
 
 	h2 {

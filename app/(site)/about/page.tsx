@@ -1,16 +1,10 @@
-import s from './page.module.scss';
-import cn from 'classnames';
 import { apiQuery } from 'next-dato-utils/api';
-import { AboutDocument, AllCommisionersDocument } from '@/graphql';
-import { DraftMode, Markdown } from 'next-dato-utils/components';
-import { Image } from 'react-datocms';
-import { CloseButton } from './CloseButton';
+import { AboutDocument } from '@/graphql';
+import { DraftMode } from 'next-dato-utils/components';
+import About from '@/components/About';
 
-export default async function About(props: PageProps<'/about'>) {
-	const [{ about, draftUrl }, { allCommisioners }] = await Promise.all([
-		apiQuery<AboutQuery>(AboutDocument),
-		apiQuery<AllCommisionersQuery>(AllCommisionersDocument),
-	]);
+export default async function AboutPage(props: PageProps<'/about'>) {
+	const { about, allCommisioners, draftUrl } = await apiQuery<AboutQuery>(AboutDocument);
 
 	return (
 		<>
@@ -70,6 +64,7 @@ export default async function About(props: PageProps<'/about'>) {
 				</div>
 				<CloseButton />
 			</div>
+			<About about={about} allCommisioners={allCommisioners} modal={false} />
 			<DraftMode url={draftUrl} path={`/about`} />
 		</>
 	);

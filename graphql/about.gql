@@ -6,4 +6,7 @@ query About {
 			...ImageFragment
 		}
 	}
+	allCommisioners(first: 500, orderBy: [name_ASC]) {
+		name
+	}
 }

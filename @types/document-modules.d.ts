@@ -8,15 +8,6 @@ declare module '*/about.gql' {
 }
     
 
-declare module '*/commisioner.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const AllCommisioners: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/ColorFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
