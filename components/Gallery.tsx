@@ -34,6 +34,11 @@ export default function Gallery({ allProjects }: Props) {
 
 	function swipeNext() {
 		swiperRef.current?.slideNext();
+		setShowThumbnails(false);
+	}
+	function swipePrev() {
+		swiperRef.current?.slidePrev();
+		setShowThumbnails(false);
 	}
 
 	function handleIndexChange({ realIndex }: { realIndex: number }) {
@@ -92,7 +97,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.prev, showNavigation === 'prev' && s.show)}
 				onMouseEnter={() => setShowNavigation('prev')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={() => swiperRef.current?.slidePrev()}
+				onClick={swipePrev}
 				style={buttonStyle}
 			>
 				←
@@ -102,7 +107,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.next, showNavigation === 'next' && s.show)}
 				onMouseEnter={() => setShowNavigation('next')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={() => swiperRef.current?.slideNext()}
+				onClick={swipeNext}
 				style={buttonStyle}
 			>
 				→
