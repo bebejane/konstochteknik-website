@@ -60,7 +60,7 @@ export default async function AboutPage(props: PageProps<'/about'>) {
 						))}
 					</ul>
 
-					<div className={s.internships}><i>Interships</i> We do unfortunately not offer any internships.</div>
+					<div className={s.internships}><i>Interships</i> We do unfortunately not offer any internships. </div>
 				</div>
 				<CloseButton />
 			</div>
