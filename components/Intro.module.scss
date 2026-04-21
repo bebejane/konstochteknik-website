@@ -17,13 +17,15 @@
 		align-items: center;
 		justify-content: center;
 		line-height: 1;
-	}
+		div {
+			span {
+				opacity: 0;
 
-	.and {
-		display: inline-block;
-		transform-origin: center center;
-		transform-style: preserve-3d;
-		animation: rotate-z-3d 5s linear infinite;
+				&.and {
+					display: inline-block;
+				}
+			}
+		}
 	}
 
 	h2 {

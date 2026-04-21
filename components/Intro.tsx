@@ -1,13 +1,19 @@
 'use client';
 
-import { useShallow, useStore } from '@/lib/store';
 import s from './Intro.module.scss';
+import cn from 'classnames';
+import { useShallow, useStore } from '@/lib/store';
+
 import { use, useEffect, useRef, useState } from 'react';
+import { sleep } from 'next-dato-utils/utils';
 
 type Props = {
 	intro: IntroQuery['intro'];
 	project: AllProjectsQuery['allProjects'][number];
 };
+
+const title = ['Peter, Björn', '&', 'Jo'];
+const title2 = ['Peter,', 'Björn', '&', 'Mattias'];
 
 export default function Intro({ intro, project }: Props) {
 	const [inIntro, setInIntro, loading] = useStore(
@@ -28,7 +34,8 @@ export default function Intro({ intro, project }: Props) {
 		timeout.current = setTimeout(() => {
 			clearInterval(interval.current);
 			setInIntro(false);
-		}, intro.duration);
+			//}, intro.duration);
+		}, 1000000);
 
 		return () => {
 			clearInterval(interval.current);
@@ -44,20 +51,70 @@ export default function Intro({ intro, project }: Props) {
 		}
 	}, [loading]);
 
+	useEffect(() => {
+		async function animate() {
+			const mattias = 'Mattias';
+			const speed = 150;
+			const title = document.getElementById('title');
+			const lastDiv = title.querySelector('div:last-child');
+			if (!title) return;
+			const spans = Array.from(title.querySelectorAll('span'));
+			for (const span of spans) {
+				await sleep(speed);
+				span.style.opacity = '1';
+			}
+			await sleep(500);
+			spans.at(-1).style.opacity = '0';
+			await sleep(speed);
+			spans.at(-2).style.opacity = '0';
+			await sleep(speed);
+			spans.at(-2).textContent = mattias[0];
+			spans.at(-2).style.opacity = '1';
+			await sleep(speed);
+			spans.at(-1).textContent = mattias[1];
+			spans.at(-1).style.opacity = '1';
+			for (let i = 2; i < mattias.length; i++) {
+				await sleep(speed);
+				const span = document.createElement('span');
+				span.textContent = mattias[i];
+				span.style.opacity = '1';
+				lastDiv.append(span);
+			}
+
+			await sleep(500);
+			setInIntro(false);
+		}
+		animate();
+	}, []);
+
 	if (!inIntro) return null;
 
 	return (
 		<div className={s.intro} onClick={() => setInIntro(false)}>
-			<h1 className='big'>
-				<span className={s.title}>{loader.title}</span>
+			<h1 id='title' className='big'>
+				{title.map((line, idx) => {
+					const chars = line.split('');
+
+					return (
+						<div key={line} className={cn(s.title)}>
+							{chars.map((c, i) => (
+								<span key={i} className={c === '&' ? s.and : undefined}>
+									{c}
+								</span>
+							))}
+						</div>
+					);
+				})}
+
+				{/* <span className={s.title}>{loader.title}</span>
 				<span className={s.and}>
 					<i>&</i>
 				</span>
-				<span className={s.subtitle}>{loader.subtitle}</span>
+				<span className={s.subtitle}>{loader.subtitle}</span> */}
 			</h1>
-			<h2>
+			{/* <h2>
 				<i>Loading...</i>
-			</h2>
+			</h2> */}
 		</div>
 	);
 }
