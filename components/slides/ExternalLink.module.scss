@@ -1,0 +1,14 @@
+.externalLink {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--white);
+	color: var(--black);
+	opacity: 0;
+	transform: translate(-50%, -50%);
+}

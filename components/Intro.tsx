@@ -12,7 +12,7 @@ type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 };
 
-const title = ['Peter, Björn', '&', 'Jo'];
+const title = ['Peter, Björn', '&', 'joh'];
 const title2 = ['Peter,', 'Björn', '&', 'Mattias'];
 
 export default function Intro({ intro, project }: Props) {
@@ -59,30 +59,35 @@ export default function Intro({ intro, project }: Props) {
 			const lastDiv = title.querySelector('div:last-child');
 			if (!title) return;
 			const spans = Array.from(title.querySelectorAll('span'));
+
 			for (const span of spans) {
 				await sleep(speed);
 				span.style.opacity = '1';
 			}
+
 			await sleep(500);
-			spans.at(-1).style.opacity = '0';
-			await sleep(speed);
-			spans.at(-2).style.opacity = '0';
-			await sleep(speed);
-			spans.at(-2).textContent = mattias[0];
-			spans.at(-2).style.opacity = '1';
-			await sleep(speed);
-			spans.at(-1).textContent = mattias[1];
-			spans.at(-1).style.opacity = '1';
-			for (let i = 2; i < mattias.length; i++) {
+
+			for (let x = -1; x >= -3; x--) {
+				spans.at(x).style.opacity = '0';
+				await sleep(speed * 1.5);
+			}
+
+			for (let x = -3; x < 0; x++) {
+				spans.at(x).textContent = mattias[x + 3];
+				spans.at(x).style.opacity = '1';
+				await sleep(speed);
+			}
+
+			for (let x = 3; x < mattias.length; x++) {
 				await sleep(speed);
 				const span = document.createElement('span');
-				span.textContent = mattias[i];
+				span.textContent = mattias[x];
 				span.style.opacity = '1';
 				lastDiv.append(span);
 			}
 
 			await sleep(500);
-			setInIntro(false);
+			//setInIntro(false);
 		}
 		animate();
 	}, []);

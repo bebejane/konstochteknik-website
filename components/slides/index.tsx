@@ -7,6 +7,7 @@ import ImageSlide from './ImageSlide';
 import VideoSlide from './VideoSlide';
 import { useShallow, useStore } from '@/lib/store';
 import { useEffect, useRef, useState } from 'react';
+import ExternalLink from '@/components/slides/ExternalLink';
 
 type Props = {
 	project: AllProjectsQuery['allProjects'][number];
@@ -19,9 +20,6 @@ type Props = {
 export default function Slide({ project, index, single, clean, onLoad }: Props) {
 	const [activeProject, inIntro] = useStore(useShallow((s) => [s.project, s.inIntro]));
 	const [loading, setLoading] = useState(true);
-	const containerRef = useRef<HTMLDivElement | null>(null);
-	const externalLinkRef = useRef<HTMLAnchorElement | null>(null);
-	const externalLink = getExternalLink(project.caption);
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
 	const backgroundColor = project.background?.hex ?? 'transparent';
@@ -31,34 +29,8 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 		!loading && onLoad?.();
 	}, [loading]);
 
-	useEffect(() => {
-		if (!externalLink || !externalLinkRef.current || !containerRef.current) return;
-
-		const container = containerRef.current;
-		const link = externalLinkRef.current;
-
-		function handleMouseMove(e: MouseEvent) {
-			const { clientX: x, clientY: y } = e;
-			link.style.opacity = '1';
-			link.style.top = `${y}px`;
-			link.style.left = `${x}px`;
-		}
-
-		function handleMouseLeave() {
-			link.style.opacity = '0';
-		}
-
-		container.addEventListener('mousemove', handleMouseMove);
-		container.addEventListener('mouseleave', handleMouseLeave);
-
-		return () => {
-			container.removeEventListener('mousemove', handleMouseMove);
-			container.removeEventListener('mouseleave', handleMouseLeave);
-		};
-	}, [externalLink]);
-
 	return (
-		<div style={{ backgroundColor }} className={s.slide} ref={containerRef}>
+		<div style={{ backgroundColor }} className={s.slide}>
 			<>
 				{slide.__typename === 'ImageSlideRecord' ? (
 					<ImageSlide
@@ -89,28 +61,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 					<Markdown content={project.caption!} />
 				</h2>
 			)}
-			{externalLink && (
-				<a
-					ref={externalLinkRef}
-					href={externalLink}
-					target='_blank'
-					rel='noreferrer'
-					className={s.externalLink}
-					onClick={(e) => e.stopPropagation()}
-				>
-					Visit website
-				</a>
-			)}
+			<ExternalLink text={project.caption} />
 		</div>
 	);
-}
-
-function getExternalLink(str: string): string {
-	const urlRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
-	const urls: string[] = [];
-	let match: RegExpExecArray | null;
-	while ((match = urlRegex.exec(str)) !== null) {
-		urls.push(match[2]);
-	}
-	return urls.length > 0 ? urls[0] : null;
 }
