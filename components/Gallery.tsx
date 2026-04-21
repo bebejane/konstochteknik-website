@@ -34,6 +34,11 @@ export default function Gallery({ allProjects }: Props) {
 
 	function swipeNext() {
 		swiperRef.current?.slideNext();
+		setShowThumbnails(false);
+	}
+	function swipePrev() {
+		swiperRef.current?.slidePrev();
+		setShowThumbnails(false);
 	}
 
 	function handleIndexChange({ realIndex }: { realIndex: number }) {
@@ -41,7 +46,7 @@ export default function Gallery({ allProjects }: Props) {
 		indexChangeTimeout.current = setTimeout(() => {
 			const project = projects[realIndex];
 			if (!project) return;
-
+			console.log('set proj');
 			setProject(project);
 		}, 300);
 	}
@@ -49,7 +54,7 @@ export default function Gallery({ allProjects }: Props) {
 	useEffect(() => {
 		if (!swiperRef.current) return;
 		const speed = Math.min(Math.abs(swiperRef.current.realIndex - index) * 200, 1000);
-		swiperRef.current.slideToLoop(index, speed);
+		swiperRef.current.slideToLoop(index, 0, false);
 	}, [index]);
 
 	useEffect(() => {
@@ -92,7 +97,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.prev, showNavigation === 'prev' && s.show)}
 				onMouseEnter={() => setShowNavigation('prev')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={() => swiperRef.current?.slidePrev()}
+				onClick={swipePrev}
 				style={buttonStyle}
 			>
 				←
@@ -102,7 +107,7 @@ export default function Gallery({ allProjects }: Props) {
 				className={cn(s.next, showNavigation === 'next' && s.show)}
 				onMouseEnter={() => setShowNavigation('next')}
 				onMouseLeave={() => setShowNavigation(null)}
-				onClick={() => swiperRef.current?.slideNext()}
+				onClick={swipeNext}
 				style={buttonStyle}
 			>
 				→

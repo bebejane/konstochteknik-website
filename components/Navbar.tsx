@@ -60,7 +60,7 @@ export default function Navbar() {
 						data-enabled={filter === 'tech'}
 						data-id='tech'
 						onMouseEnter={() => setCategory('tech')}
-						//onMouseLeave={() => setCategory(null)}
+						onMouseLeave={() => setCategory(null)}
 					>
 						Teknik
 					</button>
