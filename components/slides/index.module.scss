@@ -1,88 +1,103 @@
 .slide {
-  position: relative;
-  width: 100%;
-  max-width: 100vw;
-  height: 100dvh;
-  max-height: 100dvh;
+	position: relative;
+	width: 100%;
+	max-width: 100vw;
+	height: 100dvh;
+	max-height: 100dvh;
 
-  h2 {
-    position: absolute;
-    top: unset;
-    bottom: -0.5rem;
-    left: 50%;
-    z-index: 10;
-    display: flex;
-    height: auto;
-    margin: 0;
-    margin-bottom: var(--other-margin);
-    padding: var(--other-margin);
-    align-items: center;
-    justify-content: center;
-    color: var(--black);
-    text-align: center;
-    line-height: 1;
-    background-color: var(--white) !important;
-    border-radius: 3rem;
-    opacity: 0;
-    animation: fadeUp 1s ease-in-out 0.5s forwards;
+	h2 {
+		position: absolute;
+		top: unset;
+		bottom: -0.5rem;
+		left: 50%;
+		z-index: 10;
+		display: flex;
+		height: auto;
+		margin: 0;
+		margin-bottom: var(--other-margin);
+		padding: var(--other-margin);
+		align-items: center;
+		justify-content: center;
+		color: var(--black);
+		text-align: center;
+		line-height: 1;
+		background-color: var(--white) !important;
+		border-radius: 3rem;
+		opacity: 0;
+		animation: fadeUp 1s ease-in-out 0.5s forwards;
 
-    @include mq($from: desktop) {
-      bottom: -1rem;
-      height: 2.8rem;
-      padding: 0.5rem;
-      padding-right: 1.2rem;
-      padding-left: 1.2rem;
-    }
+		@include mq($from: desktop) {
+			bottom: -1rem;
+			height: 2.8rem;
+			padding: 0.5rem;
+			padding-right: 1.2rem;
+			padding-left: 1.2rem;
+		}
 
-    @keyframes fadeUp {
-      0% {
-        opacity: 0;
-      }
+		@keyframes fadeUp {
+			0% {
+				opacity: 0;
+			}
 
-      100% {
-        opacity: 1;
-      }
-    }
+			100% {
+				opacity: 1;
+			}
+		}
 
-    @include mq($from: tablet) {
-      white-space: nowrap;
-    }
+		@include mq($from: tablet) {
+			white-space: nowrap;
+		}
 
-    @include mq($until: tablet) {
-      width: 100%;
-      line-height: calc(0.9 * var(--line-height));
-      border-radius: 1rem;
-    }
+		@include mq($until: tablet) {
+			width: 100%;
+			line-height: calc(0.9 * var(--line-height));
+			border-radius: 1rem;
+		}
 
-    p {
-      margin: 0;
-    }
+		p {
+			margin: 0;
+		}
 
-    a {
-      color: inherit;
-    }
+		a {
+			color: inherit;
+		}
 
-    &.fill {
-      max-width: calc(100% - (2 * var(--other-margin)));
-      margin-right: var(--other-margin);
-      padding-top: 0.7rem;
-      padding-right: 1.5em;
-      padding-bottom: 0.7rem;
-      padding-left: 1.5em;
-      color: var(--black) !important;
-      background-color: var(--white);
+		&.fill {
+			max-width: calc(100% - (2 * var(--other-margin)));
+			margin-right: var(--other-margin);
+			padding-top: 0.7rem;
+			padding-right: 1.5em;
+			padding-bottom: 0.7rem;
+			padding-left: 1.5em;
+			color: var(--black) !important;
+			background-color: var(--white);
 
-      @include mq($until: desktop) {
-        margin-bottom: 1.5rem;
-      }
+			@include mq($until: desktop) {
+				margin-bottom: 1.5rem;
+			}
 
-      @include mq($from: desktop) {
-        padding-bottom: 0.7rem;
-      }
-    }
+			@include mq($from: desktop) {
+				padding-bottom: 0.7rem;
+			}
+		}
 
-    &.transparent {
-      background-color: transparent !important;
-    }
-  }
+		&.transparent {
+			background-color: transparent !important;
+		}
+	}
+}
+
+.externalLink {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--white);
+	color: var(--black);
+	opacity: 1;
+	transform: translate(-50%, -50%);
 }
