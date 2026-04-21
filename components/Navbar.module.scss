@@ -31,7 +31,7 @@
 		color: inherit;
 		line-height: 1;
 
-		&[data-enabled='true'] {
+		&[data-enabled="true"] {
 			font-style: italic;
 		}
 	}
@@ -61,6 +61,7 @@
 		display: none;
 	}
 	h2 {
+		margin-top: 1rem;
 		border-radius: 3rem;
 		padding-left: 1.5em;
 		padding-right: 1.5em;
