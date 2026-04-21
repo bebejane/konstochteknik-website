@@ -57,7 +57,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 					style={{ color }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					<Markdown content={project.caption!} />l
+					<Markdown content={project.caption!} />
 				</h2>
 			)}
 		</div>
