@@ -37,20 +37,17 @@ export default function Intro({ intro, project }: Props) {
 	}, [intro]);
 
 	useEffect(() => {
-		if (!loading.thumbs && !loading.gallery) {
-			clearTimeout(timeout.current);
+		if (!loading.gallery) {
+			//clearTimeout(timeout.current);
 			clearInterval(interval.current);
-			setInIntro(false);
+			//setInIntro(false);
 		}
 	}, [loading]);
 
 	if (!inIntro) return null;
 
-	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
-	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
-
 	return (
-		<div className={s.intro} onClick={() => setInIntro(false)} style={{ backgroundColor, color }}>
+		<div className={s.intro} onClick={() => setInIntro(false)}>
 			<h1 className='big'>
 				<span className={s.title}>{loader.title}</span>
 				<span className={s.and}>

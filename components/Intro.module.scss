@@ -2,45 +2,43 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: var(--z-index-intro);
+	display: flex;
 	width: 100%;
 	height: 100%;
-	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: var(--z-index-intro);
 	color: var(--white);
-	//background-color: black;
 
 	h1 {
+		position: relative;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		flex-direction: column;
-		position: relative;
 		line-height: 1;
 	}
 
 	.and {
 		display: inline-block;
 		transform-origin: center center;
-		animation: rotate-z-3d 5s linear infinite;
 		transform-style: preserve-3d;
+		animation: rotate-z-3d 5s linear infinite;
 	}
 
 	h2 {
 		position: absolute;
-		margin-top: 1em;
 		display: none;
+		margin-top: 1em;
 	}
 
 	@keyframes rotate-z-3d {
-		/*from {
+		from {
 			transform: rotateY(0deg);
 		}
 		to {
 			transform: rotateY(360deg);
 		}
-			*/
 	}
 
 	@keyframes rgb-loop {

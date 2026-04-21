@@ -8,12 +8,14 @@ import { CSSProperties, useEffect, useState } from 'react';
 
 type Props = {
 	active: boolean;
+	index: number;
 	data: ImageSlideRecord;
 	onLoad(): void;
 };
 
 export default function ImageSlide({
 	data: { layout, images, backgroundImage, css },
+	index,
 	active,
 	onLoad,
 }: Props) {
@@ -21,6 +23,7 @@ export default function ImageSlide({
 
 	const [loading, setLoading] = useState<Record<string, boolean>>({});
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
+	const isFirstSlideLoading = index === 0 && loading;
 
 	useEffect(() => {
 		const loaded = images.every(({ id }) => loading[id] === true);
@@ -34,11 +37,17 @@ export default function ImageSlide({
 					id={image.id}
 					key={idx}
 					className={cn(s[column], imageLayout === 'cover' && s.cover)}
-					style={{
-						backgroundImage: backgroundImage ? `url(${backgroundImage?.url}?w=2000)` : undefined,
-						backgroundColor: background?.hex,
-						...(parseStyles(css ?? '') as CSSProperties),
-					}}
+					style={
+						isFirstSlideLoading
+							? {}
+							: {
+									backgroundImage: backgroundImage
+										? `url(${backgroundImage?.url}?w=2000)`
+										: undefined,
+									backgroundColor: background?.hex,
+									...(parseStyles(css ?? '') as CSSProperties),
+								}
+					}
 				>
 					<Image
 						key={image.mimeType === 'image/gif' && active ? image.id : undefined}
@@ -53,6 +62,7 @@ export default function ImageSlide({
 						className={s.image}
 						srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
 						usePlaceholder={false}
+						priority={index === 0}
 						onLoad={() => setLoading((l) => ({ ...l, [id]: true }))}
 						pictureClassName={s[`image-${imageLayout || layout}`]}
 					/>

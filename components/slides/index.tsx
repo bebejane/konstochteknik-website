@@ -10,13 +10,14 @@ import { use, useEffect, useState } from 'react';
 
 type Props = {
 	project: AllProjectsQuery['allProjects'][number];
+	index: number;
 	single?: boolean;
 	clean?: boolean;
 	onLoad?: () => void;
 };
 
-export default function Slide({ project, single, clean, onLoad }: Props) {
-	const [activeProject] = useStore(useShallow((s) => [s.project]));
+export default function Slide({ project, index, single, clean, onLoad }: Props) {
+	const [activeProject, inIntro] = useStore(useShallow((s) => [s.project, s.inIntro]));
 	const [loading, setLoading] = useState(true);
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
@@ -35,6 +36,7 @@ export default function Slide({ project, single, clean, onLoad }: Props) {
 						key={slide.id}
 						data={slide as ImageSlideRecord}
 						active={active}
+						index={index}
 						onLoad={() => setLoading(false)}
 					/>
 				) : slide.__typename === 'VideoSlideRecord' ? (
@@ -42,19 +44,20 @@ export default function Slide({ project, single, clean, onLoad }: Props) {
 						key={slide.id}
 						data={slide as VideoSlideRecord}
 						active={active}
+						index={index}
 						onLoad={() => setLoading(false)}
 					/>
 				) : null}
 			</>
 
-			{active && project.caption && (
+			{active && project.caption && !inIntro && (
 				<h2
 					key={`${project.id}-${active}`}
 					className={cn(s[project.captionStyle], 'color-transition')}
 					style={{ color }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					<Markdown content={project.caption!} />
+					<Markdown content={project.caption!} />l
 				</h2>
 			)}
 		</div>
