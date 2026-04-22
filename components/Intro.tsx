@@ -12,7 +12,7 @@ type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 };
 
-const title = ['Peter, Björn', '&', 'joh'];
+const title = ['Peter, Bjorn', '&', 'Jon'];
 const title2 = ['Peter,', 'Björn', '&', 'Mattias'];
 
 export default function Intro({ intro, project }: Props) {
@@ -54,7 +54,7 @@ export default function Intro({ intro, project }: Props) {
 	useEffect(() => {
 		async function animate() {
 			const mattias = 'Mattias';
-			const speed = 150;
+			const speed = 80;
 			const title = document.getElementById('title');
 			const lastDiv = title.querySelector('div:last-child');
 			if (!title) return;
