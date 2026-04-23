@@ -44,7 +44,7 @@ export default function ExternalLink({ text }: { text: string }) {
 			className={s.externalLink}
 			onClick={(e) => e.stopPropagation()}
 		>
-			Visit website →
+			Visit →
 		</a>
 	);
 }

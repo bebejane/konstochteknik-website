@@ -12,7 +12,7 @@ type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 };
 
-const title = ['Peter, Bjorn', '&', 'Jon'];
+const title = ['Peter, Björn', '&', 'Joh'];
 const title2 = ['Peter,', 'Björn', '&', 'Mattias'];
 
 export default function Intro({ intro, project }: Props) {
