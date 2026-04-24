@@ -92,6 +92,36 @@ export default function Intro({ intro, project }: Props) {
 		animate();
 	}, []);
 
+	useEffect(() => {
+		const meta = ['Escape', 'Shift', 'Backspace', 'LeftArrow', 'RightArrow', 'Backspace', 'Meta'];
+		let keys: { key: string; time: number; str: string }[] = [];
+		let str = '';
+
+		function handleKeyDown(e: KeyboardEvent) {
+			if (e.key === 'Escape') {
+				console.log(keys.map((k) => ({ ...k, time: k.time - keys[0].time })));
+				keys = [];
+				str = '';
+				return;
+			}
+
+			if (['Shift'].includes(e.key)) return;
+			const key = e.key === 'Enter' ? '\n' : e.key === 'Space' ? ' ' : e.key;
+
+			if (!meta.includes(key)) str += key;
+			if (key === 'Backspace') str = str.slice(0, -1);
+
+			keys.push({ key, time: Date.now(), str });
+			console.log(str);
+		}
+
+		document.addEventListener('keydown', handleKeyDown);
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	}, []);
+
 	if (!inIntro) return null;
 
 	return (
