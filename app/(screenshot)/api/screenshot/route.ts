@@ -119,6 +119,7 @@ async function generate(
 
 	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
+	await page.close();
 	const filename = `${record.slug}-screenshot.png`;
 	const filePath = `/tmp/${filename}`;
 	const title = `${record.title}`;
