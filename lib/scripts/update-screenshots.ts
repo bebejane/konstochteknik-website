@@ -27,7 +27,7 @@ const main = async function () {
 	console.log(`Found ${projects.length} projects.`);
 
 	for (const project of projects) {
-		console.log(`Updating project: ${project.title}`);
+		console.log(`Updating screenshots: ${project.title}`);
 
 		try {
 			await client.items.update(project.id, {

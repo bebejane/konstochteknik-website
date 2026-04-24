@@ -114,8 +114,8 @@ async function generate(
 	const browser = await getBrowser();
 	const page = await browser.newPage();
 	await page.setViewport(viewport);
-	await page.goto(url, { waitUntil: 'networkidle2' });
-	await sleep(3000);
+	await page.goto(url, { waitUntil: 'domcontentloaded' });
+	await sleep(2000);
 
 	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
