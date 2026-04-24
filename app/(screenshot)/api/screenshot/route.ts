@@ -102,6 +102,10 @@ async function generate(
 	viewport: { width: number; height: number },
 ) {
 	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
+	const filename = `${record.slug}-screenshot.png`;
+	const filePath = `/tmp/${filename}`;
+	const title = `${record.title}`;
+
 	console.log('generate screenshot', url);
 
 	const browser = await getBrowser();
@@ -109,13 +113,9 @@ async function generate(
 	await page.setViewport(viewport);
 	await page.goto(url, { waitUntil: 'domcontentloaded' });
 	await sleep(2000);
-
 	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
 	await page.close();
-	const filename = `${record.slug}-screenshot.png`;
-	const filePath = `/tmp/${filename}`;
-	const title = `${record.title}`;
 
 	fs.writeFileSync(filePath, screenshot);
 
@@ -148,10 +148,7 @@ async function generate(
 		});
 	}
 
+	fs.unlinkSync(filePath);
 	await client.items.update(record.id, { [key]: { upload_id: upload.id } });
 	await client.items.publish(record.id);
-	await sleep(3000);
-
-	const paths = await config.routes?.project(record);
-	paths?.forEach((path) => revalidatePath(path));
 }
