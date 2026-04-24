@@ -9,14 +9,7 @@ import hash from 'object-hash';
 import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client-node';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import { waitUntil } from '@vercel/functions';
-
-const CHROMIUM_PACK_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
-	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/chromium-pack.tar`
-	: 'https://github.com/gabenunez/puppeteer-on-vercel/raw/refs/heads/main/example/chromium-dont-use-in-prod.tar';
-
-// Cache the Chromium executable path to avoid re-downloading on subsequent requests
-let cachedExecutablePath: string | null = null;
-let downloadPromise: Promise<string> | null = null;
+import { getBrowser } from '@/lib/puppeteer';
 
 export async function POST(request: NextRequest) {
 	try {
@@ -161,52 +154,4 @@ async function generate(
 
 	const paths = await config.routes?.project(record);
 	paths?.forEach((path) => revalidatePath(path));
-}
-
-async function getChromiumPath(): Promise<string> {
-	// Return cached path if available
-	if (cachedExecutablePath) return cachedExecutablePath;
-
-	// Prevent concurrent downloads by reusing the same promise
-	if (!downloadPromise) {
-		const chromium = (await import('@sparticuz/chromium-min')).default;
-		downloadPromise = chromium
-			.executablePath(CHROMIUM_PACK_URL)
-			.then((path) => {
-				cachedExecutablePath = path;
-				console.log('Chromium path resolved:', path);
-				return path;
-			})
-			.catch((error) => {
-				console.error('Failed to get Chromium path:', error);
-				downloadPromise = null; // Reset on error to allow retry
-				throw error;
-			});
-	}
-
-	return downloadPromise;
-}
-
-async function getBrowser() {
-	const isVercel = !!process.env.VERCEL_ENV;
-	let puppeteer: any,
-		launchOptions: any = {
-			headless: true,
-		};
-
-	if (isVercel) {
-		const chromium = (await import('@sparticuz/chromium')).default;
-		puppeteer = await import('puppeteer-core');
-
-		const executablePath = await getChromiumPath();
-		launchOptions = {
-			...launchOptions,
-			args: chromium.args,
-			executablePath,
-		};
-	} else {
-		puppeteer = await import('puppeteer');
-	}
-
-	return await puppeteer.launch(launchOptions);
 }
