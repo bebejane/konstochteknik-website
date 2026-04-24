@@ -3,6 +3,8 @@ import { buildClient } from '@datocms/cma-client-node';
 import { Project } from '@/types/datocms-cma';
 import { ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string });
 
 const main = async function () {
@@ -34,6 +36,7 @@ const main = async function () {
 				thumbnail_mobile: null,
 			});
 			await client.items.publish(project.id);
+			await sleep(3000);
 			if (project.thumbnail?.upload_id) await client.uploads.destroy(project.thumbnail.upload_id);
 			if (project.thumbnail_mobile?.upload_id)
 				await client.uploads.destroy(project.thumbnail_mobile.upload_id);

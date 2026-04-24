@@ -117,7 +117,7 @@ async function generate(
 	await page.goto(url, { waitUntil: 'networkidle2' });
 	await sleep(3000);
 
-	const screenshot = await page.screenshot({ type: 'png', fullPage: true });
+	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
 	const filename = `${record.slug}-screenshot.png`;
 	const filePath = `/tmp/${filename}`;
