@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sleep } from 'next-dato-utils/utils';
-import { revalidatePath } from 'next/cache';
-import config from '@/datocms.config';
 import client from '@/lib/client';
 import fs from 'fs';
 import { Project } from '@/types/datocms-cma';
@@ -10,6 +8,8 @@ import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import { waitUntil } from '@vercel/functions';
 import { getBrowser } from '@/lib/puppeteer';
+
+export const maxDuration = 90;
 
 export async function POST(request: NextRequest) {
 	try {
