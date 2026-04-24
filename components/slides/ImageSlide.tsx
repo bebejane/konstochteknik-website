@@ -23,7 +23,7 @@ export default function ImageSlide({
 
 	const [loading, setLoading] = useState<Record<string, boolean>>({});
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
-	const isFirstSlideLoading = index === 0 && loading;
+	const isFirstSlideLoading = index === 0 && !loading[images[0].id];
 
 	useEffect(() => {
 		const loaded = images.every(({ id }) => loading[id] === true);

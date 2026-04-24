@@ -85,4 +85,13 @@
 			background-color: transparent !important;
 		}
 	}
+	.award {
+		position: absolute;
+		top: 25%;
+		transform: translateY(-50%);
+		left: 0;
+		margin-left: var(--other-margin);
+		z-index: var(--z-index-menu);
+		height: 2rem;
+	}
 }
