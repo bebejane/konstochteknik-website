@@ -115,7 +115,6 @@ async function generate(
 	await sleep(2000);
 	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
-	await page.close();
 
 	fs.writeFileSync(filePath, screenshot);
 
@@ -151,4 +150,5 @@ async function generate(
 	fs.unlinkSync(filePath);
 	await client.items.update(record.id, { [key]: { upload_id: upload.id } });
 	await client.items.publish(record.id);
+	await page.close();
 }
