@@ -33,20 +33,27 @@
 			filter: grayscale(0);
 		}
 
-		&.hover {
-			z-index: 10000;
-			filter: grayscale(0);
-			transform: scale(2);
+		@include mq($from: tablet) {
+			&.hover {
+				z-index: 10000;
+				filter: grayscale(0);
+				transform: scale(2);
+			}
 		}
 
 		.image {
-			aspect-ratio: 16/9;
 			height: var(--thumbnail-height);
-			transform: translateY(100%);
-			transition: transform 0.7s cubic-bezier(0.083, 0.942, 0.046, 0.993);
 			cursor: pointer;
-			&.show {
-				transform: translateY(0);
+			@include mq($from: tablet) {
+				aspect-ratio: 16/9;
+				transform: translateY(100%);
+				transition: transform 0.7s cubic-bezier(0.083, 0.942, 0.046, 0.993);
+				&.show {
+					transform: translateY(0);
+				}
+			}
+			@include mq($until: tablet) {
+				aspect-ratio: 4/6;
 			}
 		}
 	}

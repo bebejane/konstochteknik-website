@@ -10,9 +10,6 @@ import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import { waitUntil } from '@vercel/functions';
 
-const width = 1920;
-const height = 1080;
-
 const CHROMIUM_PACK_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/chromium-pack.tar`
 	: 'https://github.com/gabenunez/puppeteer-on-vercel/raw/refs/heads/main/example/chromium-dont-use-in-prod.tar';

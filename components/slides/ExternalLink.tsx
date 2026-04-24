@@ -1,9 +1,8 @@
 import s from './ExternalLink.module.scss';
 import { useEffect, useRef } from 'react';
 
-export default function ExternalLink({ text }: { text: string }) {
+export default function ExternalLink({ url }: { url: string }) {
 	const externalLinkRef = useRef<HTMLAnchorElement | null>(null);
-	const url = getExternalLink(text);
 
 	useEffect(() => {
 		if (!url || !externalLinkRef.current) return;

@@ -40,6 +40,9 @@ fragment ProjectFragment on ProjectRecord {
 	thumbnail {
 		...ImageThumbnailFragment
 	}
+	thumbnailMobile {
+		...ImageThumbnailMobileFragment
+	}
 	position
 	slug
 	slide {

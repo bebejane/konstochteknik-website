@@ -61,7 +61,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 					<Markdown content={project.caption!} />
 				</h2>
 			)}
-			<ExternalLink text={project.caption} />
+			<ExternalLink url={project.url} />
 		</div>
 	);
 }
