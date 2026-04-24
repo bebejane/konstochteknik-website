@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import config from '@/datocms.config';
 import client from '@/lib/client';
 import fs from 'fs';
-import { Project } from '@/types/datcms-cma';
+import { Project } from '@/types/datocms-cma';
 import hash from 'object-hash';
 import { uploadLocalFileAndReturnPath, type ApiTypes } from '@datocms/cma-client-node';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
@@ -35,21 +35,55 @@ export async function POST(request: NextRequest) {
 
 		if (!record) return new NextResponse('Record not found', { status: 404 });
 
-		const recordHash = hash({ ...record, meta: undefined, thumbnail: undefined });
+		const recordHash = hash({
+			...record,
+			meta: undefined,
+			thumbnail: undefined,
+		});
+
+		const recordHashMobile = hash({
+			...record,
+			meta: undefined,
+			thumbnail_mobile: undefined,
+		});
+
 		const thumbnail = (record.thumbnail as any)?.upload_id
 			? await client.uploads.find((record.thumbnail as any)?.upload_id as string)
 			: null;
+		const thumbnailMobile = (record.thumbnail_mobile as any)?.upload_id
+			? await client.uploads.find((record.thumbnail_mobile as any)?.upload_id as string)
+			: null;
 
 		const currentHash = thumbnail?.default_field_metadata?.en?.custom_data.hash;
+		const currentHashMobile = thumbnailMobile?.default_field_metadata?.en?.custom_data.hash;
 
-		if (currentHash === recordHash) {
+		if (currentHash === recordHash && currentHashMobile === recordHashMobile) {
 			console.log('screenshot', 'skip since the same');
 			return new NextResponse('skip', { status: 200 });
 		}
+
 		waitUntil(
-			generate(record, recordHash)
-				.then(() => {
+			new Promise(async (resolve, reject) => {
+				try {
+					if (currentHash !== recordHash)
+						await generate(record, recordHash, 'thumbnail', {
+							width: 1920,
+							height: 1080,
+						});
+					if (currentHashMobile !== recordHashMobile)
+						await generate(record, recordHashMobile, 'thumbnail_mobile', {
+							width: 414,
+							height: 896,
+						});
+					resolve({ success: true });
+				} catch (e) {
+					console.error(e);
+					reject({ success: false, error: e?.message || e });
+				}
+			})
+				.then((res) => {
 					console.log('done');
+					console.log(res);
 				})
 				.catch((e) => {
 					console.error(e);
@@ -68,43 +102,21 @@ export async function POST(request: NextRequest) {
 				status: 500,
 			},
 		);
-	} finally {
-		console.timeEnd('screenshot');
 	}
 }
 
-async function getBrowser() {
-	console.log(CHROMIUM_PACK_URL);
-	const isVercel = !!process.env.VERCEL_ENV;
-	let puppeteer: any,
-		launchOptions: any = {
-			headless: true,
-		};
-
-	if (isVercel) {
-		const chromium = (await import('@sparticuz/chromium')).default;
-		puppeteer = await import('puppeteer-core');
-
-		const executablePath = await getChromiumPath();
-		launchOptions = {
-			...launchOptions,
-			args: chromium.args,
-			executablePath,
-		};
-	} else {
-		puppeteer = await import('puppeteer');
-	}
-
-	return await puppeteer.launch(launchOptions);
-}
-
-async function generate(record: Item<Project>, recordHash: string) {
+async function generate(
+	record: Item<Project>,
+	recordHash: string,
+	key: string,
+	viewport: { width: number; height: number },
+) {
 	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/screenshot/${record.id}`;
+	console.log('generate screenshot', url);
 
-	console.time('screenshot');
 	const browser = await getBrowser();
 	const page = await browser.newPage();
-	await page.setViewport({ width, height });
+	await page.setViewport(viewport);
 	await page.goto(url, { waitUntil: 'networkidle2' });
 	await sleep(3000);
 
@@ -129,8 +141,8 @@ async function generate(record: Item<Project>, recordHash: string) {
 		},
 	};
 
-	if (record.thumbnail?.upload_id) {
-		const uploadId = record.thumbnail?.upload_id;
+	if (record[key]?.upload_id) {
+		const uploadId = record[key]?.upload_id;
 		await client.uploads.update(uploadId, { ...uploadMetadata });
 		upload = await client.uploads.update(
 			uploadId,
@@ -144,7 +156,7 @@ async function generate(record: Item<Project>, recordHash: string) {
 		});
 	}
 
-	await client.items.update(record.id, { thumbnail: { upload_id: upload.id } });
+	await client.items.update(record.id, { [key]: { upload_id: upload.id } });
 	await client.items.publish(record.id);
 	await sleep(3000);
 
@@ -174,4 +186,28 @@ async function getChromiumPath(): Promise<string> {
 	}
 
 	return downloadPromise;
+}
+
+async function getBrowser() {
+	const isVercel = !!process.env.VERCEL_ENV;
+	let puppeteer: any,
+		launchOptions: any = {
+			headless: true,
+		};
+
+	if (isVercel) {
+		const chromium = (await import('@sparticuz/chromium')).default;
+		puppeteer = await import('puppeteer-core');
+
+		const executablePath = await getChromiumPath();
+		launchOptions = {
+			...launchOptions,
+			args: chromium.args,
+			executablePath,
+		};
+	} else {
+		puppeteer = await import('puppeteer');
+	}
+
+	return await puppeteer.launch(launchOptions);
 }
