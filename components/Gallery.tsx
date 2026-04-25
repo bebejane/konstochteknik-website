@@ -19,7 +19,7 @@ export default function Gallery({ allProjects }: Props) {
 	const keyboardSwipingRef = useRef<boolean>(false);
 	const isMobile = useIsMobile();
 	const [showNavigation, setShowNavigation] = useState<string | null>(null);
-	const [project, setProject, filter, index, setShowThumbnails, setLoading] = useStore(
+	const [project, setProject, filter, index, setShowThumbnails, setLoading, inIntro] = useStore(
 		useShallow((s) => [
 			s.project,
 			s.setProject,
@@ -27,6 +27,7 @@ export default function Gallery({ allProjects }: Props) {
 			s.index,
 			s.setShowThumbnails,
 			s.setLoading,
+			s.inIntro,
 		]),
 	);
 	const color = project?.color?.hex ?? 'var(--black)';
@@ -66,7 +67,7 @@ export default function Gallery({ allProjects }: Props) {
 	}, [filter]);
 
 	useEffect(() => {
-		if (!swiperRef.current) return;
+		if (!swiperRef.current || inIntro) return;
 
 		function handleKeyDown(e: KeyboardEvent) {
 			if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -81,7 +82,7 @@ export default function Gallery({ allProjects }: Props) {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 		};
-	}, []);
+	}, [inIntro]);
 
 	return (
 		<>

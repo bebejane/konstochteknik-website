@@ -23,6 +23,27 @@ export default function Intro({ intro, project }: Props) {
 	const interval = useRef<NodeJS.Timeout | null>(null);
 	const timeout = useRef<NodeJS.Timeout | null>(null);
 
+	async function animate() {
+		const title = document.getElementById('title');
+		const cur = document.createElement('span');
+		cur.classList.add(s.cursor);
+
+		for (let i = 0; i < typewriter.length; i++) {
+			const { key, time, str, cursor } = typewriter[i];
+			const last = typewriter[i - 1 > 0 ? i - 1 : 0].time;
+
+			await sleep(time - last);
+
+			title.innerHTML = str
+				.split('')
+				.map((c, i) => `<span data-index="${i}" class="${c === '\n' ? s.break : ''}">${c}</span>`)
+				.join('');
+			title.querySelector('[data-index="' + (cursor - 1) + '"]').classList.add(s.cursor);
+		}
+		await sleep(300);
+		setInIntro(false);
+	}
+
 	useEffect(() => {
 		interval.current = setInterval(() => {
 			setLoader((loader) => {
@@ -52,67 +73,51 @@ export default function Intro({ intro, project }: Props) {
 	}, [loading]);
 
 	useEffect(() => {
-		async function animate() {
-			const mattias = 'Mattias';
-			const speed = 80;
-			const title = document.getElementById('title');
-			const lastDiv = title.querySelector('div:last-child');
-			if (!title) return;
-			const spans = Array.from(title.querySelectorAll('span'));
-
-			for (const span of spans) {
-				await sleep(speed);
-				span.style.opacity = '1';
-			}
-
-			await sleep(500);
-
-			for (let x = -1; x >= -3; x--) {
-				spans.at(x).style.opacity = '0';
-				await sleep(speed * 1.5);
-			}
-
-			for (let x = -3; x < 0; x++) {
-				spans.at(x).textContent = mattias[x + 3];
-				spans.at(x).style.opacity = '1';
-				await sleep(speed);
-			}
-
-			for (let x = 3; x < mattias.length; x++) {
-				await sleep(speed);
-				const span = document.createElement('span');
-				span.textContent = mattias[x];
-				span.style.opacity = '1';
-				lastDiv.append(span);
-			}
-
-			await sleep(500);
-			//setInIntro(false);
-		}
 		animate();
 	}, []);
 
 	useEffect(() => {
+		return;
 		const meta = ['Escape', 'Shift', 'Backspace', 'LeftArrow', 'RightArrow', 'Backspace', 'Meta'];
-		let keys: { key: string; time: number; str: string }[] = [];
+		let keys: { key: string; time: number; str: string; cursor: number }[] = [];
 		let str = '';
+		let cursor = 0;
+		let startTime = 0;
 
 		function handleKeyDown(e: KeyboardEvent) {
+			if (startTime === 0) startTime = Date.now();
+			const time = Date.now() - startTime;
 			if (e.key === 'Escape') {
-				console.log(keys.map((k) => ({ ...k, time: k.time - keys[0].time })));
+				console.log(keys);
 				keys = [];
 				str = '';
+				cursor = 0;
+				startTime = 0;
 				return;
 			}
 
-			if (['Shift'].includes(e.key)) return;
-			const key = e.key === 'Enter' ? '\n' : e.key === 'Space' ? ' ' : e.key;
+			if (['Meta', 'Shift', 'Control', 'Alt'].includes(e.key)) {
+				return;
+			}
 
-			if (!meta.includes(key)) str += key;
-			if (key === 'Backspace') str = str.slice(0, -1);
+			if (e.key === 'Backspace') {
+				if (cursor > 0) {
+					str = str.slice(0, cursor - 1) + str.slice(cursor);
+					cursor--;
+				}
+			} else if (e.key === 'ArrowLeft') {
+				cursor = Math.max(0, cursor - 1);
+			} else if (e.key === 'ArrowRight') {
+				cursor = Math.min(str.length, cursor + 1);
+			} else if (e.key === 'Enter' || e.key.length === 1) {
+				str = str.slice(0, cursor) + (e.key === 'Enter' ? '\n' : e.key) + str.slice(cursor);
+				cursor++;
+			}
 
-			keys.push({ key, time: Date.now(), str });
-			console.log(str);
+			if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+				keys.push({ key: e.key, time, str, cursor });
+			}
+			console.log(str.slice(0, cursor) + '|' + str.slice(cursor));
 		}
 
 		document.addEventListener('keydown', handleKeyDown);
@@ -125,31 +130,206 @@ export default function Intro({ intro, project }: Props) {
 	if (!inIntro) return null;
 
 	return (
-		<div className={s.intro} onClick={() => setInIntro(false)}>
-			<h1 id='title' className='big'>
-				{title.map((line, idx) => {
-					const chars = line.split('');
-
-					return (
-						<div key={line} className={cn(s.title)}>
-							{chars.map((c, i) => (
-								<span key={i} className={c === '&' ? s.and : undefined}>
-									{c}
-								</span>
-							))}
-						</div>
-					);
-				})}
-
-				{/* <span className={s.title}>{loader.title}</span>
-				<span className={s.and}>
-					<i>&</i>
-				</span>
-				<span className={s.subtitle}>{loader.subtitle}</span> */}
-			</h1>
-			{/* <h2>
-				<i>Loading...</i>
-			</h2> */}
+		<div className={s.intro} onClick={() => animate()}>
+			<h1 id='title' className='big'></h1>
 		</div>
 	);
 }
+
+const typewriter = [
+	{
+		key: 'P',
+		time: 200,
+		str: 'P',
+		cursor: 1,
+	},
+	{
+		key: 'e',
+		time: 349,
+		str: 'Pe',
+		cursor: 2,
+	},
+	{
+		key: 't',
+		time: 510,
+		str: 'Pet',
+		cursor: 3,
+	},
+	{
+		key: 'e',
+		time: 669,
+		str: 'Pete',
+		cursor: 4,
+	},
+	{
+		key: 'r',
+		time: 734,
+		str: 'Peter',
+		cursor: 5,
+	},
+	{
+		key: ',',
+		time: 1031,
+		str: 'Peter,',
+		cursor: 6,
+	},
+	{
+		key: ' ',
+		time: 1097,
+		str: 'Peter, ',
+		cursor: 7,
+	},
+	{
+		key: 'B',
+		time: 1398,
+		str: 'Peter, B',
+		cursor: 8,
+	},
+	{
+		key: 'j',
+		time: 1561,
+		str: 'Peter, Bj',
+		cursor: 9,
+	},
+	{
+		key: 'o',
+		time: 1737,
+		str: 'Peter, Bjo',
+		cursor: 10,
+	},
+	{
+		key: 'r',
+		time: 1899,
+		str: 'Peter, Bjor',
+		cursor: 11,
+	},
+	{
+		key: 'n',
+		time: 2023,
+		str: 'Peter, Bjorn',
+		cursor: 12,
+	},
+	{
+		key: 'Enter',
+		time: 2535,
+		str: 'Peter, Bjorn\n',
+		cursor: 13,
+	},
+	{
+		key: '&',
+		time: 3057,
+		str: 'Peter, Bjorn\n&',
+		cursor: 14,
+	},
+	{
+		key: 'Enter',
+		time: 3286,
+		str: 'Peter, Bjorn\n&\n',
+		cursor: 15,
+	},
+	{
+		key: 'J',
+		time: 3787,
+		str: 'Peter, Bjorn\n&\nJ',
+		cursor: 16,
+	},
+	{
+		key: 'o',
+		time: 4067,
+		str: 'Peter, Bjorn\n&\nJo',
+		cursor: 17,
+	},
+	{
+		key: 'h',
+		time: 4410,
+		str: 'Peter, Bjorn\n&\nJoh',
+		cursor: 18,
+	},
+	{ key: 'ArrowLeft', time: 4610, str: 'Peter, Bjorn\n&\nJoh', cursor: 17 },
+	{ key: 'ArrowLeft', time: 4810, str: 'Peter, Bjorn\n&\nJoh', cursor: 16 },
+	{ key: 'ArrowLeft', time: 5010, str: 'Peter, Bjorn\n&\nJoh', cursor: 15 },
+	{ key: 'ArrowLeft', time: 5210, str: 'Peter, Bjorn\n&\nJoh', cursor: 14 },
+	{ key: 'ArrowLeft', time: 5410, str: 'Peter, Bjorn\n&\nJoh', cursor: 13 },
+	{ key: 'ArrowLeft', time: 5610, str: 'Peter, Bjorn\n&\nJoh', cursor: 12 },
+	{ key: 'ArrowLeft', time: 5810, str: 'Peter, Bjorn\n&\nJoh', cursor: 11 },
+	{ key: 'ArrowLeft', time: 6010, str: 'Peter, Bjorn\n&\nJoh', cursor: 10 },
+	{
+		key: 'Backspace',
+		time: 6310,
+		str: 'Peter, Bjrn\n&\nJoh',
+		cursor: 9,
+	},
+	{
+		key: 'ö',
+		time: 6610,
+		str: 'Peter, Björn\n&\nJoh',
+		cursor: 10,
+	},
+	{ key: 'ArrowRight', time: 6810, str: 'Peter, Björn\n&\nJoh', cursor: 11 },
+	{ key: 'ArrowRight', time: 7010, str: 'Peter, Björn\n&\nJoh', cursor: 12 },
+	{ key: 'ArrowRight', time: 7210, str: 'Peter, Björn\n&\nJoh', cursor: 13 },
+	{ key: 'ArrowRight', time: 7410, str: 'Peter, Björn\n&\nJoh', cursor: 14 },
+	{ key: 'ArrowRight', time: 7610, str: 'Peter, Björn\n&\nJoh', cursor: 15 },
+	{ key: 'ArrowRight', time: 7810, str: 'Peter, Björn\n&\nJoh', cursor: 16 },
+	{ key: 'ArrowRight', time: 8010, str: 'Peter, Björn\n&\nJoh', cursor: 17 },
+	{
+		key: 'Backspace',
+		time: 8510,
+		str: 'Peter, Björn\n&\nJo',
+		cursor: 17,
+	},
+	{
+		key: 'Backspace',
+		time: 8710,
+		str: 'Peter, Björn\n&\nJ',
+		cursor: 16,
+	},
+	{
+		key: 'Backspace',
+		time: 8910,
+		str: 'Peter, Björn\n&\n',
+		cursor: 15,
+	},
+	{
+		key: 'M',
+		time: 9310,
+		str: 'Peter, Björn\n&\nM',
+		cursor: 16,
+	},
+	{
+		key: 'a',
+		time: 9510,
+		str: 'Peter, Björn\n&\nMa',
+		cursor: 17,
+	},
+	{
+		key: 't',
+		time: 9710,
+		str: 'Peter, Björn\n&\nMat',
+		cursor: 18,
+	},
+	{
+		key: 't',
+		time: 9910,
+		str: 'Peter, Björn\n&\nMatt',
+		cursor: 19,
+	},
+	{
+		key: 'i',
+		time: 10110,
+		str: 'Peter, Björn\n&\nMatti',
+		cursor: 20,
+	},
+	{
+		key: 'a',
+		time: 10310,
+		str: 'Peter, Björn\n&\nMattia',
+		cursor: 21,
+	},
+	{
+		key: 's',
+		time: 10510,
+		str: 'Peter, Björn\n&\nMattias',
+		cursor: 22,
+	},
+];

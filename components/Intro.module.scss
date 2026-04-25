@@ -10,29 +10,47 @@
 	justify-content: center;
 	color: var(--white);
 
+	.break {
+		width: 0px;
+	}
+
 	h1 {
 		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		line-height: 1;
-		div {
-			text-align: center;
-			span {
-				opacity: 0;
+		text-align: center;
+		vertical-align: top;
+		white-space: pre-line;
+		height: calc(3 * 10vw);
+		position: relative;
 
-				&.and {
+		span {
+			position: relative;
+
+			&.cursor {
+				&::after {
 					display: inline-block;
+					position: absolute;
+					background-color: var(--white);
+					z-index: 10;
+					height: 0.8em;
+					top: 0.25em;
+					right: -0.1em;
+					line-height: 1;
+					width: 6px;
+					content: '';
+					animation: blink 1s steps(1, start) infinite;
+					opacity: 0;
+
+					@keyframes blink {
+						0% {
+							opacity: 0;
+						}
+						50% {
+							opacity: 1;
+						}
+					}
 				}
 			}
 		}
-	}
-
-	h2 {
-		position: absolute;
-		display: none;
-		margin-top: 1em;
 	}
 
 	@keyframes rotate-z-3d {
