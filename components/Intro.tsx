@@ -12,9 +12,6 @@ type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 };
 
-const title = ['Peter, Björn', '&', 'Joh'];
-const title2 = ['Peter,', 'Björn', '&', 'Mattias'];
-
 export default function Intro({ intro, project }: Props) {
 	const [inIntro, setInIntro, loading] = useStore(
 		useShallow((s) => [s.inIntro, s.setInIntro, s.loading]),
@@ -25,22 +22,27 @@ export default function Intro({ intro, project }: Props) {
 
 	async function animate() {
 		const title = document.getElementById('title');
-		const cur = document.createElement('span');
-		cur.classList.add(s.cursor);
+
+		title.innerHTML = `<span class="${s.cursor}"></span>`;
+		await sleep(2000);
+		const speed = 1.04;
 
 		for (let i = 0; i < typewriter.length; i++) {
 			const { key, time, str, cursor } = typewriter[i];
 			const last = typewriter[i - 1 > 0 ? i - 1 : 0].time;
 
-			await sleep(time - last);
+			await sleep((time - last) * speed);
 
 			title.innerHTML = str
 				.split('')
-				.map((c, i) => `<span data-index="${i}" class="${c === '\n' ? s.break : ''}">${c}</span>`)
+				.map(
+					(c, i) =>
+						`<span class="${c === '\n' ? s.break : ''}">${c}</span>` +
+						(i === cursor - 1 ? `<span class="${s.cursor}"></span>` : ''),
+				)
 				.join('');
-			title.querySelector('[data-index="' + (cursor - 1) + '"]').classList.add(s.cursor);
 		}
-		await sleep(300);
+		await sleep(1000);
 		setInIntro(false);
 	}
 
@@ -130,7 +132,7 @@ export default function Intro({ intro, project }: Props) {
 	if (!inIntro) return null;
 
 	return (
-		<div className={s.intro} onClick={() => animate()}>
+		<div className={s.intro}>
 			<h1 id='title' className='big'></h1>
 		</div>
 	);

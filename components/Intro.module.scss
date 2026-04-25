@@ -24,31 +24,26 @@
 
 		span {
 			position: relative;
+		}
+	}
+	.cursor {
+		display: inline-block;
+		background-color: var(--white);
+		z-index: 10;
+		height: 0.8em;
+		margin-left: 3px;
+		top: 0.1em;
+		line-height: 1;
+		width: 6px;
+		animation: blink 1s steps(1, start) infinite;
+		opacity: 0;
 
-			&.cursor {
-				&::after {
-					display: inline-block;
-					position: absolute;
-					background-color: var(--white);
-					z-index: 10;
-					height: 0.8em;
-					top: 0.25em;
-					right: -0.1em;
-					line-height: 1;
-					width: 6px;
-					content: '';
-					animation: blink 1s steps(1, start) infinite;
-					opacity: 0;
-
-					@keyframes blink {
-						0% {
-							opacity: 0;
-						}
-						50% {
-							opacity: 1;
-						}
-					}
-				}
+		@keyframes blink {
+			0% {
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
 			}
 		}
 	}
