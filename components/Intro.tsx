@@ -25,7 +25,7 @@ export default function Intro({ intro, project }: Props) {
 
 		title.innerHTML = `<span class="${s.cursor}"></span>`;
 		await sleep(2000);
-		const speed = 1.04;
+		const speed = 0.7;
 
 		for (let i = 0; i < typewriter.length; i++) {
 			const { key, time, str, cursor } = typewriter[i];
