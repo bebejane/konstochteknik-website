@@ -33,7 +33,10 @@ h2 {
 }
 
 h1.big {
-	font-size: 8vw;
+	font-size: 14vw;
+	@include mq($from: desktop) {
+		font-size: 8vw;
+	}
 }
 
 p {

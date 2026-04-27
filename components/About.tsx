@@ -24,7 +24,7 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 
 	return (
 		<div id='about' className={cn(s.about, (showAbout || !modal) && s.show)}>
-			<Image data={about.image?.responsiveImage} objectFit='cover' />
+			<Image className={s.image} data={about.image?.responsiveImage} objectFit='cover' />
 			<div className={s.content}>
 				<Markdown content={about.intro} />
 				<h2>Or reach out to one of us directly</h2>
