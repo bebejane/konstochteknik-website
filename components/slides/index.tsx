@@ -24,6 +24,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 	const slide = project.slide[0];
 	const backgroundColor = project.background?.hex ?? 'transparent';
 	const color = project.color?.hex ?? 'var(--black)';
+	const award = project.award?.url ?? null;
 
 	useEffect(() => {
 		!loading && onLoad?.();
@@ -61,7 +62,8 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 					<Markdown content={project.caption!} />
 				</h2>
 			)}
-			<ExternalLink text={project.caption} />
+			{award && <img src={award} alt='' className={s.award} />}
+			<ExternalLink url={project.url} />
 		</div>
 	);
 }

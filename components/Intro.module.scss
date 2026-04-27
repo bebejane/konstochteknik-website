@@ -10,29 +10,51 @@
 	justify-content: center;
 	color: var(--white);
 
-	h1 {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		line-height: 1;
-		div {
-			text-align: center;
-			span {
-				opacity: 0;
-
-				&.and {
-					display: inline-block;
-				}
-			}
-		}
+	.break {
+		width: 0px;
 	}
 
-	h2 {
-		position: absolute;
-		display: none;
-		margin-top: 1em;
+	h1 {
+		position: relative;
+		text-align: center;
+		vertical-align: top;
+		white-space: pre-line;
+		height: calc(3 * 10vw);
+		position: relative;
+
+		span {
+			position: relative;
+		}
+	}
+	.cursor {
+		display: inline-block;
+		background-color: var(--white);
+		z-index: 10;
+		height: 0.8em;
+		top: 0.1em;
+		width: 0px;
+		animation: blink 1s steps(1, start) infinite;
+		opacity: 0;
+
+		&::after {
+			content: '';
+			position: absolute;
+			display: inline-block;
+			top: 0;
+			left: 0;
+			width: 4px;
+			height: 100%;
+			background-color: var(--white);
+		}
+
+		@keyframes blink {
+			0% {
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+		}
 	}
 
 	@keyframes rotate-z-3d {

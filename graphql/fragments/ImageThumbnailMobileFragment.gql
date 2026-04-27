@@ -1,0 +1,17 @@
+fragment ImageThumbnailMobileFragment on FileField {
+	id
+	mimeType
+	url
+	title
+	alt
+	height
+	width
+	responsiveImage(imgixParams: { q: 80, h: 300, sharp: 90 }) {
+		src
+		width
+		height
+		alt
+		title
+		base64
+	}
+}

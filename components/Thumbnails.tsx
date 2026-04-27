@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useShallow, useStore } from '@/lib/store';
 import CSS from 'csstype';
 import { rInt } from 'next-dato-utils/utils';
+import { useIsMobile } from '@/lib/hooks/useIsMobile';
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
@@ -21,6 +22,7 @@ export default function Thumbnails({ allProjects }: Props) {
 	const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 	const [thumbLoadStyles, setThumbLoadStyles] = useState<Record<string, CSS.Properties>>({});
 	const stylesInitialized = useRef(false);
+	const isMobile = useIsMobile();
 	const [showThumbnails, setShowThumbnails, filter, index, setIndex, project, inIntro, setLoading] =
 		useStore(
 			useShallow((s) => [
@@ -35,7 +37,6 @@ export default function Thumbnails({ allProjects }: Props) {
 			]),
 		);
 
-	const width = 600;
 	const showThumbnailsRef = useRef(showThumbnails);
 	const filteredProjects = allProjects.filter(({ category }) => !filter || filter === category);
 	const projects = useMemo(() => {
@@ -45,6 +46,9 @@ export default function Thumbnails({ allProjects }: Props) {
 	}, [filteredProjects]);
 
 	const allLoaded = projects.filter((p) => loaded[p.thumbnail.id]).length === projects.length;
+	const thumbnails = projects.map(({ thumbnail, thumbnailMobile }) =>
+		isMobile ? thumbnailMobile : thumbnail,
+	);
 
 	useEffect(() => {
 		if (stylesInitialized.current) return;
@@ -76,10 +80,10 @@ export default function Thumbnails({ allProjects }: Props) {
 	}, [showThumbnails]);
 
 	useEffect(() => {
-		if (!project || showThumbnailsRef.current) return;
+		if (!project || (showThumbnailsRef.current && !isMobile)) return;
 		const index = projects.findIndex((p) => p.id === project?.id);
 		centerSlide(index);
-	}, [project?.id]);
+	}, [project?.id, isMobile]);
 
 	useEffect(() => {
 		allLoaded && setLoading({ thumbs: false });
@@ -114,33 +118,37 @@ export default function Thumbnails({ allProjects }: Props) {
 				}}
 				onAfterInit={() => setInit(true)}
 			>
-				{projects.map((p, idx) => (
-					<SwiperSlide
-						key={`${p.id}-${idx}-${filter ?? ''}`}
-						className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
-						onMouseEnter={() => setHover(p.id)}
-						onWheel={() => setHover(p.id)}
-						onMouseLeave={() => setHover(null)}
-						onClick={(e) => {
-							e.stopPropagation();
-							setIndex(idx);
-						}}
-					>
-						<img
-							ref={handleThumbRef}
-							data-thumb-id={p.thumbnail.id}
-							src={`${p.thumbnail.url}?w=${width}`}
-							className={cn(
-								s.image,
-								hover === p.id && s.hover,
-								loaded[p.thumbnail.id] && !inIntro && s.show,
-							)}
-							style={!inIntro ? thumbLoadStyles[p.thumbnail.id] : {}}
-							onLoad={handleLoad}
-							onError={handleLoad}
-						/>
-					</SwiperSlide>
-				))}
+				{projects.map((p, idx) => {
+					const thumbnail = isMobile ? p.thumbnailMobile : p.thumbnail;
+					const width = isMobile ? 100 : 600;
+					return (
+						<SwiperSlide
+							key={`${p.id}-${idx}-${filter ?? ''}`}
+							className={cn(s.slide, idx === index && s.active, hover === p.id && s.hover)}
+							onMouseEnter={() => setHover(p.id)}
+							onWheel={() => setHover(p.id)}
+							onMouseLeave={() => setHover(null)}
+							onClick={(e) => {
+								e.stopPropagation();
+								setIndex(idx);
+							}}
+						>
+							<img
+								ref={handleThumbRef}
+								data-thumb-id={thumbnail.id}
+								src={`${thumbnail.url}?w=${width}`}
+								className={cn(
+									s.image,
+									hover === p.id && s.hover,
+									loaded[thumbnail.id] && !inIntro && s.show,
+								)}
+								style={!inIntro ? thumbLoadStyles[thumbnail.id] : {}}
+								onLoad={handleLoad}
+								onError={handleLoad}
+							/>
+						</SwiperSlide>
+					);
+				})}
 			</SwiperReact>
 		</div>
 	);

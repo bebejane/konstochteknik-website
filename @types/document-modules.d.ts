@@ -44,6 +44,15 @@ declare module '*/ImageThumbnailFragment.gql' {
 }
     
 
+declare module '*/ImageThumbnailMobileFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const ImageThumbnailMobileFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/MediaFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
