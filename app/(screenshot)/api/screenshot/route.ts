@@ -11,6 +11,9 @@ import { getBrowser } from '@/lib/puppeteer';
 
 export const maxDuration = 90;
 
+const dimensions = { width: 1920, height: 1080 };
+const dimensionsMobile = { width: 414, height: 716 };
+
 export async function POST(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
