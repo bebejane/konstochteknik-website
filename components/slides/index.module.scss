@@ -5,6 +5,10 @@
 	height: 100dvh;
 	max-height: 100dvh;
 
+	@include mq($until: tablet) {
+		height: calc(100dvh - var(--thumbnail-height));
+	}
+
 	h2 {
 		position: absolute;
 		top: unset;

@@ -9,8 +9,7 @@
 	flex-wrap: wrap;
 
 	@include mq($until: tablet) {
-		height: 100dvh;
-		max-height: 100dvh;
+		height: calc(100dvh - var(--thumbnail-height));
 	}
 
 	figure {
