@@ -67,7 +67,7 @@ export default function Gallery({ allProjects }: Props) {
 	}, [filter]);
 
 	useEffect(() => {
-		if (!swiperRef.current || inIntro) return;
+		if (!swiperRef.current || inIntro || isMobile) return;
 
 		function handleKeyDown(e: KeyboardEvent) {
 			if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -82,7 +82,7 @@ export default function Gallery({ allProjects }: Props) {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 		};
-	}, [inIntro]);
+	}, [inIntro, isMobile]);
 
 	return (
 		<>

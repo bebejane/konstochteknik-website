@@ -120,7 +120,7 @@ export default function Thumbnails({ allProjects }: Props) {
 			>
 				{projects.map((p, idx) => {
 					const thumbnail = isMobile ? p.thumbnailMobile : p.thumbnail;
-					const width = isMobile ? 100 : 600;
+					const width = isMobile ? 150 : 600;
 					return (
 						<SwiperSlide
 							key={`${p.id}-${idx}-${filter ?? ''}`}

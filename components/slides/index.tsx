@@ -31,7 +31,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 	}, [loading]);
 
 	return (
-		<div style={{ backgroundColor }} className={s.slide}>
+		<div style={{ backgroundColor }} className={cn(s.slide, clean && s.clean)}>
 			<>
 				{slide.__typename === 'ImageSlideRecord' ? (
 					<ImageSlide
@@ -62,7 +62,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 					<Markdown content={project.caption!} />
 				</h2>
 			)}
-			{award && <img src={award} alt='' className={s.award} />}
+			{award && !inIntro && active && <img src={award} alt='' className={s.award} />}
 			<ExternalLink url={project.url} />
 		</div>
 	);

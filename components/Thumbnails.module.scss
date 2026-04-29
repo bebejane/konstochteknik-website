@@ -24,16 +24,13 @@
 	.slide {
 		position: relative;
 		width: fit-content;
-		transform-origin: 50% 100%;
-		transition: transform 0.1s ease-out;
+		height: var(--thumbnail-height);
 		cursor: pointer;
 
-		&.active,
-		&.hover {
-			filter: grayscale(0);
-		}
-
 		@include mq($from: tablet) {
+			transform-origin: 50% 100%;
+			transition: transform 0.1s ease-out;
+
 			&.hover {
 				z-index: 10000;
 				filter: grayscale(0);
@@ -44,16 +41,20 @@
 		.image {
 			height: var(--thumbnail-height);
 			cursor: pointer;
+
 			@include mq($from: tablet) {
 				aspect-ratio: 16/9;
 				transform: translateY(100%);
 				transition: transform 0.7s cubic-bezier(0.083, 0.942, 0.046, 0.993);
+
 				&.show {
 					transform: translateY(0);
 				}
 			}
+
 			@include mq($until: tablet) {
-				//aspect-ratio: ;
+				object-fit: cover;
+				height: 100%;
 			}
 		}
 	}
