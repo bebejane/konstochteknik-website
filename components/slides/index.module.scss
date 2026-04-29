@@ -87,11 +87,12 @@
 	}
 	.award {
 		position: absolute;
-		top: 25%;
-		transform: translateY(-50%);
-		left: 0;
-		margin-left: var(--other-margin);
+		bottom: 0;
+		//transform: translateY(-50%);
+		right: 0;
+		margin-right: var(--other-margin);
+		margin-bottom: 2rem;
 		z-index: var(--z-index-menu);
-		height: 2rem;
+		height: 3.5rem;
 	}
 }
