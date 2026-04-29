@@ -28,10 +28,8 @@ export default function Intro({ intro, project }: Props) {
 		const speed = 0.7;
 
 		for (let i = 0; i < typewriter.length; i++) {
-			const { key, time, str, cursor } = typewriter[i];
+			const { key, time, str, cursor, duration } = typewriter[i];
 			const last = typewriter[i - 1 > 0 ? i - 1 : 0].time;
-
-			await sleep((time - last) * speed);
 
 			title.innerHTML = str
 				.split('')
@@ -41,6 +39,7 @@ export default function Intro({ intro, project }: Props) {
 						(i === cursor - 1 ? `<span class="${s.cursor}"></span>` : ''),
 				)
 				.join('');
+			await sleep(duration);
 		}
 		await sleep(1000);
 		setInIntro(false);
@@ -79,22 +78,25 @@ export default function Intro({ intro, project }: Props) {
 	}, []);
 
 	useEffect(() => {
-		return;
 		const meta = ['Escape', 'Shift', 'Backspace', 'LeftArrow', 'RightArrow', 'Backspace', 'Meta'];
-		let keys: { key: string; time: number; str: string; cursor: number }[] = [];
+		let keys: { key: string; time: number; duration: number; str: string; cursor: number }[] = [];
 		let str = '';
 		let cursor = 0;
 		let startTime = 0;
 
 		function handleKeyDown(e: KeyboardEvent) {
 			if (startTime === 0) startTime = Date.now();
+			const title = document.getElementById('title');
 			const time = Date.now() - startTime;
+			const lastTime = keys.length > 0 ? keys[keys.length - 1].time : 0;
+			const duration = time - lastTime;
 			if (e.key === 'Escape') {
 				console.log(keys);
 				keys = [];
 				str = '';
 				cursor = 0;
 				startTime = 0;
+				title.innerHTML = '';
 				return;
 			}
 
@@ -117,9 +119,12 @@ export default function Intro({ intro, project }: Props) {
 			}
 
 			if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-				keys.push({ key: e.key, time, str, cursor });
+				keys.push({ key: e.key, time, str, cursor, duration });
 			}
-			console.log(str.slice(0, cursor) + '|' + str.slice(cursor));
+
+			title.innerHTML = str;
+			//title.innerHTML = `<span class="${s.cursor}"></span>`;
+			//console.log(str.slice(0, cursor) + '|' + str.slice(cursor));
 		}
 
 		document.addEventListener('keydown', handleKeyDown);
@@ -141,197 +146,212 @@ export default function Intro({ intro, project }: Props) {
 const typewriter = [
 	{
 		key: 'P',
-		time: 200,
+		time: 128,
 		str: 'P',
 		cursor: 1,
+		duration: 128,
 	},
 	{
 		key: 'e',
-		time: 349,
+		time: 239,
 		str: 'Pe',
 		cursor: 2,
+		duration: 111,
 	},
 	{
 		key: 't',
-		time: 510,
+		time: 403,
 		str: 'Pet',
 		cursor: 3,
+		duration: 164,
 	},
 	{
 		key: 'e',
-		time: 669,
+		time: 540,
 		str: 'Pete',
 		cursor: 4,
+		duration: 137,
 	},
 	{
 		key: 'r',
-		time: 734,
+		time: 609,
 		str: 'Peter',
 		cursor: 5,
+		duration: 69,
 	},
 	{
 		key: ',',
-		time: 1031,
+		time: 772,
 		str: 'Peter,',
 		cursor: 6,
+		duration: 163,
 	},
 	{
 		key: ' ',
-		time: 1097,
+		time: 844,
 		str: 'Peter, ',
 		cursor: 7,
+		duration: 72,
 	},
 	{
 		key: 'B',
-		time: 1398,
+		time: 1155,
 		str: 'Peter, B',
 		cursor: 8,
+		duration: 311,
 	},
 	{
 		key: 'j',
-		time: 1561,
+		time: 1333,
 		str: 'Peter, Bj',
 		cursor: 9,
+		duration: 178,
 	},
 	{
 		key: 'o',
-		time: 1737,
+		time: 1619,
 		str: 'Peter, Bjo',
 		cursor: 10,
+		duration: 286,
 	},
-	{
-		key: 'r',
-		time: 1899,
-		str: 'Peter, Bjor',
-		cursor: 11,
-	},
-	{
-		key: 'n',
-		time: 2023,
-		str: 'Peter, Bjorn',
-		cursor: 12,
-	},
-	{
-		key: 'Enter',
-		time: 2535,
-		str: 'Peter, Bjorn\n',
-		cursor: 13,
-	},
-	{
-		key: '&',
-		time: 3057,
-		str: 'Peter, Bjorn\n&',
-		cursor: 14,
-	},
-	{
-		key: 'Enter',
-		time: 3286,
-		str: 'Peter, Bjorn\n&\n',
-		cursor: 15,
-	},
-	{
-		key: 'J',
-		time: 3787,
-		str: 'Peter, Bjorn\n&\nJ',
-		cursor: 16,
-	},
-	{
-		key: 'o',
-		time: 4067,
-		str: 'Peter, Bjorn\n&\nJo',
-		cursor: 17,
-	},
-	{
-		key: 'h',
-		time: 4410,
-		str: 'Peter, Bjorn\n&\nJoh',
-		cursor: 18,
-	},
-	{ key: 'ArrowLeft', time: 4610, str: 'Peter, Bjorn\n&\nJoh', cursor: 17 },
-	{ key: 'ArrowLeft', time: 4810, str: 'Peter, Bjorn\n&\nJoh', cursor: 16 },
-	{ key: 'ArrowLeft', time: 5010, str: 'Peter, Bjorn\n&\nJoh', cursor: 15 },
-	{ key: 'ArrowLeft', time: 5210, str: 'Peter, Bjorn\n&\nJoh', cursor: 14 },
-	{ key: 'ArrowLeft', time: 5410, str: 'Peter, Bjorn\n&\nJoh', cursor: 13 },
-	{ key: 'ArrowLeft', time: 5610, str: 'Peter, Bjorn\n&\nJoh', cursor: 12 },
-	{ key: 'ArrowLeft', time: 5810, str: 'Peter, Bjorn\n&\nJoh', cursor: 11 },
-	{ key: 'ArrowLeft', time: 6010, str: 'Peter, Bjorn\n&\nJoh', cursor: 10 },
 	{
 		key: 'Backspace',
-		time: 6310,
-		str: 'Peter, Bjrn\n&\nJoh',
+		time: 2283,
+		str: 'Peter, Bj',
 		cursor: 9,
+		duration: 364,
 	},
 	{
 		key: 'ö',
-		time: 6610,
-		str: 'Peter, Björn\n&\nJoh',
+		time: 2829,
+		str: 'Peter, Bjö',
 		cursor: 10,
-	},
-	{ key: 'ArrowRight', time: 6810, str: 'Peter, Björn\n&\nJoh', cursor: 11 },
-	{ key: 'ArrowRight', time: 7010, str: 'Peter, Björn\n&\nJoh', cursor: 12 },
-	{ key: 'ArrowRight', time: 7210, str: 'Peter, Björn\n&\nJoh', cursor: 13 },
-	{ key: 'ArrowRight', time: 7410, str: 'Peter, Björn\n&\nJoh', cursor: 14 },
-	{ key: 'ArrowRight', time: 7610, str: 'Peter, Björn\n&\nJoh', cursor: 15 },
-	{ key: 'ArrowRight', time: 7810, str: 'Peter, Björn\n&\nJoh', cursor: 16 },
-	{ key: 'ArrowRight', time: 8010, str: 'Peter, Björn\n&\nJoh', cursor: 17 },
-	{
-		key: 'Backspace',
-		time: 8510,
-		str: 'Peter, Björn\n&\nJo',
-		cursor: 17,
+		duration: 346,
 	},
 	{
-		key: 'Backspace',
-		time: 8710,
-		str: 'Peter, Björn\n&\nJ',
-		cursor: 16,
+		key: 'r',
+		time: 3869,
+		str: 'Peter, Björ',
+		cursor: 11,
+		duration: 540,
 	},
 	{
-		key: 'Backspace',
-		time: 8910,
+		key: 'n',
+		time: 3942,
+		str: 'Peter, Björn',
+		cursor: 12,
+		duration: 73,
+	},
+	{
+		key: 'Enter',
+		time: 4459,
+		str: 'Peter, Björn\n',
+		cursor: 13,
+		duration: 317,
+	},
+	{
+		key: '&',
+		time: 5001,
+		str: 'Peter, Björn\n&',
+		cursor: 14,
+		duration: 342,
+	},
+	{
+		key: 'Enter',
+		time: 5252,
 		str: 'Peter, Björn\n&\n',
 		cursor: 15,
+		duration: 251,
+	},
+	{
+		key: 'J',
+		time: 5937,
+		str: 'Peter, Björn\n&\nJ',
+		cursor: 16,
+		duration: 285,
+	},
+	{
+		key: 'o',
+		time: 6251,
+		str: 'Peter, Björn\n&\nJo',
+		cursor: 17,
+		duration: 314,
+	},
+	{
+		key: 'h',
+		time: 6576,
+		str: 'Peter, Björn\n&\nJoh',
+		cursor: 18,
+		duration: 325,
+	},
+	{
+		key: 'Backspace',
+		time: 7156,
+		str: 'Peter, Björn\n&\nJo',
+		cursor: 17,
+		duration: 380,
+	},
+	{
+		key: 'Backspace',
+		time: 7321,
+		str: 'Peter, Björn\n&\nJ',
+		cursor: 16,
+		duration: 165,
+	},
+	{
+		key: 'Backspace',
+		time: 7480,
+		str: 'Peter, Björn\n&\n',
+		cursor: 15,
+		duration: 159,
 	},
 	{
 		key: 'M',
-		time: 9310,
+		time: 7904,
 		str: 'Peter, Björn\n&\nM',
 		cursor: 16,
+		duration: 424,
 	},
 	{
 		key: 'a',
-		time: 9510,
+		time: 8068,
 		str: 'Peter, Björn\n&\nMa',
 		cursor: 17,
+		duration: 164,
 	},
 	{
 		key: 't',
-		time: 9710,
+		time: 8255,
 		str: 'Peter, Björn\n&\nMat',
 		cursor: 18,
+		duration: 187,
 	},
 	{
 		key: 't',
-		time: 9910,
+		time: 8422,
 		str: 'Peter, Björn\n&\nMatt',
 		cursor: 19,
+		duration: 167,
 	},
 	{
 		key: 'i',
-		time: 10110,
+		time: 8564,
 		str: 'Peter, Björn\n&\nMatti',
 		cursor: 20,
+		duration: 142,
 	},
 	{
 		key: 'a',
-		time: 10310,
+		time: 8699,
 		str: 'Peter, Björn\n&\nMattia',
 		cursor: 21,
+		duration: 135,
 	},
 	{
 		key: 's',
-		time: 10510,
+		time: 8844,
 		str: 'Peter, Björn\n&\nMattias',
 		cursor: 22,
+		duration: 145,
 	},
 ];
