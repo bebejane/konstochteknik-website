@@ -59,15 +59,9 @@ export async function POST(request: NextRequest) {
 			new Promise(async (resolve, reject) => {
 				try {
 					if (currentHash !== recordHash)
-						await generate(record, recordHash, 'thumbnail', {
-							width: 1920,
-							height: 1080,
-						});
+						await generate(record, recordHash, 'thumbnail', dimensions);
 					if (currentHashMobile !== recordHashMobile)
-						await generate(record, recordHashMobile, 'thumbnail_mobile', {
-							width: 414,
-							height: 896,
-						});
+						await generate(record, recordHashMobile, 'thumbnail_mobile', dimensionsMobile);
 					resolve({ success: true });
 				} catch (e) {
 					console.error(e);
