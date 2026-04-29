@@ -95,7 +95,7 @@ export default function Gallery({ allProjects }: Props) {
 				speed={speed}
 				loop={true}
 				cssMode={true}
-				wrapperClass={s.swiper}
+				wrapperClass={cn(s.gallery, !inIntro && s.show)}
 				onRealIndexChange={handleIndexChange}
 				onSwiper={(swiper) => (swiperRef.current = swiper)}
 			>

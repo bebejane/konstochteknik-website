@@ -90,7 +90,11 @@ export default function Thumbnails({ allProjects }: Props) {
 	}, [allLoaded]);
 
 	return (
-		<div onMouseEnter={() => setShowThumbnails(true)} onMouseLeave={() => setShowThumbnails(false)}>
+		<div
+			className={cn(s.thumbnails, !inIntro && s.show)}
+			onMouseEnter={() => setShowThumbnails(true)}
+			onMouseLeave={() => setShowThumbnails(false)}
+		>
 			<SwiperReact
 				id='thumbnails'
 				key={`thumbnails-${filter ?? ''}`}

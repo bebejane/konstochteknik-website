@@ -1,4 +1,4 @@
-.swiper {
+.gallery {
 	position: relative;
 	display: flex;
 	flex-direction: row;
@@ -6,8 +6,11 @@
 	height: 100dvh;
 	cursor: pointer;
 
-	@include mq($until: tablet) {
-		height: calc(100dvh - var(--thumbnail-height));
+	&.show {
+		transition: height 0.3s ease-out;
+		@include mq($until: tablet) {
+			height: calc(100dvh - var(--thumbnail-height));
+		}
 	}
 }
 

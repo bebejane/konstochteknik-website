@@ -1,3 +1,14 @@
+.thumbnails {
+	height: var(--thumbnail-height) !important;
+
+	@include mq($until: tablet) {
+		transition: transform 0.3s ease-out;
+		transform: translateY(100%);
+		&.show {
+			transform: translateY(0);
+		}
+	}
+}
 .swiper {
 	position: fixed !important;
 	bottom: 0;
