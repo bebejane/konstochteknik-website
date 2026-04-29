@@ -12,7 +12,7 @@
   background-repeat: repeat;
 
   @include mq($until: tablet) {
-    height: 100dvh;
+    height: calc(100dvh - var(--thumbnail-height));
   }
 
   .monitor {
