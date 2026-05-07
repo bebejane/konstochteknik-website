@@ -30,7 +30,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 				<h2>Or reach out to one of us directly</h2>
 				<ul className={s.contact}>
 					<li>
-						Mattias Jakobsson
+						Mattias Jakobsson<br />
+						Creative Director
 						<br />
 						<a href='mailto:mattias@konst-teknik.se'>
 							<em>mattias@konst-teknik.se</em>
@@ -41,7 +42,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 					<li>
 						<a href='http://www.haraldpeter.se' target='_blank'>
 							Peter Ström
-						</a>
+						</a><br />
+						Creative Director
 						<br />
 						<a href='mailto:peter@konst-teknik.se'>
 							<em>peter@konst-teknik.se</em>
@@ -50,9 +52,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 						+46 706 531 175
 					</li>
 					<li>
-						<a href='http://www.haraldpeter.se' target='_blank'>
-							Björn Berglund
-						</a>
+						Björn Berglund<br />
+						Tech director
 						<br />
 						<a href='mailto:peter@konst-teknik.se'>
 							<em>bjorn@konst-teknik.se</em>
@@ -62,11 +63,11 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 					</li>
 				</ul>
 				<p>
-					Visitors and post are welcome to Konst & Teknik,{' '}
+					The studio is located at{' '}
 					<a href='http://www.rutgerfuchsgatan9.se' target='_blank' rel='noreferrer'>
 						Rutger Fuchsgatan 9
 					</a>
-					, 11667 Stockholm, Sweden
+					, 116 67 Stockholm, Sweden
 				</p>
 				<h2 className={s.headcom}>A selection of our commissioners</h2>
 				<ul className={s.commissioners}>
@@ -78,7 +79,13 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 				<div className={s.internships}>
 					<i>Interships</i> We do unfortunately not offer any internships.{' '}
 				</div>
+
+				<div className={s.internships}>
+					<i>Photo credits</i> Oscar Karlsson, Osv.
+				</div>
+
 			</div>
+
 			<Link
 				href='/'
 				className={s.close}

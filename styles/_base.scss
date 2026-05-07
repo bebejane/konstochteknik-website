@@ -1,5 +1,5 @@
-@use 'fonts';
-@use 'mediaqueries' as *;
+@use "fonts";
+@use "mediaqueries" as *;
 
 :root {
 	--black: #161616;
@@ -10,7 +10,7 @@
 	--foreground: var(--black);
 	--outer-margin: vw;
 	--other-margin: 5vw;
-	--line-height: 1.25;
+	--line-height: 1.2;
 
 	--thumbnail-height: 4.2rem;
 
@@ -19,8 +19,8 @@
 	--z-index-about: 1002;
 	--z-index-intro: 2000;
 
-	--body-font: 'Serif', Times New Roman, serif;
-	--headline-font: 'Sans', Times New Roman, serif;
+	--body-font: "Serif", Times New Roman, serif;
+	--headline-font: "Sans", Times New Roman, serif;
 
 	@include mq($from: tablet) {
 		--other-margin: 3vw;
@@ -47,7 +47,7 @@ body {
 	background-color: var(--background);
 	font-family: var(--body-font);
 	-webkit-font-smoothing: antialiased;
-	font-feature-settings: 'liga', 'kern';
+	font-feature-settings: "liga", "kern";
 }
 
 html {
@@ -118,7 +118,7 @@ button {
 	font-family: var(--body-font);
 
 	&:hover,
-	&[data-enabled='true'] {
+	&[data-enabled="true"] {
 		background-color: var(--black);
 		color: var(--white);
 	}
