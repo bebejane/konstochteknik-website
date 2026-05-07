@@ -11,9 +11,10 @@ import { useIsMobile } from '@/lib/hooks/useIsMobile';
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
+	index: number;
 };
 
-export default function Gallery({ allProjects }: Props) {
+export default function Gallery({ allProjects, index: initialIndex }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const speed = 600;
 	const keyboardSwipingRef = useRef<boolean>(false);
@@ -91,7 +92,7 @@ export default function Gallery({ allProjects }: Props) {
 				id='gallery'
 				slidesPerView={1}
 				spaceBetween={0}
-				initialSlide={0}
+				initialSlide={initialIndex}
 				speed={speed}
 				loop={true}
 				cssMode={true}

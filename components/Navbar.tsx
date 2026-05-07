@@ -21,7 +21,8 @@ export default function Navbar() {
 
 	const [category, setCategory] = useState<'art' | 'tech' | 'all' | null>(filter);
 	const backgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
-	const color = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
+	const color = project?.color?.hex ?? 'var(--white)';
+	const captionColor = project?.captionStyle === 'fill' ? 'var(--black)' : project?.color?.hex;
 
 	function toggle(e: React.MouseEvent<HTMLButtonElement>) {
 		setProject(null);
@@ -66,7 +67,7 @@ export default function Navbar() {
 					</button>
 				</div>
 
-				<div className={s.about}>
+				<div className={cn(s.about, showAbout && s.hide)}>
 					<Link
 						href='/about'
 						scroll={false}
@@ -81,7 +82,7 @@ export default function Navbar() {
 			</nav>
 			{category && (
 				<div className={s.filter}>
-					<h2 style={{ backgroundColor, color }}>
+					<h2 style={{ backgroundColor, color: captionColor }}>
 						{category === 'art'
 							? 'Filter works on design and printed matter'
 							: category === 'tech'

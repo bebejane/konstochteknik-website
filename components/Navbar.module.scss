@@ -13,6 +13,7 @@
 	font-family: var(--headline-font);
 	opacity: 0;
 	transition: opacity 0.3s ease-out;
+	pointer-events: none;
 
 	&.show {
 		opacity: 1;
@@ -22,6 +23,7 @@
 	.logo,
 	a {
 		transition: color 0.5s ease !important;
+		pointer-events: all;
 	}
 
 	button {
@@ -42,6 +44,23 @@
 		button:nth-child(2) {
 			padding-right: 0.5em;
 			padding-left: 0.5em;
+		}
+	}
+	.about {
+		opacity: 1;
+
+		@keyframes hide {
+			to {
+				opacity: 0;
+			}
+		}
+
+		&.hide {
+			animation: hide 0.3s steps(2, end) forwards;
+
+			* {
+				pointer-events: none;
+			}
 		}
 	}
 }

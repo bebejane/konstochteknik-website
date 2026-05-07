@@ -12,7 +12,12 @@ type AboutProps = AboutQuery & {
 	modal?: boolean;
 };
 
-export default function About({ about, allCommisioners, modal = true }: AboutProps) {
+export default function About({
+	about,
+	allCommisioners,
+	allPhotoCredits,
+	modal = true,
+}: AboutProps) {
 	const [showAbout, setShowAbout] = useStore(
 		useShallow((state) => [state.showAbout, state.setShowAbout]),
 	);
@@ -30,7 +35,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 				<h2>Or reach out to one of us directly</h2>
 				<ul className={s.contact}>
 					<li>
-						Mattias Jakobsson<br />
+						Mattias Jakobsson
+						<br />
 						Creative Director
 						<br />
 						<a href='mailto:mattias@konst-teknik.se'>
@@ -42,7 +48,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 					<li>
 						<a href='http://www.haraldpeter.se' target='_blank'>
 							Peter Ström
-						</a><br />
+						</a>
+						<br />
 						Creative Director
 						<br />
 						<a href='mailto:peter@konst-teknik.se'>
@@ -52,7 +59,8 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 						+46 706 531 175
 					</li>
 					<li>
-						Björn Berglund<br />
+						Björn Berglund
+						<br />
 						Tech director
 						<br />
 						<a href='mailto:peter@konst-teknik.se'>
@@ -80,10 +88,14 @@ export default function About({ about, allCommisioners, modal = true }: AboutPro
 					<i>Interships</i> We do unfortunately not offer any internships.{' '}
 				</div>
 
-				<div className={s.internships}>
+				<div className={s.photoCredits}>
 					<i>Photo credits</i> Oscar Karlsson, Osv.
+					<ul>
+						{allPhotoCredits?.map((photoCredit, i) => (
+							<li key={i}>{photoCredit.name}</li>
+						))}
+					</ul>
 				</div>
-
 			</div>
 
 			<Link

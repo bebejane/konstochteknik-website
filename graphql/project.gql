@@ -25,6 +25,7 @@ query ProjectById($id: ItemId!) {
 }
 
 fragment ProjectFragment on ProjectRecord {
+	position
 	id
 	title
 	caption(markdown: false)

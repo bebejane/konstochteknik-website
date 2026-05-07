@@ -14,14 +14,14 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	const { intro, allProjects } = await apiQuery(IntroDocument);
-	const { about, allCommisioners } = await apiQuery<AboutQuery>(AboutDocument);
+	const { about, allCommisioners, allPhotoCredits } = await apiQuery<AboutQuery>(AboutDocument);
 	const project = allProjects[0];
 
 	return (
 		<>
 			<Intro intro={intro} project={project} />
 			<Navbar />
-			<About about={about} allCommisioners={allCommisioners} />
+			<About about={about} allCommisioners={allCommisioners} allPhotoCredits={allPhotoCredits} />
 			<main className={s.main}>
 				<article>{children}</article>
 			</main>

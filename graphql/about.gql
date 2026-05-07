@@ -9,4 +9,7 @@ query About {
 	allCommisioners(first: 500, orderBy: [name_ASC]) {
 		name
 	}
+	allPhotoCredits(first: 500, orderBy: [name_ASC]) {
+		name
+	}
 }
