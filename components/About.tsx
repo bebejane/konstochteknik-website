@@ -100,7 +100,7 @@ export default function About({
 
 			<Link
 				href='/'
-				className={s.close}
+				className={cn(s.close, !showAbout && s.hide)}
 				replace={true}
 				onClick={(e) => {
 					if (!modal) return;
