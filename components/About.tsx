@@ -88,8 +88,8 @@ export default function About({
 					<i>Interships</i> We do unfortunately not offer any internships.{' '}
 				</div>
 
-				<div className={s.photoCredits}>
-					<i>Photo credits</i> Oscar Karlsson, Osv.
+				<div className={s.photocredits}>
+					<i>Photo credits</i>
 					<ul>
 						{allPhotoCredits?.map((photoCredit, i) => (
 							<li key={i}>{photoCredit.name}</li>

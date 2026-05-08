@@ -12,6 +12,11 @@
 	transform: translateY(-100%);
 	transition: transform 0.3s ease-out;
 	pointer-events: none;
+	line-height: var(--line-height);
+
+	a {
+		border-bottom: 1px solid var(--white);
+	}
 
 	h2 {
 		font-style: italic;
@@ -92,7 +97,7 @@
 
 			li {
 				margin-left: 1em;
-				padding-bottom: 0.25em;
+				padding-bottom: 0.15em;
 				text-indent: -1em;
 			}
 		}
@@ -106,12 +111,29 @@
 		}
 	}
 
+	.photocredits {
+		i {
+			padding-right: 1em;
+		}
+		ul {
+			display: inline;
+			li {
+				list-style: none;
+				display: inline;
+				&:not(:last-child):after {
+					content: ", ";
+				}
+			}
+		}
+	}
+
 	.close {
 		position: absolute;
 		top: 0;
 		right: 0;
 		z-index: calc(var(--z-index-about) + 1);
 		margin: calc(0.6 * var(--other-margin));
+		border: none;
 
 		button {
 			color: var(--white);

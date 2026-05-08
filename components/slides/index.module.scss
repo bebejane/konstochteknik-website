@@ -103,6 +103,7 @@
 
 		@include mq($until: desktop) {
 			bottom: 4rem;
+			height: 2.5rem;
 		}
 
 		@keyframes fadeIn {
