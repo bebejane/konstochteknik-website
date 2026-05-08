@@ -13,9 +13,10 @@ import { useIsMobile } from '@/lib/hooks/useIsMobile';
 
 type Props = {
 	allProjects: AllProjectsQuery['allProjects'];
+	index: number;
 };
 
-export default function Thumbnails({ allProjects }: Props) {
+export default function Thumbnails({ allProjects, index: initialIndex }: Props) {
 	const swiperRef = useRef<Swiper | null>(null);
 	const [hover, setHover] = useState<string | null>(null);
 	const [init, setInit] = useState(false);
@@ -102,7 +103,7 @@ export default function Thumbnails({ allProjects }: Props) {
 				spaceBetween={0}
 				loop={true}
 				centeredSlides={true}
-				initialSlide={0}
+				initialSlide={initialIndex}
 				wrapperClass={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
 				direction={'horizontal'}
 				modules={[FreeMode, Mousewheel]}

@@ -1,121 +1,122 @@
 .about {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--z-index-about);
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: row;
-  color: var(--white);
-  background-color: var(--black);
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-out;
-  pointer-events: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: var(--z-index-about);
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: row;
+	color: var(--white);
+	background-color: var(--black);
+	transform: translateY(-100%);
+	transition: transform 0.3s ease-out;
+	pointer-events: none;
 
-  h2 {
-    font-style: italic;
-  }
+	h2 {
+		font-style: italic;
+	}
 
-  &.show {
-    transform: translateY(0);
-    pointer-events: all;
-  }
-  .image {
-    @include mq($until: desktop) {
-      display: none;
-    }
-  }
+	&.show {
+		transform: translateY(0);
+		pointer-events: all;
+	}
+	.image {
+		@include mq($until: desktop) {
+			display: none;
+		}
+	}
 
-  > div {
-    @include mq($from: desktop) {
-      flex: 0 0 50%;
-    }
-  }
+	> div {
+		@include mq($from: desktop) {
+			flex: 0 0 50%;
+		}
+	}
 
-  .contact {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    line-height: var(--line-height);
-    list-style: none;
-    column-count: 1;
+	.contact {
+		margin-top: 1rem;
+		margin-bottom: 2rem;
+		line-height: var(--line-height);
+		list-style: none;
+		column-count: 1;
 
-    @include mq($until: desktop) {
-      li:nth-child(2) {
-        padding-left: 8em;
-      }
-    }
+		@include mq($until: desktop) {
+			li:nth-child(2) {
+				padding-left: 8em;
+			}
+		}
 
-    @include mq($from: desktop) {
-      column-count: 3;
-    }
-  }
+		@include mq($from: desktop) {
+			column-count: 3;
+		}
+	}
 
-  .content {
-    z-index: 101;
-    max-height: 100vh;
-    padding: 1rem;
-    padding-top: 3rem;
-    color: var(--white) !important;
-    overflow-y: scroll;
+	.content {
+		z-index: 101;
+		max-height: 100vh;
+		padding: 1rem;
+		padding-top: 3rem;
+		color: var(--white) !important;
+		overflow-y: scroll;
 
-    @include mq($from: desktop) {
-      padding: var(--outer-margin);
-      padding-top: calc(var(--outer-margin) * 1.5);
-    }
+		@include mq($from: desktop) {
+			padding: var(--outer-margin);
+			padding-top: calc(var(--outer-margin) * 1.5);
+		}
 
-    p {
-      font-size: 1.25rem;
-    }
+		p {
+			font-size: 1.25rem;
+		}
 
-    a {
-      color: var(--white) !important;
-    }
+		a {
+			color: var(--white) !important;
+		}
 
-    > div {
-      flex: 0 0 50%;
-    }
+		> div {
+			flex: 0 0 50%;
+		}
 
-    .headcom {
-      padding-top: 1rem;
-    }
+		.headcom {
+			padding-top: 1rem;
+		}
 
-    ul.commissioners {
-      margin-top: 1rem;
-      line-height: var(--line-height);
-      list-style: none;
-      column-count: 2;
+		ul.commissioners {
+			margin-top: 1rem;
+			line-height: var(--line-height);
+			list-style: none;
+			column-count: 2;
 
-      @include mq($from: desktop) {
-        column-count: 3;
-      }
+			@include mq($from: desktop) {
+				column-count: 3;
+			}
 
-      li {
-        margin-left: 1em;
-        padding-bottom: 0.25em;
-        text-indent: -1em;
-      }
-    }
-  }
+			li {
+				margin-left: 1em;
+				padding-bottom: 0.25em;
+				text-indent: -1em;
+			}
+		}
+	}
 
-  .internships {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    i {
-      padding-right: 1em;
-    }
-  }
-  .close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: calc(var(--z-index-about) + 1);
-    margin: calc(0.6 * var(--other-margin));
+	.internships {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		i {
+			padding-right: 1em;
+		}
+	}
 
-    button {
-      color: var(--white);
-      background-color: transparent;
-      border: none;
-    }
-  }
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: calc(var(--z-index-about) + 1);
+		margin: calc(0.6 * var(--other-margin));
+
+		button {
+			color: var(--white);
+			background-color: transparent;
+			border: none;
+		}
+	}
 }

@@ -23,6 +23,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
 	const slide = project.slide[0];
 	const backgroundColor = project.background?.hex ?? 'transparent';
+	const captionBackgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
 	const color = project.color?.hex ?? 'var(--black)';
 	const award = project.award?.url ?? null;
 
@@ -56,7 +57,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 				<h2
 					key={`${project.id}-${active}`}
 					className={cn(s[project.captionStyle], 'color-transition')}
-					style={{ color }}
+					style={{ color, backgroundColor: captionBackgroundColor }}
 					onClick={(e) => e.stopPropagation()}
 				>
 					<Markdown content={project.caption!} />
