@@ -46,7 +46,11 @@
 			padding-left: 0.5em;
 		}
 	}
-	.about {
+	.right {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: flex-end;
 		opacity: 1;
 
 		@keyframes hide {

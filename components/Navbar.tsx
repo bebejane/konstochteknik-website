@@ -67,7 +67,11 @@ export default function Navbar() {
 					</button>
 				</div>
 
-				<div className={cn(s.about, showAbout && s.hide)}>
+				<div className={cn(s.right, showAbout && s.hide)}>
+					<Link href='https://instagram.com/konstteknik'>
+						<button style={{ color }}>News</button>
+					</Link>
+					<span>&nbsp;·&nbsp;</span>
 					<Link
 						href='/about'
 						scroll={false}
