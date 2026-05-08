@@ -112,11 +112,26 @@
 		right: 0;
 		z-index: calc(var(--z-index-about) + 1);
 		margin: calc(0.6 * var(--other-margin));
+		opacity: 1;
 
 		button {
 			color: var(--white);
 			background-color: transparent;
 			border: none;
+		}
+
+		@keyframes hide {
+			to {
+				opacity: 0;
+			}
+		}
+
+		&.hide {
+			animation: hide 0.3s ease-in-out forwards;
+
+			* {
+				pointer-events: none;
+			}
 		}
 	}
 }

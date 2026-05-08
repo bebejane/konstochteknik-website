@@ -103,7 +103,6 @@ export default function Thumbnails({ allProjects, index: initialIndex }: Props) 
 				spaceBetween={0}
 				loop={true}
 				centeredSlides={true}
-				loopAdditionalSlides={thumbnails.length}
 				initialSlide={initialIndex}
 				wrapperClass={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
 				direction={'horizontal'}
