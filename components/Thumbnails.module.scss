@@ -35,7 +35,7 @@
 	.slide {
 		position: relative;
 		width: fit-content;
-		height: var(--thumbnail-height);
+		height: var(--thumbnail-height) !important;
 		cursor: pointer;
 
 		@include mq($from: tablet) {
