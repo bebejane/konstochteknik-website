@@ -103,6 +103,7 @@ export default function Thumbnails({ allProjects, index: initialIndex }: Props) 
 				spaceBetween={0}
 				loop={true}
 				centeredSlides={true}
+				//loopAdditionalSlides={10}
 				initialSlide={initialIndex}
 				wrapperClass={cn(s.swiper, (!showThumbnails || !init) && s.hide)}
 				direction={'horizontal'}
@@ -142,11 +143,7 @@ export default function Thumbnails({ allProjects, index: initialIndex }: Props) 
 								ref={handleThumbRef}
 								data-thumb-id={thumbnail.id}
 								src={`${thumbnail.url}?w=${width}`}
-								className={cn(
-									s.image,
-									hover === p.id && s.hover,
-									loaded[thumbnail.id] && !inIntro && s.show,
-								)}
+								className={cn(s.image, hover === p.id && s.hover, !inIntro && s.show)}
 								style={!inIntro ? thumbLoadStyles[thumbnail.id] : {}}
 								onLoad={handleLoad}
 								onError={handleLoad}
