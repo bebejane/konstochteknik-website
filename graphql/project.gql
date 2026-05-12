@@ -3,11 +3,13 @@ query AllProjects($first: IntType, $skip: IntType) {
 		first: $first
 		skip: $skip
 		orderBy: position_ASC
-		filter: { thumbnail: { exists: true } }
+		filter: { AND: [{ thumbnail: { exists: true }, thumbnailMobile: { exists: true } }] }
 	) {
 		...ProjectFragment
 	}
-	_allProjectsMeta(filter: { thumbnail: { exists: true } }) {
+	_allProjectsMeta(
+		filter: { AND: [{ thumbnail: { exists: true }, thumbnailMobile: { exists: true } }] }
+	) {
 		count
 	}
 }
