@@ -14,6 +14,11 @@
 		width: 0px;
 	}
 
+	p {
+		position: absolute;
+		top: 1.7rem;
+	}
+
 	h1 {
 		position: relative;
 		text-align: center;
@@ -21,6 +26,7 @@
 		white-space: pre-line;
 		height: calc(3 * 10vw);
 		position: relative;
+		margin-top: -10vh;
 
 		span {
 			position: relative;
@@ -37,7 +43,7 @@
 		opacity: 0;
 
 		&::after {
-			content: '';
+			content: "";
 			position: absolute;
 			display: inline-block;
 			top: 0;

@@ -19,6 +19,13 @@
 		opacity: 1;
 	}
 
+	span {
+		margin-top: 0.3em;
+		font-size: 0.8rem;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+
 	button,
 	.logo,
 	a {
@@ -33,7 +40,7 @@
 		background-color: transparent;
 		border: 0px;
 
-		&[data-enabled='true'] {
+		&[data-enabled="true"] {
 			font-style: italic;
 		}
 	}

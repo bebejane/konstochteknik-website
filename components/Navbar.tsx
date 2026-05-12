@@ -71,7 +71,7 @@ export default function Navbar() {
 					<Link href='https://instagram.com/konstteknik'>
 						<button style={{ color }}>News</button>
 					</Link>
-					<span>&nbsp;·&nbsp;</span>
+					<span>&nbsp;•&nbsp;</span>
 					<Link
 						href='/about'
 						scroll={false}

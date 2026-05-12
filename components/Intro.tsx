@@ -128,6 +128,7 @@ export default function Intro({ intro, project }: Props) {
 
 	return (
 		<div className={s.intro}>
+			<p>Loading Selected Work by</p>
 			<h1 id='title' className='big'></h1>
 		</div>
 	);
@@ -209,14 +210,14 @@ const typewriter = [
 		time: 2283,
 		str: 'Peter, Bj',
 		cursor: 9,
-		duration: 364,
+		duration: 264,
 	},
 	{
 		key: 'ö',
 		time: 2829,
 		str: 'Peter, Bjö',
 		cursor: 10,
-		duration: 346,
+		duration: 246,
 	},
 	{
 		key: 'r',
@@ -272,35 +273,35 @@ const typewriter = [
 		time: 6576,
 		str: 'Peter, Björn\n&\nJoh',
 		cursor: 18,
-		duration: 325,
+		duration: 225,
 	},
 	{
 		key: 'Backspace',
 		time: 7156,
 		str: 'Peter, Björn\n&\nJo',
 		cursor: 17,
-		duration: 380,
+		duration: 280,
 	},
 	{
 		key: 'Backspace',
 		time: 7321,
 		str: 'Peter, Björn\n&\nJ',
 		cursor: 16,
-		duration: 165,
+		duration: 125,
 	},
 	{
 		key: 'Backspace',
 		time: 7480,
 		str: 'Peter, Björn\n&\n',
 		cursor: 15,
-		duration: 159,
+		duration: 129,
 	},
 	{
 		key: 'M',
 		time: 7904,
 		str: 'Peter, Björn\n&\nM',
 		cursor: 16,
-		duration: 390,
+		duration: 290,
 	},
 	{
 		key: 'a',
@@ -321,14 +322,14 @@ const typewriter = [
 		time: 8422,
 		str: 'Peter, Björn\n&\nMatt',
 		cursor: 19,
-		duration: 167,
+		duration: 157,
 	},
 	{
 		key: 'i',
 		time: 8564,
 		str: 'Peter, Björn\n&\nMatti',
 		cursor: 20,
-		duration: 142,
+		duration: 132,
 	},
 	{
 		key: 'a',
