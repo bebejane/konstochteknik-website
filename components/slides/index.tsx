@@ -32,6 +32,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 		!loading && onLoad?.();
 	}, [loading]);
 
+	console.log({ captionColor, captionBackgroundColor });
 	return (
 		<div style={{ backgroundColor }} className={cn(s.slide, clean && s.clean)}>
 			<>
