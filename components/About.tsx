@@ -32,7 +32,6 @@ export default function About({
 			<Image className={s.image} data={about.image?.responsiveImage} objectFit='cover' />
 			<div className={s.content}>
 				<Markdown content={about.intro} />
-				<h2>Or reach out to one of us directly</h2>
 				<ul className={s.contact}>
 					<li>
 						Mattias Jakobsson
@@ -85,7 +84,7 @@ export default function About({
 				</ul>
 
 				<div className={s.internships}>
-					<i>Interships</i> We do unfortunately not offer any internships.{' '}
+					<i>Interships</i> We do not offer any internships.{' '}
 				</div>
 
 				<div className={s.photocredits}>

@@ -88,11 +88,11 @@ export default function Navbar() {
 				<div className={s.filter}>
 					<h2 style={{ backgroundColor, color: captionColor }}>
 						{category === 'art'
-							? 'Filter works on design and printed matter'
+							? 'Filter works on design'
 							: category === 'tech'
-								? 'Filter works by interactive projects'
+								? 'Filter works on development'
 								: category === 'all'
-									? 'Show all selected works'
+									? 'Show all works'
 									: null}
 					</h2>
 				</div>
