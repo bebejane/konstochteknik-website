@@ -14,9 +14,6 @@ type Props = {
 
 export default function Intro({ intro, project }: Props) {
 	const [inIntro, setInIntro] = useStore(useShallow((s) => [s.inIntro, s.setInIntro]));
-	// const [loader, setLoader] = useState<IntroQuery['intro']['loader'][number]>(intro.loader[0]);
-	// const interval = useRef<NodeJS.Timeout | null>(null);
-	// const timeout = useRef<NodeJS.Timeout | null>(null);
 
 	async function animate() {
 		const title = document.getElementById('title');
@@ -24,10 +21,17 @@ export default function Intro({ intro, project }: Props) {
 		title.innerHTML = `<span class="${s.cursor}"></span>`;
 		await sleep(2000);
 		const speed = 0.7;
+		let chars = typewriter;
+		if (typeof localStorage !== 'undefined') {
+			const prev = localStorage.getItem('intro');
+			if (prev === 'pbj') {
+				chars = typewriter2;
+				localStorage.setItem('intro', 'kocht');
+			} else localStorage.setItem('intro', 'pbj');
+		}
 
-		for (let i = 0; i < typewriter.length; i++) {
-			const { key, time, str, cursor, duration } = typewriter[i];
-			const last = typewriter[i - 1 > 0 ? i - 1 : 0].time;
+		for (let i = 0; i < chars.length; i++) {
+			const { str, cursor, duration } = chars[i];
 
 			title.innerHTML = str
 				.split('')
@@ -43,86 +47,9 @@ export default function Intro({ intro, project }: Props) {
 		setInIntro(false);
 	}
 
-	// useEffect(() => {
-	// 	interval.current = setInterval(() => {
-	// 		setLoader((loader) => {
-	// 			const index = intro.loader.findIndex((l) => l.id === loader.id);
-	// 			return index + 1 > intro.loader.length - 1 ? intro.loader[0] : intro.loader[index + 1];
-	// 		});
-	// 	}, intro.speed);
-
-	// 	timeout.current = setTimeout(() => {
-	// 		clearInterval(interval.current);
-	// 		setInIntro(false);
-	// 		//}, intro.duration);
-	// 	}, 1000000);
-
-	// 	return () => {
-	// 		clearInterval(interval.current);
-	// 		clearTimeout(timeout.current);
-	// 	};
-	// }, [intro]);
-
 	useEffect(() => {
 		animate();
 	}, []);
-
-	// useEffect(() => {
-	// 	const meta = ['Escape', 'Shift', 'Backspace', 'LeftArrow', 'RightArrow', 'Backspace', 'Meta'];
-	// 	let keys: { key: string; time: number; duration: number; str: string; cursor: number }[] = [];
-	// 	let str = '';
-	// 	let cursor = 0;
-	// 	let startTime = 0;
-
-	// 	function handleKeyDown(e: KeyboardEvent) {
-	// 		if (startTime === 0) startTime = Date.now();
-	// 		const title = document.getElementById('title');
-	// 		const time = Date.now() - startTime;
-	// 		const lastTime = keys.length > 0 ? keys[keys.length - 1].time : 0;
-	// 		const duration = time - lastTime;
-	// 		if (e.key === 'Escape') {
-	// 			console.log(keys);
-	// 			keys = [];
-	// 			str = '';
-	// 			cursor = 0;
-	// 			startTime = 0;
-	// 			title.innerHTML = '';
-	// 			return;
-	// 		}
-
-	// 		if (['Meta', 'Shift', 'Control', 'Alt'].includes(e.key)) {
-	// 			return;
-	// 		}
-
-	// 		if (e.key === 'Backspace') {
-	// 			if (cursor > 0) {
-	// 				str = str.slice(0, cursor - 1) + str.slice(cursor);
-	// 				cursor--;
-	// 			}
-	// 		} else if (e.key === 'ArrowLeft') {
-	// 			cursor = Math.max(0, cursor - 1);
-	// 		} else if (e.key === 'ArrowRight') {
-	// 			cursor = Math.min(str.length, cursor + 1);
-	// 		} else if (e.key === 'Enter' || e.key.length === 1) {
-	// 			str = str.slice(0, cursor) + (e.key === 'Enter' ? '\n' : e.key) + str.slice(cursor);
-	// 			cursor++;
-	// 		}
-
-	// 		if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-	// 			keys.push({ key: e.key, time, str, cursor, duration });
-	// 		}
-
-	// 		title.innerHTML = str;
-	// 		//title.innerHTML = `<span class="${s.cursor}"></span>`;
-	// 		//console.log(str.slice(0, cursor) + '|' + str.slice(cursor));
-	// 	}
-
-	// 	document.addEventListener('keydown', handleKeyDown);
-
-	// 	return () => {
-	// 		document.removeEventListener('keydown', handleKeyDown);
-	// 	};
-	// }, []);
 
 	if (!inIntro) return null;
 
@@ -344,5 +271,106 @@ const typewriter = [
 		str: 'Peter, Björn\n&\nMattias',
 		cursor: 22,
 		duration: 145,
+	},
+];
+
+const typewriter2 = [
+	{
+		key: 'K',
+		time: 128,
+		str: 'K',
+		cursor: 1,
+		duration: 128,
+	},
+	{
+		key: 'o',
+		time: 239,
+		str: 'Ko',
+		cursor: 2,
+		duration: 111,
+	},
+	{
+		key: 'n',
+		time: 403,
+		str: 'Kon',
+		cursor: 3,
+		duration: 164,
+	},
+	{
+		key: 's',
+		time: 540,
+		str: 'Kons',
+		cursor: 4,
+		duration: 137,
+	},
+	{
+		key: 't',
+		time: 540,
+		str: 'Konst',
+		cursor: 5,
+		duration: 167,
+	},
+	{
+		key: 'Enter',
+		time: 4459,
+		str: 'Konst\n',
+		cursor: 6,
+		duration: 317,
+	},
+	{
+		key: '&',
+		time: 5001,
+		str: 'Konst\n&',
+		cursor: 7,
+		duration: 342,
+	},
+	{
+		key: 'Enter',
+		time: 5252,
+		str: 'Konst\n&\n',
+		cursor: 8,
+		duration: 251,
+	},
+	{
+		key: 'T',
+		time: 5937,
+		str: 'Konst\n&\nT',
+		cursor: 9,
+		duration: 285,
+	},
+	{
+		key: 'e',
+		time: 6251,
+		str: 'Konst\n&\nTe',
+		cursor: 10,
+		duration: 314,
+	},
+	{
+		key: 'k',
+		time: 6576,
+		str: 'Konst\n&\nTek',
+		cursor: 11,
+		duration: 225,
+	},
+	{
+		key: 'n',
+		time: 7904,
+		str: 'Konst\n&\nTekn',
+		cursor: 12,
+		duration: 190,
+	},
+	{
+		key: 'i',
+		time: 8068,
+		str: 'Konst\n&\nTekni',
+		cursor: 13,
+		duration: 164,
+	},
+	{
+		key: 'k',
+		time: 8255,
+		str: 'Konst\n&\nTeknik',
+		cursor: 14,
+		duration: 187,
 	},
 ];

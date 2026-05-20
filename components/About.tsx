@@ -60,7 +60,7 @@ export default function About({
 					<li>
 						Björn Berglund
 						<br />
-						Tech director
+						Programmerare
 						<br />
 						<a href='mailto:peter@konst-teknik.se'>
 							<em>bjorn@konst-teknik.se</em>

@@ -24,7 +24,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 	const slide = project.slide[0];
 	const color = project.color?.hex ?? 'var(--black)';
 	const backgroundColor = project.background?.hex ?? 'transparent';
-	const captionColor = project?.captionStyle === 'fill' ? 'var(--black)' : color;
+	const captionColor = project?.captionBlack ? 'var(--black)' : color;
 	const captionBackgroundColor = project?.captionStyle === 'fill' ? 'var(--white)' : 'transparent';
 	const award = project.award?.url ?? null;
 
