@@ -109,7 +109,7 @@ async function generate(
 	const page = await browser.newPage();
 	await page.setViewport(viewport);
 	await page.goto(url, { waitUntil: 'domcontentloaded' });
-	await sleep(2000);
+	await sleep(4000);
 	const screenshot = await page.screenshot({ type: 'png', fullPage: true, optimizeForSpeed: true });
 	await sleep(1000);
 
