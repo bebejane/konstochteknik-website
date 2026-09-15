@@ -23,7 +23,8 @@ export default function ImageSlide({
 
 	const [loading, setLoading] = useState<Record<string, boolean>>({});
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
-	const isFirstSlideLoading = index === 0 && !loading[images[0].id];
+	const isFirstSlide = index === 0;
+	const isFirstSlideLoading = isFirstSlide && !loading[images[0].id];
 
 	useEffect(() => {
 		const loaded = images.every(({ id }) => loading[id] === true);
@@ -53,18 +54,22 @@ export default function ImageSlide({
 						key={image.mimeType === 'image/gif' && active ? image.id : undefined}
 						data={image.responsiveImage}
 						fadeInDuration={0}
-						intersectionMargin='0px 100% 0px 100%'
+						intersectionMargin='0px 200% 0px 200%'
 						objectFit={
 							(layout === 'cover' && images.length === 1) || imageLayout === 'cover'
 								? 'cover'
 								: 'contain'
 						}
 						className={s.image}
-						//srcSetCandidates={[0.5, 0.75, 1, 1.5, 2, 3, 4]}
-						usePlaceholder={false}
-						priority={index === 0}
-						onLoad={() => setLoading((l) => ({ ...l, [id]: true }))}
 						pictureClassName={s[`image-${imageLayout || layout}`]}
+						usePlaceholder={false}
+						priority={
+							isFirstSlide && isFirstSlideLoading ? true : !isFirstSlideLoading ? false : true
+						}
+						onLoad={() => {
+							console.log('loaded', id);
+							setLoading((l) => ({ ...l, [id]: true }));
+						}}
 					/>
 				</figure>
 			))}
