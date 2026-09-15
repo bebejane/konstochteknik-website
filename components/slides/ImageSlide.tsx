@@ -64,10 +64,9 @@ export default function ImageSlide({
 						pictureClassName={s[`image-${imageLayout || layout}`]}
 						usePlaceholder={false}
 						priority={
-							isFirstSlide && isFirstSlideLoading ? true : !isFirstSlideLoading ? false : true
+							isFirstSlide && isFirstSlideLoading ? true : isFirstSlideLoading ? false : true
 						}
 						onLoad={() => {
-							console.log('loaded', id);
 							setLoading((l) => ({ ...l, [id]: true }));
 						}}
 					/>
