@@ -12,12 +12,13 @@ import ExternalLink from '@/components/slides/ExternalLink';
 type Props = {
 	project: AllProjectsQuery['allProjects'][number];
 	index: number;
+	preload?: boolean;
 	single?: boolean;
 	clean?: boolean;
 	onLoad?: () => void;
 };
 
-export default function Slide({ project, index, single, clean, onLoad }: Props) {
+export default function Slide({ project, index, preload, single, clean, onLoad }: Props) {
 	const [activeProject, inIntro] = useStore(useShallow((s) => [s.project, s.inIntro]));
 	const [loading, setLoading] = useState(true);
 	const active = (project.id === activeProject?.id || single) && !clean ? true : false;
@@ -41,6 +42,7 @@ export default function Slide({ project, index, single, clean, onLoad }: Props) 
 						data={slide as ImageSlideRecord}
 						active={active}
 						index={index}
+						preload={preload}
 						onLoad={() => setLoading(false)}
 					/>
 				) : slide.__typename === 'VideoSlideRecord' ? (

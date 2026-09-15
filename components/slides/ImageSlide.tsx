@@ -9,6 +9,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 type Props = {
 	active: boolean;
 	index: number;
+	preload: boolean;
 	data: ImageSlideRecord;
 	onLoad(): void;
 };
@@ -17,6 +18,7 @@ export default function ImageSlide({
 	data: { layout, images, backgroundImage, css },
 	index,
 	active,
+	preload,
 	onLoad,
 }: Props) {
 	images = images.filter(({ image }) => image?.responsiveImage);
@@ -25,6 +27,7 @@ export default function ImageSlide({
 	const column = images.length === 1 ? 'single' : images.length === 2 ? 'double' : 'quad';
 	const isFirstSlide = index === 0;
 	const isFirstSlideLoading = isFirstSlide && !loading[images[0].id];
+	const priority = isFirstSlide ? isFirstSlideLoading : preload;
 
 	useEffect(() => {
 		const loaded = images.every(({ id }) => loading[id] === true);
@@ -54,7 +57,7 @@ export default function ImageSlide({
 						key={image.mimeType === 'image/gif' && active ? image.id : undefined}
 						data={image.responsiveImage}
 						fadeInDuration={0}
-						intersectionMargin='0px 200% 0px 200%'
+						sizes={column === 'single' ? '100vw' : column === 'double' ? '50vw' : '25vw'}
 						objectFit={
 							(layout === 'cover' && images.length === 1) || imageLayout === 'cover'
 								? 'cover'
@@ -63,9 +66,7 @@ export default function ImageSlide({
 						className={s.image}
 						pictureClassName={s[`image-${imageLayout || layout}`]}
 						usePlaceholder={false}
-						priority={
-							isFirstSlide && isFirstSlideLoading ? true : isFirstSlideLoading ? false : true
-						}
+						priority={priority}
 						onLoad={() => {
 							setLoading((l) => ({ ...l, [id]: true }));
 						}}

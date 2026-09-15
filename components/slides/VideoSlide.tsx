@@ -14,10 +14,17 @@ type Props = {
 export default function VideoSlide({
 	data: { backgroundImage, video, poster, css },
 	index,
+	active,
 	onLoad,
 }: Props) {
 	const ref = useRef<HTMLVideoElement>(null);
 	const [loaded, setLoaded] = useState(false);
+
+	useEffect(() => {
+		if (!ref.current) return;
+		if (active) ref.current.play().catch(() => {});
+		else ref.current.pause();
+	}, [active]);
 
 	return (
 		<div
@@ -33,7 +40,8 @@ export default function VideoSlide({
 					ref={ref}
 					poster={poster?.url}
 					muted={true}
-					autoPlay={true}
+					autoPlay={active}
+					preload='metadata'
 					loop={true}
 					playsInline
 					onCanPlay={() => onLoad()}

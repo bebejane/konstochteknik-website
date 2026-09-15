@@ -32,6 +32,12 @@ export default function Gallery({ allProjects, index: initialIndex }: Props) {
 		]),
 	);
 	const color = project?.color?.hex ?? 'var(--black)';
+	const baseCount = allProjects.filter(({ category }) => !filter || filter === category).length;
+	const preloadDistance = (idx: number) => {
+		if (idx < baseCount) return Math.abs(idx - (index % baseCount));
+		return Infinity;
+	};
+
 	const buttonStyle = { color };
 	const projects = allProjects.filter(({ category }) => !filter || filter === category);
 	if (projects.length < 20) projects.push.apply(projects, projects);
@@ -111,6 +117,7 @@ export default function Gallery({ allProjects, index: initialIndex }: Props) {
 								key={p.id}
 								project={p}
 								index={idx}
+								preload={preloadDistance(idx) <= 1}
 								onLoad={() => idx === 0 && setLoading({ gallery: false })}
 							/>
 						</div>
