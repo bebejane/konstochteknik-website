@@ -19,5 +19,5 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 		},
 	);
 	if (!project) return notFound();
-	return <Slide project={project} single={true} clean={true} index={0} />;
+	return <Slide project={project} single={true} clean={true} index={0} preload={true} />;
 }
