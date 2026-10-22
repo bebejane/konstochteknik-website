@@ -33,7 +33,7 @@ export default function ImageSlide({
 		const loaded = images.every(({ id }) => loading[id] === true);
 		loaded && onLoad();
 	}, [loading]);
-
+	active && console.log(images);
 	return (
 		<div className={s.imageslide}>
 			{images.map(({ id, image, background, layout: imageLayout }, idx) => (
@@ -53,24 +53,41 @@ export default function ImageSlide({
 								}
 					}
 				>
-					<Image
-						key={image.mimeType === 'image/gif' && active ? image.id : undefined}
-						data={image.responsiveImage}
-						fadeInDuration={0}
-						sizes={column === 'single' ? '100vw' : column === 'double' ? '50vw' : '25vw'}
-						objectFit={
-							(layout === 'cover' && images.length === 1) || imageLayout === 'cover'
-								? 'cover'
-								: 'contain'
-						}
-						className={s.image}
-						pictureClassName={s[`image-${imageLayout || layout}`]}
-						usePlaceholder={false}
-						priority={priority}
-						onLoad={() => {
-							setLoading((l) => ({ ...l, [id]: true }));
-						}}
-					/>
+					{image.mimeType === 'image/gif' ? (
+						<img
+							key={`${image.id}-${active ? '1' : '0'}`}
+							src={image.responsiveImage.src}
+							alt=''
+							className={s.image}
+							onLoad={() => {
+								setLoading((l) => ({ ...l, [id]: true }));
+							}}
+							style={{
+								objectFit:
+									(layout === 'cover' && images.length === 1) || imageLayout === 'cover'
+										? 'cover'
+										: 'contain',
+							}}
+						/>
+					) : (
+						<Image
+							data={image.responsiveImage}
+							fadeInDuration={0}
+							sizes={column === 'single' ? '100vw' : column === 'double' ? '50vw' : '25vw'}
+							objectFit={
+								(layout === 'cover' && images.length === 1) || imageLayout === 'cover'
+									? 'cover'
+									: 'contain'
+							}
+							className={s.image}
+							pictureClassName={s[`image-${imageLayout || layout}`]}
+							usePlaceholder={false}
+							priority={priority}
+							onLoad={() => {
+								setLoading((l) => ({ ...l, [id]: true }));
+							}}
+						/>
+					)}
 				</figure>
 			))}
 		</div>
